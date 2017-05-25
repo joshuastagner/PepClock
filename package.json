@@ -4,6 +4,7 @@
   "scripts": {
     "postinstall": "curl -s https://raw.githubusercontent.com/reactorcore/pomander/master/bin/install | bash",
     "start": "nodemon server",
+    "start:dev": "NODE_ENV=development nodemon server",
     "test": "NODE_ENV=test grunt test",
     "build": "webpack --watch"
   },
@@ -54,5 +55,8 @@
     "plugins": [
       "transform-es2015-modules-commonjs"
     ]
+  },
+  "engines": {
+    "node": "7.10.0"
   }
 }
