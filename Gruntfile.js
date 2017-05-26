@@ -1,5 +1,3 @@
-const config = require('config')['knex'];
-
 module.exports = function(grunt) {
 
   grunt.initConfig({
@@ -21,13 +19,13 @@ module.exports = function(grunt) {
     pgcreatedb: {
       default: {
         connection: {
-          user: config.connection.user,
-          password: config.connection.password,
-          host: config.connection.host,
-          port: config.connection.port,
+          user: process.env.DB_USER,
+          password: process.env.DB_PASSWORD,
+          host: process.env.DB_HOST,
+          port: process.env.DB_PORT,
           database: 'template1'
         },
-        name: config.connection.database
+        name: process.env.DB_DATABASE
       }
     }
 
