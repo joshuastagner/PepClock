@@ -1,10 +1,8 @@
-'use strict';
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 const GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 const FacebookStrategy = require('passport-facebook').Strategy;
 const TwitterStrategy = require('passport-twitter').Strategy;
-const config = require('config')['passport'];
 const models = require('../../db/models');
 
 passport.serializeUser((profile, done) => {
@@ -112,17 +110,17 @@ passport.use('local-login', new LocalStrategy({
   }));
 
 passport.use('google', new GoogleStrategy({
-  clientID: config.Google.clientID,
-  clientSecret: config.Google.clientSecret,
-  callbackURL: config.Google.callbackURL
+  clientID: process.env.GOOGLE_CLIENT_ID,
+  clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+  callbackURL: process.env.GOOGLE_CALLBACKURL
 },
   (accessToken, refreshToken, profile, done) => getOrCreateOAuthProfile('google', profile, done))
 );
 
 passport.use('facebook', new FacebookStrategy({
-  clientID: config.Facebook.clientID,
-  clientSecret: config.Facebook.clientSecret,
-  callbackURL: config.Facebook.callbackURL,
+  clientID: process.env.FACEBOOK_CLIENT_ID,
+  clientSecret: process.env.FACEBOOK_CLIENT_SECRET,
+  callbackURL: process.env.FACEBOOK_CALLBACKURL,
   profileFields: ['id', 'emails', 'name']
 },
   (accessToken, refreshToken, profile, done) => getOrCreateOAuthProfile('facebook', profile, done))
@@ -130,9 +128,9 @@ passport.use('facebook', new FacebookStrategy({
 
 // REQUIRES PERMISSIONS FROM TWITTER TO OBTAIN USER EMAIL ADDRESSES
 passport.use('twitter', new TwitterStrategy({
-  consumerKey: config.Twitter.consumerKey,
-  consumerSecret: config.Twitter.consumerSecret,
-  callbackURL: config.Twitter.callbackURL,
+  consumerKey: process.env.TWITTER_CONSUMER_KEY,
+  consumerSecret: process.env.TWITTER_CONSUMER_SECRET,
+  callbackURL: process.env.TWITTER_CALLBACKURL,
   userProfileURL: 'https://api.twitter.com/1.1/account/verify_credentials.json?include_email=true'
 },
   (accessToken, refreshToken, profile, done) => getOrCreateOAuthProfile('twitter', profile, done))
