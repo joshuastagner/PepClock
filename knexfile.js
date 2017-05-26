@@ -7,7 +7,6 @@ module.exports = {
     'host': process.env.DB_HOST,
     'port': 5432
   },
-<<<<<<< HEAD
   'pool': {
     'min': 1,
     'max': 2
@@ -16,19 +15,7 @@ module.exports = {
     'tableName': 'knex_migrations',
     'directory': 'db/migrations'
   },
-  'seeds': {
-    'directory': 'db/seeds'
-=======
-  "pool": {
-    "min": 1,
-    "max": 10
-  },
-  "migrations": {
-    "tableName": "knex_migrations",
-    "directory": "db/migrations"
-  },
   "seeds": {
     "directory": "db/seeds"
->>>>>>> Add additional params that I deleted while refactoring to dotenv
   }
 };
