@@ -11,7 +11,8 @@ module.exports.verify = (req, res, next) => {
 
 module.exports.session = session({
   store: new RedisStore({
-    url: process.env.REDISCLOUD_URL
+    url: process.env.REDISCLOUD_URL,
+    host: process.env.HOST
   }),
   secret: 'more laughter, more love, more life',
   resave: false,
