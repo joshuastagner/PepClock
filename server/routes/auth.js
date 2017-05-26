@@ -1,6 +1,5 @@
 const express = require('express');
 const middleware = require('../middleware');
-const session = require('express-session');
 
 const router = express.Router();
 
