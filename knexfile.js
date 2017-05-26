@@ -15,7 +15,22 @@ module.exports = {
     'tableName': 'knex_migrations',
     'directory': 'db/migrations'
   },
+<<<<<<< HEAD
   "seeds": {
     "directory": "db/seeds"
+=======
+  'seeds': {
+    'directory': 'db/seeds'
+  },
+  'production': {
+    'client': 'postgresql',
+    'connection' : {
+      'database': process.env.DB_DATABASE,
+      'user': process.env.DB_USER,
+      'password': process.env.DB_PASSWORD,      
+      'host': process.env.DB_HOST,
+      'port': 5432 
+    }
+>>>>>>> Correct production option syntax and add 'client' for heroku migrations
   }
 };
