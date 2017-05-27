@@ -2,10 +2,11 @@
   "name": "course.thesis",
   "version": "1.0.0",
   "scripts": {
-    "start": "export NODE_ENV=production && webpack && nodemon server",
+    "start": "nodemon server",
     "test": "export NODE_ENV=test && mocha ./server/test/.setup.js ./server/test/*.spec.js",
     "build": "webpack --watch",
-    "start:dev": "export NODE_ENV=development && nodemon server"
+    "start:dev": "export NODE_ENV=development && nodemon server",
+    "postinstall": "webpack"
   },
   "author": "Hack Reactor",
   "license": "MIT",
@@ -13,7 +14,7 @@
     "babel-core": "^6.24.1",
     "babel-loader": "^7.0.0",
     "babel-plugin-transform-es2015-modules-commonjs": "^6.24.0",
-    "babel-preset-latest": "^6.24.0",
+    "babel-preset-es2015": "^6.24.1",
     "babel-preset-react": "^6.23.0",
     "babel-preset-stage-2": "^6.24.1",
     "bcrypt-nodejs": "^0.0.3",
@@ -45,7 +46,7 @@
   "devDependencies": {
     "babel-loader": "^7.0.0",
     "babel-plugin-transform-es2015-modules-commonjs": "^6.24.0",
-    "babel-preset-latest": "^6.24.0",
+    "babel-preset-es2015": "^6.24.1",
     "babel-preset-react": "^6.23.0",
     "babel-preset-stage-2": "^6.24.1",
     "chai": "^3.5.0",
