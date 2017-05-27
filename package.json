@@ -2,10 +2,11 @@
   "name": "course.thesis",
   "version": "1.0.0",
   "scripts": {
-    "start": "export NODE_ENV=production && nodemon server",
+    "start": "export NODE_ENV=production && nodemon server webpack",
     "test": "export NODE_ENV=test && mocha ./server/test/.setup.js ./server/test/*.spec.js",
     "build": "webpack --watch",
-    "start:dev": "export NODE_ENV=development && nodemon server"
+    "start:dev": "export NODE_ENV=development && nodemon server",
+    "postinstall": "yarn build"
   },
   "author": "Hack Reactor",
   "license": "MIT",
