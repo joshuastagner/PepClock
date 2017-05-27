@@ -1,6 +1,7 @@
+require('dotenv').config();
 module.exports = {
   'client': 'postgresql',
-  'connection': {
+  'connection': process.env.DATABASE_URL || {
     'database': process.env.DB_DATABASE,
     'user': process.env.DB_USER,
     'password': process.env.DB_PASSWORD,      
@@ -17,20 +18,5 @@ module.exports = {
   },
   'seeds': {
     'directory': 'db/seeds'
-  },
-  'production': {
-    'client': 'postgresql',
-    'connection' : process.env.DATABASE_URL,
-    'pool': {
-      'min': 1,
-      'max': 10
-    },
-    'migrations': {
-      'tableName': 'knex_migrations',
-      'directory': 'db/migrations'
-    },
-    'seeds': {
-      'directory': 'db/seeds'
-    },
   }
 };
