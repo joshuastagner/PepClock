@@ -21,7 +21,7 @@ if (process.env.NODE_ENV === 'development') {
     seeds: {
       directory: 'db/seeds/development'
     },
-  }
+  };
 }
 
 if (process.env.NODE_ENV === 'test') {
@@ -45,7 +45,7 @@ if (process.env.NODE_ENV === 'test') {
     seeds: {
       directory: 'db/seeds/test'
     }
-  }
+  };
 }
 
 
