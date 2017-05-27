@@ -1,3 +1,5 @@
+// Runs before tests to transpile ES2015 for
+// Enzyme React testing
 require('babel-register')();
 
 var jsdom = require('jsdom').jsdom;

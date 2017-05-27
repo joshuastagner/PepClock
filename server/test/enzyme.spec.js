@@ -1,18 +1,4 @@
-// var React = require('react');
-// var expect = require('chai').expect;
-// var mount = require('enzyme').mount;
-// var shallow = require('enzyme').shallow;
-
-// describe('<Foo />', function() {
-
-//   it('calls componentDidMount', function() {
-//     const wrapper = mount(<Foo />);
-//     expect(Foo.prototype.componentDidMount.calledOnce).to.equal(true);
-//   });
-
-// });
-
-
+// EXAMPLE ENZYME TESTS
 import React from 'react';
 import { expect } from 'chai';
 import { shallow, mount, render } from 'enzyme';

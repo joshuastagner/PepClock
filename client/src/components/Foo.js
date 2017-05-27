@@ -1,3 +1,6 @@
+// EXAMPLE COMPONENT FOR ENZYME TEST EXAMPLE
+// Enzyme test: enzyme.spec.js
+
 import React, { PropTypes } from 'react';
 
 const propTypes = {};
