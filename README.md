@@ -60,32 +60,38 @@ IMPORTANT: ensure `postgres` is running before performing these steps.
 
 ### Database Creation:
 
-Use grunt to create a new database for your development and test environments:
+create a new database for your development and test environments:
 
-Development envronment: `grunt pgcreatedb:default`
+Development envronment: `createdb YOUR_DEVEL_DATABASE`
 
-Other environments, specify like so: `NODE_ENV=test grunt pgcreatedb:default`
+Other environments, specify like so: `createdb testing_db`
 
 ### Run Migrations & Data Seeds
 
 In terminal, from the root directory:
 
-`knex migrate:latest --env NODE_ENV`
+`export NODE_ENV=development && knex migrate:latest`
 
-`knex migrate:rollback --env NODE_ENV`
+`export NODE_ENV=development knex migrate:rollback`
 
-`knex seed:run --env NODE_ENV`
+`export NODE_ENV=development && knex seed:run`
 
-Note: `--env NODE_ENV` may be omitted for development. For example, `knex migrate:latest` will run all migrations in the development environment, while `knex migrate:latest --env test` will migrate in the test environment.
+`export NODE_ENV=test && knex migrate:latest`
+
+Note: `--env NODE_ENV` may be omitted for development. For example, `knex migrate:latest` will run all migrations in the development environment, while `export NODE_ENV=development && knex migrate:latest` will migrate in the test environment.
 
 ## Running the App
 
 To run webpack build: `yarn run build`
 
-To run server: `yarn run start`
+To run server: `yarn run start:dev`
 
 To run tests: `yarn run test`
 
 To run your redis server for the session store `redis-server`
+
+
+
+
 
 
