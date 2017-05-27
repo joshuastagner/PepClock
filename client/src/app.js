@@ -10,13 +10,13 @@ import Foo from './components/Foo';
 
 class App extends React.Component {
   constructor(props) {
-    super(props)
+    super(props);
   }
 
   render () {
     return (
       <h1>hello beautiful</h1>
-    )
+    );
   }
 }
 
