@@ -4,14 +4,14 @@ The project description
 
 ## Team
 
-- teamMember
-- teamMember
-- teamMember
-- teamMember
+- Aaron Xavier
+- Alex Matranga
+- Eric Pan
+- Josh Stagner
 
 ## Roadmap
 
-View the project roadmap [here](LINK_TO_DOC)
+View the project roadmap [here](https://trello.com/b/RdOarHS9/project-plasma)
 
 ## Contributing
 
