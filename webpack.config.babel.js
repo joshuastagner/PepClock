@@ -15,12 +15,17 @@ const config = {
         use: [
           { loader: 'babel-loader',
             options: {
-              presets: ['react', 'es2015']
+              presets: ['react', 'es2015', 'preset-2']
             }
           }
         ]
       }
     ]
+  },
+  externals: {
+    'react/addons': true,
+    'react/lib/ExecutionEnvironment': true,
+    'react/lib/ReactContext': true
   }
 };
 

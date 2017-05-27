@@ -1,0 +1,25 @@
+// EXAMPLE COMPONENT FOR ENZYME TEST EXAMPLE
+// Enzyme test: enzyme.spec.js
+
+import React, { PropTypes } from 'react';
+
+const propTypes = {};
+
+const defaultProps = {};
+
+class Foo extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+
+  render() {
+    return (
+      <div className="foo" />
+    );
+  }
+}
+
+Foo.propTypes = propTypes;
+Foo.defaultProps = defaultProps;
+
+export default Foo;
