@@ -3,13 +3,20 @@
   "version": "1.0.0",
   "scripts": {
     "start": "nodemon server",
-    "test": "mocha ./server/test/.setup.js ./server/test/*.spec.js",
-    "build": "webpack --watch"
+    "test": "export NODE_ENV=test && mocha ./server/test/.setup.js ./server/test/*.spec.js",
+    "build": "webpack --watch",
+    "start:dev": "export NODE_ENV=development && nodemon server",
+    "postinstall": "webpack"
   },
   "author": "Hack Reactor",
   "license": "MIT",
   "dependencies": {
     "babel-core": "^6.24.1",
+    "babel-loader": "^7.0.0",
+    "babel-plugin-transform-es2015-modules-commonjs": "^6.24.0",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-react": "^6.23.0",
+    "babel-preset-stage-2": "^6.24.1",
     "bcrypt-nodejs": "^0.0.3",
     "bluebird": "^3.5.0",
     "body-parser": "^1.17.1",
@@ -33,12 +40,13 @@
     "pg": "^6.1.5",
     "react": "^15.4.2",
     "react-dom": "^15.5.4",
-    "redis": "^2.7.1"
+    "redis": "^2.7.1",
+    "webpack": "^2.3.2"
   },
   "devDependencies": {
     "babel-loader": "^7.0.0",
     "babel-plugin-transform-es2015-modules-commonjs": "^6.24.0",
-    "babel-preset-latest": "^6.24.0",
+    "babel-preset-es2015": "^6.24.1",
     "babel-preset-react": "^6.23.0",
     "babel-preset-stage-2": "^6.24.1",
     "chai": "^3.5.0",
