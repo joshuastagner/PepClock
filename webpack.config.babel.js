@@ -15,7 +15,7 @@ const config = {
         use: [
           { loader: 'babel-loader',
             options: {
-              presets: ['react', 'es2015', 'preset-2']
+              presets: ['react', 'es2015']
             }
           }
         ]

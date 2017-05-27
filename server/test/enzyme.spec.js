@@ -4,8 +4,8 @@ import { expect } from 'chai';
 import { shallow, mount, render } from 'enzyme';
 import Foo from '../../client/src/components/Foo';
 
-describe('A suite', function() {
-  it('contains spec with an expectation', function() {
+describe('Example Enzyme Test Suite', function() {
+  it('contains correct class', function() {
     expect(shallow(<Foo />).contains(<div className="foo" />)).to.equal(true);
   });
 
@@ -13,7 +13,7 @@ describe('A suite', function() {
     expect(shallow(<Foo />).is('.foo')).to.equal(true);
   });
 
-  it('contains spec with an expectation', function() {
+  it('contains one of the foo class', function() {
     expect(mount(<Foo />).find('.foo').length).to.equal(1);
   });
 });
