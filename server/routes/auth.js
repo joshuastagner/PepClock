@@ -1,11 +1,17 @@
 const express = require('express');
 const middleware = require('../middleware');
+const path = require('path');
 
 const router = express.Router();
 
 router.route('/')
   .get(middleware.auth.verify, (req, res) => {
     res.render('index.ejs');
+  });
+
+router.route('/app')
+  .get(middleware.auth.verify, (req, res) => {
+    res.sendFile(path.join(__dirname, '../../public/app.html'));
   });
 
 router.route('/login')
@@ -46,7 +52,7 @@ router.get('/auth/google', middleware.passport.authenticate('google', {
 }));
 
 router.get('/auth/google/callback', middleware.passport.authenticate('google', {
-  successRedirect: '/profile',
+  successRedirect: '/app',
   failureRedirect: '/login'
 }));
 
