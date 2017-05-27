@@ -41,7 +41,6 @@
     "babel-plugin-transform-es2015-modules-commonjs": "^6.24.0",
     "babel-preset-latest": "^6.24.0",
     "babel-preset-react": "^6.23.0",
-    "babel-preset-stage-2": "^6.24.1",
     "chai": "^3.5.0",
     "enzyme": "^2.8.2",
     "grunt": "~0.4.5",
