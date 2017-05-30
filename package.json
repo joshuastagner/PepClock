@@ -4,8 +4,10 @@
   "scripts": {
     "start": "nodemon server",
     "test": "export NODE_ENV=test && mocha ./server/test/.setup.js ./server/test/*.spec.js",
+    "tw": "SET NODE_ENV=test && mocha ./server/test/.setup.js ./server/test/*.spec.js",
     "build": "webpack --watch",
     "start:dev": "export NODE_ENV=development && nodemon server",
+    "sw": "SET NODE_ENV=development & nodemon server",
     "postinstall": "webpack"
   },
   "author": "Hack Reactor",

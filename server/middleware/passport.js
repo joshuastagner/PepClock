@@ -40,7 +40,7 @@ passport.use('local-signup', new LocalStrategy({
       .then(profile => {
         // create a new profile if a profile does not exist
         if (!profile) {
-          return models.Profile.forge({ email }).save();
+          return models.Profile.forge({ first: req.body.first, email: email }).save();
         }
         // throw if local auth account already exists
         if (profile.related('auths').at(0)) {

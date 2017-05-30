@@ -1,4 +1,3 @@
-
 exports.up = function (knex, Promise) {
   return Promise.all([
     knex.schema.createTableIfNotExists('profiles', function (table) {
@@ -27,4 +26,3 @@ exports.down = function (knex, Promise) {
     knex.schema.dropTable('profiles')
   ]);
 };
-

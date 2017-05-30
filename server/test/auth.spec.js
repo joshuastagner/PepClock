@@ -25,8 +25,9 @@ describe('Authentication', () => {
     it('passport passes user if email and password match', done => {
       let request = httpMocks.createRequest({
         body: {
-          email: 'admin@domain.com',
-          password: 'admin123'
+          first: 'Admin',
+          password: 'admin123',
+          email: 'admin@domain.com'
         }
       });
       request.flash = fakeFlash;
@@ -45,8 +46,9 @@ describe('Authentication', () => {
     it('passport passes false if email and password do not match', done => {
       let request = httpMocks.createRequest({
         body: {
-          email: 'admin@domain.com',
-          password: 'incorrect'
+          first: 'Admin',
+          password: 'incorrect',
+          email: 'admin@domain.com'
         }
       });
       request.flash = fakeFlash;
@@ -63,8 +65,9 @@ describe('Authentication', () => {
     it('passport passes false if email already exists', done => {
       let request = httpMocks.createRequest({
         body: {
-          email: 'admin@domain.com',
-          password: 'admin123'
+          first: 'Admin',
+          password: 'admin123',
+          email: 'admin@domain.com'
         }
       });
       request.flash = fakeFlash;
@@ -79,8 +82,9 @@ describe('Authentication', () => {
     it('passport passes user if email does not already exist', done => {
       let request = httpMocks.createRequest({
         body: {
-          email: 'TestUser4@mail.com',
-          password: '101112'
+          first: 'Test4',
+          password: '101112',
+          email: 'TestUser4@mail.com'
         }
       });
       request.flash = fakeFlash;
