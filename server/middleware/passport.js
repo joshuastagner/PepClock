@@ -26,6 +26,7 @@ passport.deserializeUser((id, done) => {
 });
 
 passport.use('local-signup', new LocalStrategy({
+  firstnameField: 'fisrt',
   usernameField: 'email',
   passwordField: 'password',
   passReqToCallback: true
@@ -40,7 +41,7 @@ passport.use('local-signup', new LocalStrategy({
       .then(profile => {
         // create a new profile if a profile does not exist
         if (!profile) {
-          return models.Profile.forge({ email }).save();
+          return models.Profile.forge({ first: req.body.first, email: email }).save();
         }
         // throw if local auth account already exists
         if (profile.related('auths').at(0)) {
@@ -70,6 +71,7 @@ passport.use('local-signup', new LocalStrategy({
   }));
 
 passport.use('local-login', new LocalStrategy({
+  firstnameField: 'first',
   usernameField: 'email',
   passwordField: 'password',
   passReqToCallback: true

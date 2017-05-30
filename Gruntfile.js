@@ -20,7 +20,6 @@ module.exports = function(grunt) {
         name: process.env.DB_DATABASE
       }
     }
-
   });
 
   grunt.loadNpmTasks('grunt-mocha-test');

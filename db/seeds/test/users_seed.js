@@ -10,6 +10,7 @@ exports.seed = function (knex, Promise) {
       return models.Profile.forge({
         first: 'System',
         last: 'Admin',
+        password: 'admin123',
         display: 'Administrator',
         email: 'admin@domain.com'
       }).save();
