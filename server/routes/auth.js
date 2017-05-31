@@ -3,8 +3,11 @@ const middleware = require('../middleware');
 
 const router = express.Router();
 
-router.route('/')
-  .get(middleware.auth.verify, (req, res) => {
+// TODO: Refactor this
+// Put all app routes here to render React components
+// Add Route and Component corresponding to each route
+router.route(['/', '/dashboard', '/events/:id', '/create'])
+  .get((req, res) => {
     res.render('index.ejs');
   });
 
