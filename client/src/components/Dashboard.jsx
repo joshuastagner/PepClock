@@ -1,12 +1,5 @@
 import React from 'react';
-import {
-  BrowserRouter as Router,
-  Route,
-  Link,
-  NavLink,
-  Redirect,
-  withRouter
-} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 const Dashboard = () => (
   <div>

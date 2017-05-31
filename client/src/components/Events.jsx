@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { Component } from 'react';
 
-class Events extends React.Component {
+class Events extends Component {
   constructor(props) {
     super(props);
   }
@@ -8,7 +8,18 @@ class Events extends React.Component {
   render () {
     const eventId = this.props.match.params.id;
     return (
-      <h1>Event {eventId}</h1>
+      <div>
+        <h1>Event {eventId}</h1>
+        <p>Event metadata</p>
+        <div>
+          <p>Event timeline</p>
+          <ul>
+            <li>post 1</li>
+            <li>post 3</li>
+            <li>post 3</li>
+          </ul>
+        </div>
+      </div>
     );
   }
 }
