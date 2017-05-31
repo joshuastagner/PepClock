@@ -5,7 +5,8 @@ import {
   Link,
   NavLink,
   Redirect,
-  withRouter
+  withRouter,
+  Switch
 } from 'react-router-dom';
 
 import Home from './Home';
@@ -23,10 +24,14 @@ class Routes extends React.Component {
       <Router>
         <div>
           <NavLink to="/dashboard">PepClock</NavLink>
-          <Route exact path="/" component={Home} />
-          <Route path="/dashboard" component={Dashboard} />
-          <Route path="/event/:id" component={Event} />
-          <Route path="/create" component={Create} />
+          <Switch>
+            <Route exact path="/" component={Home} />
+            <Route path="/dashboard" component={Dashboard} />
+            <Route path="/create" component={Create} />
+            <Route path="/edit/:id" component={Create} />
+            <Route path="/events/:id" component={Events} />
+            <Route render={ () => <h1>404 Page Not Found</h1>} />
+        </Switch>
         </div>
       </Router>
     );

@@ -3,17 +3,17 @@ import axios from 'axios';
 
 class Event extends React.Component {
   constructor(props) {
-    super(props)
+    super(props);
     this.state = {
       eventId: '',
       title: '',
       description: '',
       contributions: [],
-      contribution:''
-    }
+      contribution: ''
+    };
     this.handleChange = this.handleChange.bind(this);
     this.handleClick = this.handleClick.bind(this);
-  };
+  }
 
   handleChange(event) {
     var newState = {};
@@ -27,11 +27,12 @@ class Event extends React.Component {
   }
 
   handleKeyPress(target) {
-    if (target.charCode === 13) { 
+    if (target.charCode === 13) {
       this.handleClick();
     }
   }
 
+  // TODO: Use later when backend is ready
   // componentDidMount () {
   //   const eventId = this.props.match.params.id;
   //   axios.get(`/api/events/${eventId}`)
@@ -67,7 +68,7 @@ class Event extends React.Component {
           <button id="submit" onClick={this.handleClick}>Submit</button>
         </form>
       </div>
-    )
+    );
   }
 }
 
