@@ -11,4 +11,10 @@ router.route('/')
     res.status(201).send({ data: 'Posted!' });
   });
 
+router.route('/events')
+  .post((req, res) => {
+    console.log('ROUTES API EVENTS POST req.body', req.body);
+    console.log('ROUTES API EVENTS POST req.session', req.session);
+  });
+
 module.exports = router;

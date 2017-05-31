@@ -1,5 +1,6 @@
 import React from 'react';
 import DateTimeField from 'react-bootstrap-datetimepicker';
+import axios from 'axios';
 
 class Create extends React.Component {
   constructor(props) {
@@ -37,6 +38,25 @@ class Create extends React.Component {
     if (target.charCode === 13) {
       this.handleClick();
     }
+  }
+
+  handleSubmit(event) {
+    event.preventDefault();
+    axios({
+      method: 'post',
+      url: '/api/events',
+      data: {
+        eventName: this.state.eventName,
+        firstName: this.state.firstName,
+        lastName: this.state.lastName,
+        email: this.state.email,
+        deliverTime: this.state.deliverTime,
+        inviteEmails: this.state.inviteEmails,
+        userId: 1
+      }
+    }).then(function(response) {
+      console.log('Create handleSubmit response', response);
+    });
   }
 
   render() {
@@ -82,6 +102,7 @@ class Create extends React.Component {
                 </span>
               </div>
             </div>
+            <button type="button" className="btn btn-primary" onClick={this.handleSubmit.bind(this)}>Submit</button>
         </form>
       </div>
     );
