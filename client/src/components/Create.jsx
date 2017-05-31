@@ -41,7 +41,6 @@ class Create extends React.Component {
   }
 
   handleSubmit(event) {
-    event.preventDefault();
     axios({
       method: 'post',
       url: '/api/events',
@@ -51,8 +50,7 @@ class Create extends React.Component {
         lastName: this.state.lastName,
         email: this.state.email,
         deliverTime: this.state.deliverTime,
-        inviteEmails: this.state.inviteEmails,
-        userId: 1
+        inviteEmails: this.state.inviteEmails
       }
     }).then(function(response) {
       console.log('Create handleSubmit response', response);
