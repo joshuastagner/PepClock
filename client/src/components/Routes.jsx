@@ -17,14 +17,12 @@ class Routes extends React.Component {
 
   render () {
     return (
-      <div>
-        <Router>
-          <div>
-            <Route exact path="/" component={Home} />
-            <Route path="/dashboard" component={Dashboard} />
-          </div>
-        </Router>
-      </div>
+      <Router>
+        <div>
+          <Route exact path="/" component={Home} />
+          <Route path="/dashboard" component={Dashboard} />
+        </div>
+      </Router>
     );
   }
 }
