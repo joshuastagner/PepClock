@@ -22,15 +22,10 @@ class Routes extends React.Component {
     return (
       <Router>
         <div>
-          <ul>
-            <li><NavLink to="/">Home</NavLink></li>
-            <li><NavLink to="/dashboard">Dashboard</NavLink></li>
-            <li><NavLink to="/events">Events</NavLink></li>
-            <li><NavLink to="/create">Create</NavLink></li>
-          </ul>
+          <NavLink to="/dashboard">PepClock</NavLink>
           <Route exact path="/" component={Home} />
           <Route path="/dashboard" component={Dashboard} />
-          <Route path="/events" component={Events} />
+          <Route path="/events/:id" component={Events} />
           <Route path="/create" component={Create} />
         </div>
       </Router>

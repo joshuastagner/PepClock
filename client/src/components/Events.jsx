@@ -1,7 +1,16 @@
 import React from 'react';
 
-const Events = () => (
-  <h1>Hello from Events.jsx</h1>
-);
+class Events extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+
+  render () {
+    const eventId = this.props.match.params.id;
+    return (
+      <h1>Event {eventId}</h1>
+    );
+  }
+}
 
 export default Events;
