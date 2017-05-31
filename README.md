@@ -78,6 +78,8 @@ In terminal, from the root directory:
 
 `export NODE_ENV=test && knex migrate:latest`
 
+`Heroku runn knex migrate:lates --app pepclock-staging`
+
 Note: `--env NODE_ENV` may be omitted for development. For example, `knex migrate:latest` will run all migrations in the development environment, while `export NODE_ENV=development && knex migrate:latest` will migrate in the test environment.
 
 ## Running the App
