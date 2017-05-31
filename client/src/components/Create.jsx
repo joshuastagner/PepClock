@@ -1,7 +1,10 @@
 import React from 'react';
 
 const Create = () => (
-  <h1>Hello from Create.jsx</h1>
+  <div>
+    <h1>Create event</h1>
+    <p>Form goes below</p>
+  </div>
 );
 
 export default Create;
