@@ -2,7 +2,7 @@
 import React from 'react';
 import { expect } from 'chai';
 import { shallow, mount, render } from 'enzyme';
-import Foo from '../../client/src/components/Foo';
+import Foo from '../src/components/Foo';
 
 describe('Example Enzyme Test Suite', function() {
   it('contains correct class', function() {

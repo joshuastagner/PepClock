@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "scripts": {
     "start": "nodemon server",
-    "test": "export NODE_ENV=test && mocha ./server/test/.setup.js ./server/test/*.spec.js",
-    "tw": "SET NODE_ENV=test && mocha ./server/test/.setup.js ./server/test/*.spec.js",
+    "test": "export NODE_ENV=test && mocha ./server/test/*.spec.js && mocha ./client/test/.setup.js ./client/test/*.spec.js",
+    "tw": "SET NODE_ENV=test && mocha ./server/test/*.spec.js && mocha ./client/test/.setup.js ./client/test/*.spec.js",
     "build": "webpack --watch",
     "start:dev": "export NODE_ENV=development && nodemon server",
     "sw": "SET NODE_ENV=development & nodemon server",
