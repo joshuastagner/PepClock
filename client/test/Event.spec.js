@@ -27,5 +27,4 @@ describe('Event Component', function() {
   it('contains a form where the user can add a contribution', function() {
     expect(wrapper.find('.add').length).to.equal(1);
   });
-  //adding a comment as a test. Will remove
 });
