@@ -1,6 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import ContributionList from './ContributionList'
 import axios from 'axios';
+
 
 class Event extends React.Component {
   constructor(props) {
@@ -9,8 +11,8 @@ class Event extends React.Component {
       eventId: '',
       title: '',
       description: '',
-      contributions: [],
-      contribution: ''
+      contributionList: [],
+      contributionListItem: ''
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleClick = this.handleClick.bind(this);
@@ -23,8 +25,8 @@ class Event extends React.Component {
   }
 
   handleClick(event) {
-    this.setState({contributions: this.state.contributions.concat([this.state.contribution])});
-    this.setState({contribution: ''});
+    this.setState({contributions: this.state.contributionList.concat([this.state.contribution])});
+    this.setState({contributionListItem: ''});
   }
 
   handleKeyPress(target) {
@@ -42,7 +44,7 @@ class Event extends React.Component {
   //       eventId: data.eventId,
   //       title: data.title,
   //       description: data.description,
-  //       contributions: data.contributions
+  //       contributionList: data.contributionList
   //     });
   //   });
   // }
@@ -61,9 +63,9 @@ class Event extends React.Component {
           <Link to={`/edit/${id}`}>Edit event</Link>
         </div>
         <hr />
-        <div className="contributions">
+        <div className="contribution-list">
           <ul>
-            {this.state.contributions.map(contribution => <li style="none">{contribution}</li>)}
+            {this.state.contributionList.map(contribution => <li style="none">{contribution}</li>)}
             <li>Hello from the list</li>
           </ul>
         </div>
