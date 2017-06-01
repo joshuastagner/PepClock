@@ -34,16 +34,24 @@ class Create extends React.Component {
   }
 
   handleKeyPress(target) {
-    if (target.charCode === 13) { 
+    if (target.charCode === 13) {
       this.handleClick();
     }
   }
- 
 
   render() {
+    // Set component title based on URL
+    let title = '';
+    const pathname = this.props.location.pathname;
+    const id = this.props.match.params.id;
+
+    pathname === '/create' ?
+      title = 'Create a new PepClock'
+      : title = `Edit event ${id}`;
+
     return (
       <div className="container">
-        <h1>Create a new PepClock</h1>
+        <h1>{title}</h1>
         <form>
           <div className="form-group">
             <label>Name your event</label>
@@ -67,7 +75,7 @@ class Create extends React.Component {
           </div>
           <div className="col-lg-6">
             <div className="input-group">
-              <input type="email" className="form-control" placeholder="The emails..." name="inviteEmailInput" 
+              <input type="email" className="form-control" placeholder="The emails..." name="inviteEmailInput"
                 value={this.state.inviteEmailInput} onChange={this.handleChange} onKeyPress={this.handleKeyPress.bind(this)}></input>
                <span className="input-group-btn">
                   <button className="btn btn-secondary" type="button" onClick={this.handleClick}>Add</button>

@@ -1,19 +1,20 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 
 class Event extends React.Component {
   constructor(props) {
-    super(props)
+    super(props);
     this.state = {
       eventId: '',
       title: '',
       description: '',
       contributions: [],
-      contribution:''
-    }
+      contribution: ''
+    };
     this.handleChange = this.handleChange.bind(this);
     this.handleClick = this.handleClick.bind(this);
-  };
+  }
 
   handleChange(event) {
     var newState = {};
@@ -27,11 +28,12 @@ class Event extends React.Component {
   }
 
   handleKeyPress(target) {
-    if (target.charCode === 13) { 
+    if (target.charCode === 13) {
       this.handleClick();
     }
   }
 
+  // TODO: Use later when backend is ready
   // componentDidMount () {
   //   const eventId = this.props.match.params.id;
   //   axios.get(`/api/events/${eventId}`)
@@ -46,13 +48,17 @@ class Event extends React.Component {
   // }
 
   render() {
+    const { id } = this.props.match.params;
+    const { title, description } = this.state;
+
     return (
       <div className="event">
         <div className="title">
-          <h1>The title is {this.state.title}</h1>
+          <h1>The title is {title}</h1>
         </div>
         <div className="description">
-          <h3>The description is {this.state.description}</h3>
+          <h3>The description is {description}</h3>
+          <Link to={`/edit/${id}`}>Edit event</Link>
         </div>
         <hr />
         <div className="contributions">
@@ -63,11 +69,17 @@ class Event extends React.Component {
         </div>
         <hr />
         <form className="add">
-          <input type="textarea" placeholder="Enter Text" autoFocus="true" onChange={this.handleChange}/>
+          <input
+            type="textarea"
+            placeholder="Enter Text"
+            autoFocus="true"
+            onChange={this.handleChange}
+            onKeyPress={this.handleKeyPress}
+          />
           <button id="submit" onClick={this.handleClick}>Submit</button>
         </form>
       </div>
-    )
+    );
   }
 }
 

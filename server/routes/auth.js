@@ -6,7 +6,7 @@ const router = express.Router();
 // TODO: Refactor this
 // Put all app routes here to render React components
 // Add Route and Component corresponding to each route
-router.route(['/', '/dashboard', '/events/:id', '/create'])
+router.route(['/', '/dashboard', '/create', '/events/:id', '/edit/:id'])
   .get((req, res) => {
     res.render('index.ejs');
   });
