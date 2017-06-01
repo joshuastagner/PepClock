@@ -26,10 +26,10 @@ class ContributionListItem extends React.Component{
     return (
       <div className="contribution-list-item">
         <div className="text">
-          <p>User text goes here</p>
+          <p>User text goes here {this.state.text}</p>
         </div>
         <div className="name">
-          <p>--User Name</p>
+          <p>--User Name {this.state.contributorId}</p>
         </div>
       </div>
     );

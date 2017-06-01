@@ -9,9 +9,6 @@ describe('Contributions Component', function(){
   it('contains the correct class', function(){
     expect(wrapper.find('.contribution-list').length).to.equal(1);
   });
-  it('contains the event title', function(){
-    expect(wrapper.find('.title').length).to.equal(1);
-  });
   it('contains all contributions from all other users', function(){
     expect(wrapper.find('.user-contributions').length).to.equal(1);
   });
