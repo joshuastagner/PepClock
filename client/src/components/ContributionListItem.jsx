@@ -24,7 +24,7 @@ class ContributionListItem extends React.Component{
 
   render () {
     return (
-      <div className="contribution">
+      <div className="contribution-list-item">
         <div className="text">
           <p>User text goes here</p>
         </div>

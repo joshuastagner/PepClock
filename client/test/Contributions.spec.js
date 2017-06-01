@@ -1,13 +1,13 @@
 import React from 'react';
 import { expect } from 'chai';
 import { shallow } from 'enzyme';
-import Contributions from '../src/components/Contributions.jsx';
+import ContributionList from '../src/components/ContributionList';
 
 describe('Contributions Component', function(){
-  const wrapper = shallow(<Contributions />);
+  const wrapper = shallow(<ContributionList />);
 
   it('contains the correct class', function(){
-    expect(wrapper.find('.contributions').length).to.equal(1);
+    expect(wrapper.find('.contribution-list').length).to.equal(1);
   });
   it('contains the event title', function(){
     expect(wrapper.find('.title').length).to.equal(1);
