@@ -3,11 +3,10 @@ import {
   Route,
   Redirect
 } from 'react-router-dom';
-import axios from 'axios';
 
-const PrivateRoute = ({component: Component, loggedIn}) => {
+const PrivateRoute = ({component: Component, loggedIn, ...rest}) => {
   return (
-    <Route
+    <Route {...rest}
       render={props => 
         loggedIn === true ? 
           <Component {...props}/>
@@ -16,6 +15,5 @@ const PrivateRoute = ({component: Component, loggedIn}) => {
       }/>
   );
 };
-
 
 export default PrivateRoute;
