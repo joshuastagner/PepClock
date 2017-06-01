@@ -4,8 +4,13 @@ module.exports.create = (req, res) => {
   console.log(req.body);
   models.Event.forge({title: req.body.eventName, creator_id: req.session.passport.user})
     .save()
+    .tap(result => {
+      return models.Recipient
+        .forge({first_name: req.body.firstName, last_name: req.body.lastName, email: req.body.email, event_id: result.id})
+        .save();
+    })
     .then(result => {
-      console.log(result);
+      
       res.status(200).send(result);
     })
     .catch(err => {
