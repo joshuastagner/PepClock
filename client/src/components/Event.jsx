@@ -24,15 +24,27 @@ class Event extends React.Component {
     this.setState(newState);
   }
 
-  handleClick(event) {
+  handleSubmit(event) {
     this.setState({contributions: this.state.contributionList.concat([this.state.contribution])});
     this.setState({contributionListItem: ''});
   }
 
   handleKeyPress(target) {
     if (target.charCode === 13) {
-      this.handleClick();
+      this.handleSubmit();
     }
+  }
+
+  handleSubmit(event) {
+    axios({
+      method: 'post',
+      url: '/api/contributions',
+      data: {
+        eventId: this.state.eventId,
+        contributionText: this.state.contributionListItem,
+
+      }
+    })
   }
 
   // TODO: Use later when backend is ready
@@ -73,12 +85,12 @@ class Event extends React.Component {
         <form className="add">
           <input
             type="textarea"
-            placeholder="Enter Text"
+            placeholder="Enter Contribution Text"
             autoFocus="true"
             onChange={this.handleChange}
             onKeyPress={this.handleKeyPress}
           />
-          <button id="submit" onClick={this.handleClick}>Submit</button>
+          <button id="submit" onClick={this.handleSubmit}>Submit</button>
         </form>
       </div>
     );

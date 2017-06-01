@@ -23,5 +23,6 @@ app.use('/', routes.auth);
 app.use('/api', routes.api);
 app.use('/api/profiles', routes.profiles);
 app.use('/api/events', routes.events);
+app.use('/api/contributions', routes.contributions);
 
 module.exports = app;
