@@ -41,7 +41,7 @@ class Routes extends React.Component {
             <PrivateRoute loggedIn={this.state.loggedIn} path="/dashboard" component={Dashboard} />
             <PrivateRoute loggedIn={this.state.loggedIn} path="/create" component={Create} />
             <PrivateRoute loggedIn={this.state.loggedIn} path="/edit/:id" component={Create} />
-            <PrivateRoute loggedIn={this.state.loggedIn} path="/events/:id" component={Events} />
+            <PrivateRoute loggedIn={this.state.loggedIn} path="/events/:id" component={Event} />
             <Route path="/redirected" component={Redirected} />
             <Route render={ () => <h1>404 Page Not Found</h1>} />
           </Switch>
