@@ -20,7 +20,6 @@ class Dashboard extends Component {
   }
 
   render () {
-    console.log(this.state.events);
     return (
       <div>
         <h1>Dashboard</h1>
