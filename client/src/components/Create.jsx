@@ -40,18 +40,10 @@ class Create extends React.Component {
   }
 
   render() {
-
-    // TODO: Replace default values (for tests) with a mock URL
-    // let pathname = this.props.location
-    //   ? this.props.location.pathname
-    //   : '/create';
-    // let id = this.props.match
-    //   ? this.props.match.params.id
-    //   : '1';
-
+    // Set component title based on URL
     let title = '';
-    let pathname = this.props.location.pathname;
-    let id = this.props.match.params.id;
+    const pathname = this.props.location.pathname;
+    const id = this.props.match.params.id;
 
     pathname === '/create' ?
       title = 'Create a new PepClock'

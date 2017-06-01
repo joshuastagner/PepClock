@@ -56,17 +56,16 @@ class Event extends React.Component {
   // }
 
   render() {
-    console.log(this.props.match);
-    // console.log(this.props.match.params.id);
-    const id = '1';
+    const { id } = this.props.match.params;
+    const { title, description } = this.state;
 
     return (
       <div className="event">
         <div className="title">
-          <h1>The title is {this.state.title}</h1>
+          <h1>The title is {title}</h1>
         </div>
         <div className="description">
-          <h3>The description is {this.state.description}</h3>
+          <h3>The description is {description}</h3>
           <Link to={`/edit/${id}`}>Edit event</Link>
         </div>
         <hr />
