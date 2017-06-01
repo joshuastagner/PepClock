@@ -3,12 +3,13 @@ const middleware = require('../middleware');
 
 const router = express.Router();
 
+
 // TODO: Refactor this
 // Put all app routes here to render React components
 // Add Route and Component corresponding to each route
-router.route(['/', '/dashboard', '/create', '/events/:id', '/edit/:id'])
+router.route(['/', '/dashboard', '/events/:id', '/create', '/edit/:id', '/redirected'])
   .get((req, res) => {
-    res.render('index.ejs');
+    res.render('index.ejs', {user: JSON.stringify(req.user)});
   });
 
 router.route('/login')
@@ -49,7 +50,7 @@ router.get('/auth/google', middleware.passport.authenticate('google', {
 }));
 
 router.get('/auth/google/callback', middleware.passport.authenticate('google', {
-  successRedirect: '/profile',
+  successRedirect: '/',
   failureRedirect: '/login'
 }));
 
