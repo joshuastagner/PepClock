@@ -6,7 +6,9 @@ module.exports.create = (req, res) => {
     .save()
     .tap(result => {
       return models.Recipient
-        .forge({first_name: req.body.firstName, last_name: req.body.lastName, email: req.body.email, event_id: result.id})
+        .forge({first_name: req.body.firstName,
+          last_name: req.body.lastName, 
+          email: req.body.email, event_id: result.id})
         .save();
     })
     .then(result => {
