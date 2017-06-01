@@ -1,13 +1,5 @@
 import React from 'react';
-import {
-  BrowserRouter as Router,
-  Route,
-  Link,
-  NavLink,
-  Redirect,
-  withRouter,
-  Switch
-} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 
 class Event extends React.Component {
@@ -77,7 +69,13 @@ class Event extends React.Component {
         </div>
         <hr />
         <form className="add">
-          <input type="textarea" placeholder="Enter Text" autoFocus="true" onChange={this.handleChange}/>
+          <input
+            type="textarea"
+            placeholder="Enter Text"
+            autoFocus="true"
+            onChange={this.handleChange}
+            onKeyPress={this.handleKeyPress}
+          />
           <button id="submit" onClick={this.handleClick}>Submit</button>
         </form>
       </div>
