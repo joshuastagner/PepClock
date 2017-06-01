@@ -40,10 +40,19 @@ class Create extends React.Component {
   }
 
   render() {
-    const { pathname } = this.props.location;
-    const { id } = this.props.match.params;
+
+    // TODO: Replace default values (for tests) with a mock URL
+    // let pathname = this.props.location
+    //   ? this.props.location.pathname
+    //   : '/create';
+    // let id = this.props.match
+    //   ? this.props.match.params.id
+    //   : '1';
 
     let title = '';
+    let pathname = this.props.location.pathname;
+    let id = this.props.match.params.id;
+
     pathname === '/create' ?
       title = 'Create a new PepClock'
       : title = `Edit event ${id}`;

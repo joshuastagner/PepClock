@@ -1,4 +1,13 @@
 import React from 'react';
+import {
+  BrowserRouter as Router,
+  Route,
+  Link,
+  NavLink,
+  Redirect,
+  withRouter,
+  Switch
+} from 'react-router-dom';
 import axios from 'axios';
 
 class Event extends React.Component {
@@ -47,6 +56,10 @@ class Event extends React.Component {
   // }
 
   render() {
+    console.log(this.props.match);
+    // console.log(this.props.match.params.id);
+    const id = '1';
+
     return (
       <div className="event">
         <div className="title">
@@ -54,6 +67,7 @@ class Event extends React.Component {
         </div>
         <div className="description">
           <h3>The description is {this.state.description}</h3>
+          <Link to={`/edit/${id}`}>Edit event</Link>
         </div>
         <hr />
         <div className="contributions">

@@ -29,7 +29,7 @@ class Routes extends React.Component {
             <Route path="/dashboard" component={Dashboard} />
             <Route path="/create" component={Create} />
             <Route path="/edit/:id" component={Create} />
-            <Route path="/events/:id" component={Events} />
+            <Route path="/events/:id" component={Event} />
             <Route render={ () => <h1>404 Page Not Found</h1>} />
         </Switch>
         </div>
