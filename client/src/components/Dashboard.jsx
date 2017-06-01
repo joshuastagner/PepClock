@@ -25,7 +25,7 @@ class Dashboard extends Component {
       <div>
         <h1>Dashboard</h1>
         <Link to="/create">Create event</Link>
-        {/* <EventList /> */}
+        <EventList events={this.state.events} />
       </div>
     );
   }
