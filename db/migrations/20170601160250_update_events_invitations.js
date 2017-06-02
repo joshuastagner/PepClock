@@ -2,7 +2,7 @@
 exports.up = function(knex, Promise) {
   return Promise.all([
     knex.schema.table('invitations', function(table) {
-      table.boolean('sent').notNullable();
+      table.boolean('sent').notNullable().defaultTo(true);
     }),
 
     knex.schema.table('events', function(table) {

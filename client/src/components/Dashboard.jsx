@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import EventList from './EventList';
-// TODO: Remove event fixture after replacing with real data
-import eventFixture from '../../test/fixtures/event_list';
+import axios from 'axios';
 
 class Dashboard extends Component {
   constructor(props) {
@@ -13,10 +12,13 @@ class Dashboard extends Component {
   }
 
   componentDidMount () {
-    // TODO: Fetch events for this user from DB
-    this.setState({
-      events: eventFixture
-    });
+    axios.get('/api/events/user')
+      .then(({ data: events }) => {
+        this.setState({ events });
+      })
+      .catch(error => {
+        console.error(error);
+      });
   }
 
   render () {

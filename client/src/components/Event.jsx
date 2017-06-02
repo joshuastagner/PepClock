@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import ContributionList from './ContributionList'
+import ContributionList from './ContributionList';
 import axios from 'axios';
 
 
@@ -42,19 +42,22 @@ class Event extends React.Component {
     });
   }
 
-  // TODO: Use later when backend is ready
-  // componentDidMount () {
-  //   const eventId = this.props.match.params.id;
-  //   axios.get(`/api/events/${eventId}`)
-  //   .then(data =>{
-  //     this.setState({
-  //       eventId: data.eventId,
-  //       title: data.title,
-  //       description: data.description,
-  //       contributionList: data.contributionList
-  //     });
-  //   });
-  // }
+  componentDidMount () {
+    const eventId = this.props.match.params.id;
+    axios.get(`/api/events/${eventId}`)
+    .then(response =>{
+      const { title } = response.data;
+      this.setState({ eventId, title });
+
+      // TODO: Update with contributions when ready
+      // this.setState({
+      //   eventId: data.eventId,
+      //   title: data.title,
+      //   description: data.description,
+      //   contributionList: data.contributionList
+      // });
+    });
+  }
 
   render() {
     const { id } = this.props.match.params;
@@ -63,7 +66,7 @@ class Event extends React.Component {
     return (
       <div className="event">
         <div className="title">
-          <h1>The title is {title}</h1>
+          <h1>{title}</h1>
         </div>
         <div className="description">
           <h3>The description is {description}</h3>
