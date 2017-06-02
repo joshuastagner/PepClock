@@ -4,7 +4,8 @@ const Promise = require('bluebird');
 
 
 module.exports.create = (req, res) => {
-  models.Event.forge({title: req.body.eventName, creator_id: req.session.passport.user})
+  var date = new Date(Number.parseInt(req.body.deliveryTime));
+  models.Event.forge({title: req.body.eventName, creator_id: req.session.passport.user, delivery_time: date})
     .save()
     .tap(result => {
       return models.Recipient
@@ -23,7 +24,7 @@ module.exports.create = (req, res) => {
     .tap(result => {
       let inviteList = [];
       req.body.inviteEmails.forEach(email => { 
-        inviteList.push({email: email, event_id: result.id, rsvp: 0}); 
+        inviteList.push({email: email, event_id: result.id, rsvp: 0, sent: 0}); 
       });
       let invites = collections.Invitations.forge(inviteList);
       return invites.invokeThen('save');
