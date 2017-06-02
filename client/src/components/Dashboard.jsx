@@ -15,13 +15,24 @@ class Dashboard extends Component {
 
   componentDidMount () {
     // TODO: Fetch events for ONLY this user from DB
-    axios.get('/api/events')
-      .then(({ data: events}) => {
-        this.setState({ events });
+    axios.get('/api/events/user')
+      .then(data => {
+        console.log(data);
       })
+      // .then(({ data: events}) => {
+      //   this.setState({ events });
+      // })
       .catch(error => {
         console.error(error);
       });
+
+    // axios.get('/api/events')
+    //   .then(({ data: events}) => {
+    //     this.setState({ events });
+    //   })
+    //   .catch(error => {
+    //     console.error(error);
+    //   });
   }
 
   render () {

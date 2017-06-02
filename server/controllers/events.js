@@ -58,3 +58,15 @@ module.exports.getById = (req, res) => {
       res.status(500).send(err);
     });
 };
+
+module.exports.getEventsByContributor = (req, res) => {
+  models.Contributor.where({user_id: req.user.id})
+  .fetchAll()
+    .then(result => {
+      console.log('RESULT.MODELS:', result.models);
+      res.status(200).send(result);
+    })
+    .catch(err => {
+      res.status(500).send(err);
+    });
+};
