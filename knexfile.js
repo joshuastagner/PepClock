@@ -19,7 +19,9 @@ if (process.env.NODE_ENV === 'development') {
     },
     seeds: {
       directory: 'db/seeds/development'
-    }
+    },
+    // Use this option to log raw queries to terminal
+    // debug: true
   };
 }
 
