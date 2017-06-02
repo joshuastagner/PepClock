@@ -22,7 +22,7 @@ module.exports.create = (req, res) => {
     })
     .tap(result => {
       let inviteList = [];
-      req.body.inviteEmails.forEach(email => { 
+      req.body.inviteEmails.forEach(email => {
         inviteList.push({email: email, event_id: result.id, rsvp: 0, sent: 0});
       });
       let invites = collections.Invitations.forge(inviteList);
@@ -50,7 +50,6 @@ module.exports.getAll = (req, res) => {
 module.exports.getById = (req, res) => {
   models.Event.where({ id: req.params.id }).fetch()
     .then(event => {
-      console.log(event);
       res.status(200).send(event);
     })
     .catch(err => {
@@ -60,10 +59,8 @@ module.exports.getById = (req, res) => {
 };
 
 module.exports.getEventsByContributor = (req, res) => {
-  console.log('REQ.USER.ID ===>', req.user.id);
   models.Contributor.where({user_id: req.user.id}).fetchAll({withRelated: ['event']})
     .then(result => {
-      console.log('RESULT.MODELS:', result.models);
       res.status(200).send(result);
     })
     .catch(err => {
