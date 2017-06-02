@@ -1,31 +1,34 @@
 import React from 'react';
 import ContributionListItem from './ContributionListItem';
-import axios from 'axios';
 
 class ContributionList extends React.Component {
   constructor(props) {
-    super(props)
+    super(props);
     this.state = {
-      title: '',
-      contributionListItem: []
+      contributionList: []
+    };
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (this.state.contributionList !== nextProps.contributionList) {
+      this.setState({contributionList: nextProps.contributionList});
     }
-  };
+  }
+  
   
   render() {
-    return (
-      <div className="contribution-list">
-        <div className="user-contributions">
-          <ul>
-            {/*{this.state.contributionListItem.map(contribution => <li style="none">{contribution}</li>)}*/}
-            <li>Hello from the list</li>
-          </ul>
+    if (this.state.contributionList.length) {
+      return (
+        <div className="contribution-list">
+          {this.state.contributionList.map((contribution) =>
+            <ContributionListItem contribution={contribution} key={contribution.id}/>)}
         </div>
-        <form className="comment">
-          <input type="textarea" placeholder="Add a Comment" autoFocus="true" onChange={this.handleChange} onKeyPress={this.handleKeyPress}/>
-          <button id="submit" onClick={this.handleClick}>Comment</button>
-        </form>
-      </div>
-    );
+      );
+    } else {
+      return (
+        <h3>Get started by adding a message!</h3>
+      );
+    }
   }
 }
 

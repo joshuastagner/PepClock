@@ -13,4 +13,6 @@ router.route('/user')
 router.route('/:id')
   .get(EventController.getById);
 
+router.route('/:id')
+  .get(EventController.getById);
 module.exports = router;
