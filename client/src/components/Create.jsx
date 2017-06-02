@@ -1,11 +1,14 @@
 import React from 'react';
 import DateTimeField from 'react-bootstrap-datetimepicker';
 import axios from 'axios';
+import { Redirect } from 'react-router-dom';
 
 class Create extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      redirectToEvent: false,
+      eventId: 0,
       eventName: '',
       firstName: '',
       lastName: '',
@@ -41,6 +44,7 @@ class Create extends React.Component {
   }
 
   handleSubmit(event) {
+    var that = this;
     axios({
       method: 'post',
       url: '/api/events',
@@ -53,12 +57,17 @@ class Create extends React.Component {
         inviteEmails: this.state.inviteEmails
       }
     }).then(function(response) {
-      console.log('Create handleSubmit response', response);
+      that.setState({eventId: response.data.id, redirectToEvent: true});
+    }).catch(function(error) {
+      console.log(error);
     });
   }
 
   render() {
     // Set component title based on URL
+    if (this.state.redirectToEvent) {
+      return ( <Redirect to={'/events/' + this.state.eventId}/> );
+    }
     let title = '';
     const pathname = this.props.location.pathname;
     const id = this.props.match.params.id;
@@ -67,7 +76,7 @@ class Create extends React.Component {
       title = 'Create a new PepClock'
       : title = `Edit event ${id}`;
 
-    return (
+    { return (
       <div className="container">
         <h1>{title}</h1>
         <form>
@@ -103,7 +112,7 @@ class Create extends React.Component {
             <button type="button" className="btn btn-primary" onClick={this.handleSubmit.bind(this)}>Submit</button>
         </form>
       </div>
-    );
+    ); }
   }
 }
 
