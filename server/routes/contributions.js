@@ -3,7 +3,7 @@ const express = require('express');
 const router = express.Router();
 const ContributionController = require('../controllers').Contributions;
 
-router.route('/')   //TODO: Put correct route here
+router.route('/')
   .post(ContributionController.create);
 
 module.exports = router;

@@ -23,6 +23,7 @@ class Event extends React.Component {
   }
 
   handleSubmit(event) {
+    var that = this;
     event.preventDefault();
     axios({
       method: 'post',
@@ -33,17 +34,12 @@ class Event extends React.Component {
       }
     })
     .then(function(res){
-      console.log('Response from Event.jsx', res)
+      that.setState({contributionText: ''});
+      console.log('Response from Event.jsx', res);
     })
     .catch(function(err){
       console.log('Error in Event.jsx', err);
     });
-  }
-
-  handleKeyPress(target) {
-    if (target.charCode === 13) {
-      this.handleSubmit();
-    }
   }
 
   // TODO: Use later when backend is ready
@@ -81,15 +77,15 @@ class Event extends React.Component {
           </ul>
         </div>
         <hr />
-        <form className="add">
+        <form className="add" onSubmit={this.handleSubmit}>
           <input
             type="textarea"
             placeholder="Enter Contribution Text"
             autoFocus="true"
             onChange={this.handleChange}
-            onKeyPress={this.handleKeyPress}
+            value={this.state.contributionText}
           />
-          <button id="submit" onClick={this.handleSubmit}>Submit</button>
+          <button id="submit">Submit</button>
         </form>
       </div>
     );
