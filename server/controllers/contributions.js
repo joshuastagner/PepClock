@@ -1,10 +1,11 @@
 const models = require('../../db/models');
 
-module.exports.addContribution = (req, res) => {
-  console.log(req.body, '=======================');
+module.exports.create = (req, res) => {
+  console.log(req.body);
   models.Contribution.forge({
-    text: req.body.title,
-    creator_id: req.session.passport.user
+    text: req.body.contributionText,
+    type: 'message',
+    contributor_id: req.session.passport.user
   })
   .save()
   .then(result => {
@@ -12,6 +13,7 @@ module.exports.addContribution = (req, res) => {
     res.status(200).send(result);
   })
   .catch(err => {
+    console.log(err);
     res.status(500).send(err);
   });
 }

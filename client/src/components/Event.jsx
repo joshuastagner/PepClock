@@ -8,43 +8,42 @@ class Event extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      eventId: '',
+      eventId: props.match.params.id,
       title: '',
       description: '',
       contributionList: [],
-      contributionListItem: ''
+      contributionText: ''
     };
     this.handleChange = this.handleChange.bind(this);
-    this.handleClick = this.handleClick.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   handleChange(event) {
-    var newState = {};
-    newState[event.target.name] = event.target.value;
-    this.setState(newState);
+    this.setState({contributionText: event.target.value});
   }
 
   handleSubmit(event) {
-    this.setState({contributions: this.state.contributionList.concat([this.state.contribution])});
-    this.setState({contributionListItem: ''});
+    event.preventDefault();
+    axios({
+      method: 'post',
+      url: '/api/contributions',
+      data: {
+        eventId: this.state.eventId,
+        contributionText: this.state.contributionText,
+      }
+    })
+    .then(function(res){
+      console.log('Response from Event.jsx', res)
+    })
+    .catch(function(err){
+      console.log('Error in Event.jsx', err);
+    });
   }
 
   handleKeyPress(target) {
     if (target.charCode === 13) {
       this.handleSubmit();
     }
-  }
-
-  handleSubmit(event) {
-    axios({
-      method: 'post',
-      url: '/api/contributions',
-      data: {
-        eventId: this.state.eventId,
-        contributionText: this.state.contributionListItem,
-
-      }
-    })
   }
 
   // TODO: Use later when backend is ready

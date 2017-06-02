@@ -4,6 +4,6 @@ const router = express.Router();
 const ContributionController = require('../controllers').Contributions;
 
 router.route('/')   //TODO: Put correct route here
-  .post(ContributionController.addContribution);
+  .post(ContributionController.create);
 
 module.exports = router;
