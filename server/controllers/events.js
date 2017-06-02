@@ -4,7 +4,8 @@ const Promise = require('bluebird');
 
 
 module.exports.create = (req, res) => {
-  models.Event.forge({title: req.body.eventName, creator_id: req.session.passport.user})
+  var date = new Date(Number.parseInt(req.body.deliveryTime));
+  models.Event.forge({title: req.body.eventName, creator_id: req.session.passport.user, delivery_time: date})
     .save()
     .tap(result => {
       return models.Recipient

@@ -13,7 +13,7 @@ class Create extends React.Component {
       firstName: '',
       lastName: '',
       email: '',
-      deliverTime: '',
+      deliveryTime: '',
       inviteEmailInput: '',
       inviteEmails: []
     };
@@ -29,7 +29,7 @@ class Create extends React.Component {
   }
 
   handleDateChange(dateTime) {
-    this.setState({deliverTime: dateTime});
+    this.setState({deliveryTime: dateTime});
   }
 
   handleClick() {
@@ -53,7 +53,7 @@ class Create extends React.Component {
         firstName: this.state.firstName,
         lastName: this.state.lastName,
         email: this.state.email,
-        deliverTime: this.state.deliverTime,
+        deliveryTime: this.state.deliveryTime,
         inviteEmails: this.state.inviteEmails
       }
     }).then(function(response) {
