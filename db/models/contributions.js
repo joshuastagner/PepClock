@@ -7,6 +7,9 @@ const Contribution = db.Model.extend({
   },
   event: function() {
     return this.belongsTo('Event');
+  },
+  user: function() {
+    return this.belongsTo('Profile', 'user_id');
   }
 
 });

@@ -46,9 +46,9 @@ class Event extends React.Component {
     axios.get(`/api/events/${this.state.eventId}`)
     .then(result => {
       this.setState({
-        title: result.data.title,
-        contributionList: result.data.contributions
+        title: result.data.title
       });
+      this.updateContributions();
     })
     .catch(error => {
       console.log('Error in Event data query', error);
