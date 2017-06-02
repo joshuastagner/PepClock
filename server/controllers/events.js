@@ -37,12 +37,24 @@ module.exports.create = (req, res) => {
     });
 };
 
-module.exports.getByUserId = (req, res) => {
+module.exports.getAll = (req, res) => {
   models.Event.fetchAll()
     .then(events => {
       res.status(200).send(events);
     })
     .catch(err => {
+      res.status(500).send(err);
+    });
+};
+
+module.exports.getById = (req, res) => {
+  models.Event.where({ id: req.params.id }).fetch()
+    .then(event => {
+      console.log(event);
+      res.status(200).send(event);
+    })
+    .catch(err => {
+      console.log(err);
       res.status(500).send(err);
     });
 };
