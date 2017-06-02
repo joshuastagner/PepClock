@@ -2,10 +2,10 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 const EventListItem = (props) => {
-  const { id, title, deliver_at } = props.event;
+  const { id, title, delivery_time } = props.event;
   return (
     <li>
-      <Link to={`/events/${id}`}>{title}</Link> {`at ${deliver_at}`}
+      <Link to={`/events/${id}`}>{title}</Link> {`at ${delivery_time}`}
     </li>
   );
 };
