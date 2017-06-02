@@ -10,8 +10,11 @@ const Event = db.Model.extend({
   },
   recipient: function() {
     return this.hasOne('Recipient');
+  },
+  contributors: function() {
+    return this.hasMany('Contributor');
   }
-  
+
 });
 
 module.exports = db.model('Event', Event);

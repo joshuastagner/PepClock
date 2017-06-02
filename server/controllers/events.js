@@ -60,8 +60,8 @@ module.exports.getById = (req, res) => {
 };
 
 module.exports.getEventsByContributor = (req, res) => {
-  models.Contributor.where({user_id: req.user.id})
-  .fetchAll()
+  console.log('REQ.USER.ID ===>', req.user.id);
+  models.Contributor.where({user_id: req.user.id}).fetchAll({withRelated: ['event']})
     .then(result => {
       console.log('RESULT.MODELS:', result.models);
       res.status(200).send(result);
