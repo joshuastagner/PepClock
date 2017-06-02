@@ -5,7 +5,7 @@ module.exports.create = (req, res) => {
   models.Contribution.forge({
     text: req.body.contributionText,
     type: 'message',
-    contributor_id: req.session.passport.user
+    contributor_id: 1
   })
   .save()
   .then(result => {
