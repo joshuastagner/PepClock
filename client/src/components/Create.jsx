@@ -3,7 +3,6 @@ import DateTimeField from 'react-bootstrap-datetimepicker';
 import axios from 'axios';
 import { Redirect } from 'react-router-dom';
 
-
 class Create extends React.Component {
   constructor(props) {
     super(props);
