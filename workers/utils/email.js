@@ -16,7 +16,7 @@ exports.sendToRecipient = (link, email, cb) => {
   .catch(err => cb('ERROR!'));
 };
 
-exports.sendInvitations = (recipientVariable, emails, cb) => {
+exports.batchSendInvitations = (recipientVariable, emails, cb) => {
   axios({
     method: 'POST',
     url: 'https://api:' + process.env.MAILGUN_API_KEY + '@api.mailgun.net/v3/app6ac6b571b02e4efcbbba7f891d5131b0.mailgun.org/messages',
@@ -25,7 +25,7 @@ exports.sendInvitations = (recipientVariable, emails, cb) => {
       to: emails,
       'recipient-variables': recipientVariable,
       subject: 'Contribute some Pep to your Friend',
-      text: 'Your friends are building love for your friend. Join in over at PepClock: 127.0.0.1:3000/events/%recipient.id%'
+      text: 'Your friends are building love. Join in over at PepClock:\n%recipient.link%'
     } 
   })
   .then(response => cb())
@@ -37,7 +37,7 @@ exports.sendInvitations = (recipientVariable, emails, cb) => {
 exports.fakeSend = (link, email, cb) => {
   console.log('link ==>', link);
   console.log('email ==>', email);
-  setTimeout(() => { cb('sent!'); }, 500);
+  setTimeout(() => { cb(); }, 500);
 };
 
 

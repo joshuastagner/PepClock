@@ -1,14 +1,20 @@
 const email = require('./utils/email');
 const models = require('../db/models');
 const collections = require('./../db/collections');
-
+const _ = require('lodash');
 
 class InviteWorker {
   constructor(cb) {
     this.toSendData = null;
     this.recipientVariable = null;
 
-    this.findUnsentInvitations(cb);
+    this.findUnsentInvitations(() => {
+      if (this.toSendData.length) {
+        this.work(cb);
+      } else {
+        cb('no emails to send.');
+      }
+    });
   }
 
   work (cb) {
@@ -19,16 +25,18 @@ class InviteWorker {
   }
 
   sendEmail (cb) {
-    const emails = this.toSendData.map(invitation => invitation.email);
+    const emails = _.uniq(this.toSendData.map(invitation => invitation.email));
 
-    email.sendInvitations(this.recipientVariable, emails, cb);
+    email.batchSendInvitations(this.recipientVariable, emails, cb);
   }
 
   constructRecipientVariable () {
     this.recipientVariable = JSON.stringify( this.toSendData.reduce((recipientVariable, invitation) => {
-      recipientVariable[invitation.email] = {
-        id: invitation.eventId
-      };
+      if (!recipientVariable[invitation.email]) {
+        recipientVariable[invitation.email] = { link: '\n 127.0.0.1:3000/events/' + invitation.eventId };
+      } else {
+        recipientVariable[invitation.email].link += '\n 127.0.0.1:3000/events/' + invitation.eventId;
+      }
       return recipientVariable; 
     }, {}) );
   } 
@@ -56,10 +64,13 @@ class InviteWorker {
     } else {
       let inviteIds = this.toSendData.map(invitation => ( {id: invitation.id} ));
       let invites = collections.Invitations.forge(inviteIds);
-      invites.invokeThen('save', 'sent', 'true').then(cb('done with no errors'));
+      invites.invokeThen('save', 'sent', 'true').then(() => {
+        cb('done with no errors');
+      });
     }
   } 
 }
 
-const worker = new InviteWorker(() => { worker.work(message => console.log(message)); });
+const worker = new InviteWorker(message => console.log(message));
+
 
