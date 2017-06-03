@@ -17,6 +17,12 @@ const LoginControl = () => {
             Login<span className="sr-only">(current)</span>
           </a>
         </li>
+
+        <li>
+          <a href="/signup">
+            Signup<span className="sr-only">(current)</span>
+          </a>
+        </li>
       </ul>
   )
 };
