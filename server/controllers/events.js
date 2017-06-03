@@ -22,7 +22,7 @@ module.exports.create = (req, res) => {
     .tap(result => {
       let inviteList = [];
       req.body.inviteEmails.forEach(email => {
-        inviteList.push({email: email, event_id: result.id, rsvp: 0, sent: 0});
+        inviteList.push({email: email, event_id: result.id, rsvp: 0, status: 'not sent'});
       });
       let invites = collections.Invitations.forge(inviteList);
       return invites.invokeThen('save');

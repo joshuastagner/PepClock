@@ -42,7 +42,7 @@ class InviteWorker {
   } 
 
   findUnsentInvitations (cb) {
-    models.Invitation.where('sent', 'false').fetchAll()
+    models.Invitation.where('status', 'not sent').fetchAll()
       .then(({models}) => {
         return models.map(({ attributes }) => {
           return {
@@ -57,20 +57,21 @@ class InviteWorker {
         cb();
       });
   } 
-
+  
   updateInvitationsToSent (err, success, cb) {
     if (err) {
       cb('error!');
     } else {
       let inviteIds = this.toSendData.map(invitation => ( {id: invitation.id} ));
       let invites = collections.Invitations.forge(inviteIds);
-      invites.invokeThen('save', 'sent', 'true').then(() => {
+      invites.invokeThen('save', 'status', 'sent').then(() => {
         cb('done with no errors');
       });
     }
-  } 
+  }
 }
 
 const worker = new InviteWorker(message => console.log(message));
+
 
 
