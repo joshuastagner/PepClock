@@ -9,7 +9,7 @@ class Nav extends React.Component{
 
   render() {
     return(
-      <nav className="navbar navbar-default">
+     <nav className="navbar navbar-default" role="navigation">
         <div className="container-fluid">
           {/*Grouping Brand and toggle together for mobile*/}
           <div className="navbar-header">
@@ -23,7 +23,7 @@ class Nav extends React.Component{
           </div>
 
           {/*Collect all nav content for toggling*/}
-          <div className="collapse navbar-collapse" classID="hamburger-menu">
+          <div className="collapse navbar-collapse" id="hamburger-menu">
             <NavControl />
             <LoginControl />
           </div>
