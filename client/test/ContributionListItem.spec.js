@@ -3,15 +3,15 @@ import { expect } from 'chai';
 import { shallow } from 'enzyme';
 import ContributionListItem from '../src/components/ContributionListItem';
 
-describe('ContributionListItem component', function(){
-  const wrapper = shallow(<ContributionListItem />);
-  it('contains the correct class', function(){
+describe('ContributionListItem component', function() {
+  const wrapper = shallow(<ContributionListItem contribution={{text: 'foo', user: {first: 'bar', last: 'baz'}}}/>);
+  it('contains the correct class', function() {
     expect(wrapper.find('.contribution-list-item').length).to.equal(1);
   });
-  it('contains the contribution text', function(){
+  it('contains the contribution text', function() {
     expect(wrapper.find('.text').length).to.equal(1);
   });
-  it('contains the contributors name', function(){
+  it('contains the contributors name', function() {
     expect(wrapper.find('.name').length).to.equal(1);
   });
 });
