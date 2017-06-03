@@ -73,6 +73,5 @@ class InviteWorker {
 
 const worker = new InviteWorker(message => console.log(message));
 
-worker.testQuery;
 
 
