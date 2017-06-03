@@ -69,10 +69,6 @@ class InviteWorker {
       });
     }
   }
-
-  testQuery () {
-    console.log( now() );
-  } 
 }
 
 const worker = new InviteWorker(message => console.log(message));
