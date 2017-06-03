@@ -1,6 +1,5 @@
 const models = require('../../db/models');
 const collections = require('../../db/collections');
-const Promise = require('bluebird');
 
 module.exports.create = (req, res) => {
   var date = new Date(Number.parseInt(req.body.deliveryTime));
@@ -68,11 +67,3 @@ module.exports.getEventsByContributor = (req, res) => {
     });
 };
 
-module.exports.getById = (req, res) => {
-  models.Event.where('id', req.params.id).fetch({withRelated: ['contributions']}).then(event => {
-    res.status(200).send(event);
-  }).
-  catch(err => {
-    res.status(500).send(err);
-  });
-};
