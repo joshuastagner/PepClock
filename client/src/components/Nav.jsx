@@ -1,13 +1,18 @@
 import React from 'react';
+import LoginControl from './LoginControl';
+import NavControl from './NavControl';
 
 class Nav extends React.Component{
   constructor(props){
     super(props)
+    this.state = {
+      
+    }
   };
 
   render() {
     return(
-      <div>
+      <div id="nav-main">
         <nav className="navbar navbar-default">
           <div className="container-fluid">
             {/*Grouping Brand and toggle together for mobile*/}
@@ -23,14 +28,9 @@ class Nav extends React.Component{
 
             {/*Collect all nav content for toggling*/}
             <div className="collapse navbar-collapse" id="hamburger-menu">
-              <ul className="nav navbar-nav">
-                <li className="active"><a href="/dashboard">Dashboard<span className="sr-only">(current)</span></a></li>
-                <li><a href="/create">Create Event</a></li>
-                <li className="dropdown">
-                  <a href="#" className="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown<span className="caret"></span></a>
-                  
-                </li>
-                <li><a href="/logout">Logout</a></li>
+              <NavControl />
+              <ul className="nav navbar-nav navbar-right">
+                <li><LoginControl /></li>
               </ul>
             </div>
           </div>
