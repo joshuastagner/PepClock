@@ -6,10 +6,13 @@ const Profile = db.Model.extend({
     return this.hasMany('Auth');
   },
   events: function() {
-    return this.hasMany('Event');
+    return this.hasMany('Event', 'user_id');
   },
   contributions: function() {
-    return this.hasMany('Contribution');
+    return this.hasMany('Contribution', 'user_id');
+  },
+  contributors: function() {
+    return this.hasMany('Contributor', 'user_id');
   }
 });
 

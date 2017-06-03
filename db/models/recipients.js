@@ -2,7 +2,7 @@ const db = require('../');
 
 const Recipient = db.Model.extend({
   tableName: 'recipients',
-  creator: function() {
+  event: function() {
     return this.belongsTo('Event');
   }
   
