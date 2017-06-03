@@ -3,9 +3,21 @@ import React from 'react';
 const LoginControl = () => {
   return (
     window.user ? 
-      <a href="/logout"><button style={{border : 0 + 'px', background: 'inherit'}}>Logout</button></a>
-    : 
-      <a href="/login"><button style={{border : 0 + 'px', background: 'inherit'}}>Login</button></a>
+      <ul className="nav navbar-nav navbar-right">
+        <li>
+          <a href="/logout">
+            Logout<span className="sr-only">(current)</span>
+          </a>
+        </li>
+      </ul>
+      : 
+      <ul className="nav navbar-nav navbar-right">
+        <li>
+          <a href="/login">
+            Login<span className="sr-only">(current)</span>
+          </a>
+        </li>
+      </ul>
   )
 };
 
