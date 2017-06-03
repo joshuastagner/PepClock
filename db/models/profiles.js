@@ -7,6 +7,9 @@ const Profile = db.Model.extend({
   },
   events: function() {
     return this.hasMany('Event');
+  },
+  contributions: function() {
+    return this.hasMany('Contribution');
   }
 });
 

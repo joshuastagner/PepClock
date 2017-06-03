@@ -13,6 +13,9 @@ const Event = db.Model.extend({
   },
   contributors: function() {
     return this.hasMany('Contributor');
+  },
+  contributions: function() {
+    return this.hasMany('Contribution');
   }
 
 });

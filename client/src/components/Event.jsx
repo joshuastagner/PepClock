@@ -10,12 +10,12 @@ class Event extends React.Component {
     this.state = {
       eventId: props.match.params.id,
       title: '',
-      description: '',
       contributionList: [],
       contributionText: ''
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.updateContributions = this.updateContributions.bind(this);
   }
 
   handleChange(event) {
@@ -33,30 +33,37 @@ class Event extends React.Component {
         contributionText: this.state.contributionText,
       }
     })
-    .then(function(res){
+    .then(function(res) {
       that.setState({contributionText: ''});
-      console.log('Response from Event.jsx', res);
+      that.updateContributions();
     })
-    .catch(function(err){
+    .catch(function(err) {
       console.log('Error in Event.jsx', err);
     });
   }
 
   componentDidMount () {
-    const eventId = this.props.match.params.id;
-    axios.get(`/api/events/${eventId}`)
-    .then(response =>{
-      const { title } = response.data;
-      this.setState({ eventId, title });
-
-      // TODO: Update with contributions when ready
-      // this.setState({
-      //   eventId: data.eventId,
-      //   title: data.title,
-      //   description: data.description,
-      //   contributionList: data.contributionList
-      // });
+    axios.get(`/api/events/${this.state.eventId}`)
+    .then(result => {
+      this.setState({
+        title: result.data.title
+      });
+      this.updateContributions();
+    })
+    .catch(error => {
+      console.log('Error in Event data query', error);
     });
+  }
+
+  updateContributions() {
+
+    axios.get(`/api/contributions/events/${this.state.eventId}`)
+      .then(result => {
+        this.setState({contributionList: result.data});
+      })
+      .catch(error => {
+        console.log('Error in updateContributions query', error);
+      });
   }
 
   render() {
@@ -68,17 +75,9 @@ class Event extends React.Component {
         <div className="title">
           <h1>{title}</h1>
         </div>
-        <div className="description">
-          <h3>The description is {description}</h3>
           <Link to={`/edit/${id}`}>Edit event</Link>
-        </div>
         <hr />
-        <div className="contribution-list">
-          <ul>
-            {this.state.contributionList.map(contribution => <li style="none">{contribution}</li>)}
-            <li>Hello from the list</li>
-          </ul>
-        </div>
+        <ContributionList contributionList={this.state.contributionList}/>
         <hr />
         <form className="add" onSubmit={this.handleSubmit}>
           <input

@@ -1,6 +1,5 @@
 const models = require('../../db/models');
 const collections = require('../../db/collections');
-const Promise = require('bluebird');
 
 module.exports.create = (req, res) => {
   var date = new Date(Number.parseInt(req.body.deliveryTime));
@@ -67,3 +66,4 @@ module.exports.getEventsByContributor = (req, res) => {
       res.status(500).send(err);
     });
 };
+
