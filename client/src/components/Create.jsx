@@ -1,5 +1,6 @@
 import React from 'react';
 import DateTimeField from 'react-bootstrap-datetimepicker';
+import moment from 'moment';
 import axios from 'axios';
 import { Redirect } from 'react-router-dom';
 
@@ -29,6 +30,7 @@ class Create extends React.Component {
   }
 
   handleDateChange(dateTime) {
+    console.log(dateTime);
     this.setState({deliveryTime: dateTime});
   }
 
@@ -78,39 +80,44 @@ class Create extends React.Component {
 
     { return (
       <div className="container">
-        <h1>{title}</h1>
-        <form>
-          <div className="form-group">
-            <label>Name your event</label>
-            <input type="text" className="form-control" name="eventName" placeholder="e.g. Happy Birthday Lisa!" onChange={this.handleChange}/>
+        <h1 style={{marginBottom: '2rem' }}>{title}</h1>
+        <div className="row">
+          <form className="col-12">
+            <div className="form-group col-lg-7 row">
+              <label>Name your event</label>
+              <input type="text" className="form-control" name="eventName" placeholder="e.g. Happy Birthday Lisa!" onChange={this.handleChange}/>
+            </div>
+            <div className="form-group col-lg-7 row">
+              <label>Recipient's first name</label>
+              <input type="text" className="form-control" name="firstName" placeholder="Lisa" onChange={this.handleChange}/>
+            </div>
+            <div className="form-group col-lg-7 row">
+              <label>Recipient's last name</label>
+              <input type="text" className="form-control" name="lastName" placeholder="Johnson" onChange={this.handleChange}/>
+            </div>
+            <div className="form-group col-lg-7 row">
+              <label>Recipient's email</label>
+              <input type="email" className="form-control" name="email" placeholder="lisa@gmail.com" onChange={this.handleChange}/>
+            </div>
+          </form>
+          <div className="row" style={{marginBottom: '15px'}}>
+            <div className="col-lg-7">
+              <DateTimeField minDate={moment().subtract(1, 'days')} defaultText="Select the event date and time" onChange={this.handleDateChange}/>
+            </div>
           </div>
-          <div className="form-group">
-            <label>Recipient's first name</label>
-            <input type="text" className="form-control" name="firstName" placeholder="Lisa" onChange={this.handleChange}/>
-          </div>
-          <div className="form-group">
-            <label>Recipient's last name</label>
-            <input type="text" className="form-control" name="lastName" placeholder="Johnson" onChange={this.handleChange}/>
-          </div>
-          <div className="form-group">
-            <label>Recipient's email</label>
-            <input type="email" className="form-control" name="email" placeholder="lisa@gmail.com" onChange={this.handleChange}/>
-          </div>
-          <div className= "form-group">
-            <label>Select the event date and time</label>
-            <DateTimeField onChange={this.handleDateChange}/>
-          </div>
-          <div className="col-lg-6">
-            <div className="input-group">
-              <input type="email" className="form-control" placeholder="The emails..." name="inviteEmailInput"
-                value={this.state.inviteEmailInput} onChange={this.handleChange} onKeyPress={this.handleKeyPress.bind(this)}></input>
-               <span className="input-group-btn">
+          <div className="row" style={{marginBottom: '15px'}}>
+            <div className="col-lg-7">
+              <div className="input-group">
+                <input type="email" className="form-control" placeholder="The emails..." name="inviteEmailInput"
+                  value={this.state.inviteEmailInput} onChange={this.handleChange} onKeyPress={this.handleKeyPress.bind(this)}/>
+                <span className="input-group-btn">
                   <button className="btn btn-secondary" type="button" onClick={this.handleClick}>Add</button>
                 </span>
               </div>
             </div>
-            <button type="button" className="btn btn-primary" onClick={this.handleSubmit.bind(this)}>Submit</button>
-        </form>
+          </div>
+          <button type="button" className="btn btn-primary" onClick={this.handleSubmit.bind(this)}>Create your event!</button>
+        </div>
       </div>
     ); }
   }
