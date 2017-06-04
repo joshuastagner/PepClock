@@ -9,11 +9,11 @@ exports.sendToRecipient = (link, email, cb) => {
       from: 'Josh <josh@app6ac6b571b02e4efcbbba7f891d5131b0.mailgun.org>',
       to: email,
       subject: 'PepClock tolls for Thee!',
-      text: 'You have Pep over at PepClock: ' + link
+      text: 'You have Pep over at PepClock! \n' + link
     }
   })
-  .then(response => cb())
-  .catch(err => cb('ERROR!'));
+  .then(response => cb(null, response))
+  .catch(err => cb(err, null));
 };
 
 exports.batchSendInvitations = (recipientVariable, emails, cb) => {
@@ -26,7 +26,7 @@ exports.batchSendInvitations = (recipientVariable, emails, cb) => {
       'recipient-variables': recipientVariable,
       subject: 'Contribute some Pep to your Friend',
       text: 'Your friends are building love. Join in over at PepClock:\n%recipient.link%'
-    } 
+    }
   })
   .then(response => cb())
   .catch(response => cb('ERROR!'));
