@@ -7,9 +7,7 @@ const LoginControl = () => {
     return (
         <ul className="nav navbar-nav navbar-right">
           <li>
-            <a href="/logout">
-              Logout<span></span>
-            </a>
+            <a href="/logout">Logout</a>
           </li>
         </ul>
       );
@@ -19,7 +17,7 @@ const LoginControl = () => {
         <ul className="nav navbar-nav navbar-right">
           <li>
             <a href="/login">
-              Login<span className="sr-only">(current)</span>
+              Login<span className="sr-only"></span>
             </a>
           </li>
 
