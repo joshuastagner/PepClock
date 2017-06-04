@@ -32,13 +32,17 @@ class sendRecipientLink {
         .then(model => {
           if (model) {
             this.event = model;
+            const { id: eventId, title } = model.attributes;
+            const { first_name: firstName, last_name: lastName, email } = model.relations.recipient.attributes;
+
             const result = {
-              eventId: model.attributes.id,
-              title: model.attributes.title,
-              firstName: model.relations.recipient.attributes.first_name,
-              lastName: model.relations.recipient.attributes.last_name,
-              email: model.relations.recipient.attributes.email
+              eventId,
+              title,
+              firstName,
+              lastName,
+              email
             };
+
             cb(null, result);
           } else {
             cb('No events to send', null);
