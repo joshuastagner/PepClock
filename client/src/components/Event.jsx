@@ -11,11 +11,16 @@ class Event extends React.Component {
       eventId: props.match.params.id,
       title: '',
       contributionList: [],
-      contributionText: ''
+      contributionText: '',
+      hasPermissionToView: null
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.updateContributions = this.updateContributions.bind(this);
+  }
+
+  componentWillMount () {
+    this.checkIfContributor();
   }
 
   handleChange(event) {
@@ -23,7 +28,6 @@ class Event extends React.Component {
   }
 
   handleSubmit(event) {
-    var that = this;
     event.preventDefault();
     axios({
       method: 'post',
@@ -33,21 +37,41 @@ class Event extends React.Component {
         contributionText: this.state.contributionText,
       }
     })
-    .then(function(res) {
-      that.setState({contributionText: ''});
-      that.updateContributions();
+    .then(res => {
+      this.setState({contributionText: ''});
+      this.updateContributions();
     })
-    .catch(function(err) {
+    .catch(err => {
       console.log('Error in Event.jsx', err);
     });
   }
 
-  componentDidMount () {
-    axios.get(`/api/events/${this.state.eventId}`)
-    .then(result => {
-      this.setState({
-        title: result.data.title
+  checkIfContributor () {
+    axios.get('/api/events/user')
+      .then(({ data: events }) => {
+        const userEventIds = events.map(event => event.event_id);
+        this.setState({
+          hasPermissionToView: userEventIds.includes(Number(this.state.eventId))
+        });
+        this.getEventContent();
+      })
+      .catch(error => {});
+  }
+
+  updateContributions() {
+    axios.get(`/api/contributions/events/${this.state.eventId}`)
+      .then(({ data: contributionList}) => {
+        this.setState({contributionList});
+      })
+      .catch(error => {
+        console.log('Error in updateContributions query', error);
       });
+  }
+
+  getEventContent () {
+    axios.get(`/api/events/${this.state.eventId}`)
+    .then(({ data: { title } }) => {
+      this.setState({ title });
       this.updateContributions();
     })
     .catch(error => {
@@ -55,40 +79,42 @@ class Event extends React.Component {
     });
   }
 
-  updateContributions() {
-
-    axios.get(`/api/contributions/events/${this.state.eventId}`)
-      .then(result => {
-        this.setState({contributionList: result.data});
-      })
-      .catch(error => {
-        console.log('Error in updateContributions query', error);
-      });
-  }
-
   render() {
-    const { id } = this.props.match.params;
-    const { title, description } = this.state;
+    // This condition prevents the "non-permitted" state
+    // from rendering for a flash before rending content.
+    if (this.state.hasPermissionToView === null) {
+      return <div></div>;
+    }
+
+    if (this.state.hasPermissionToView) {
+      const { id } = this.props.match.params;
+      const { title, description } = this.state;
+
+      return (
+        <div className="event">
+          <h1>{title}</h1>
+          <Link to={`/edit/${id}`}>Edit event</Link>
+          <hr />
+          <ContributionList contributionList={this.state.contributionList}/>
+          <hr />
+          <form className="add" onSubmit={this.handleSubmit}>
+            <input
+              type="textarea"
+              placeholder="Enter Contribution Text"
+              autoFocus="true"
+              onChange={this.handleChange}
+              value={this.state.contributionText}
+            />
+            <button id="submit">Submit</button>
+          </form>
+        </div>
+      );
+    }
 
     return (
       <div className="event">
-        <div className="title">
-          <h1>{title}</h1>
-        </div>
-          <Link to={`/edit/${id}`}>Edit event</Link>
-        <hr />
-        <ContributionList contributionList={this.state.contributionList}/>
-        <hr />
-        <form className="add" onSubmit={this.handleSubmit}>
-          <input
-            type="textarea"
-            placeholder="Enter Contribution Text"
-            autoFocus="true"
-            onChange={this.handleChange}
-            value={this.state.contributionText}
-          />
-          <button id="submit">Submit</button>
-        </form>
+        <h3>Sorry, this doesn't seem to be one of your events</h3>
+        <p>Perhaps you'd like to <Link to="/dashboard">view your events</Link></p>
       </div>
     );
   }
