@@ -6,7 +6,19 @@ module.exports.verify = (req, res, next) => {
   if (req.isAuthenticated()) {
     return next();
   }
+  
+  req.session.returnTo = req.path;
   res.redirect('/login');
+};
+
+module.exports.redirect = (req, res) => {
+  let redirect = req.session.returnTo || '/';
+  delete req.session.returnTo;
+  res.redirect(redirect);
+};
+
+module.exports.render = (req,res) => {
+  res.render('index.ejs', {user: JSON.stringify(req.user)});
 };
 
 module.exports.session = session({
