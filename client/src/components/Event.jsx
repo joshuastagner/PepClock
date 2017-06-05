@@ -23,7 +23,6 @@ class Event extends React.Component {
   }
 
   handleSubmit(event) {
-    var that = this;
     event.preventDefault();
     axios({
       method: 'post',
@@ -33,11 +32,11 @@ class Event extends React.Component {
         contributionText: this.state.contributionText,
       }
     })
-    .then(function(res) {
-      that.setState({contributionText: ''});
-      that.updateContributions();
+    .then(res => {
+      this.setState({contributionText: ''});
+      this.updateContributions();
     })
-    .catch(function(err) {
+    .catch(err => {
       console.log('Error in Event.jsx', err);
     });
   }
@@ -56,7 +55,6 @@ class Event extends React.Component {
   }
 
   updateContributions() {
-
     axios.get(`/api/contributions/events/${this.state.eventId}`)
       .then(result => {
         this.setState({contributionList: result.data});
