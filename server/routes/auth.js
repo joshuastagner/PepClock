@@ -3,39 +3,46 @@ const middleware = require('../middleware');
 
 const router = express.Router();
 
+router.route('/')
+  .get(middleware.auth.render);
 
-// TODO: Refactor this
-// Put all app routes here to render React components
-// Add Route and Component corresponding to each route
-router.route(['/', '/dashboard', '/events/:id', '/create', '/edit/:id', '/redirected'])
-  .get((req, res) => {
-    res.render('index.ejs', {user: JSON.stringify(req.user)});
-  });
+router.route('/create')
+  .get(middleware.auth.verify, middleware.auth.render);
+
+router.route('/dashboard')
+  .get(middleware.auth.verify, middleware.auth.render);
+
+router.route('/edit/:id')
+  .get(middleware.auth.verify, middleware.auth.render);
+
+router.route('/events/:id')
+  .get(middleware.auth.verify, middleware.auth.render);
+
+router.route('/redirected')
+  .get(middleware.auth.verify, middleware.auth.render);
 
 router.route('/login')
   .get((req, res) => {
     res.render('login.ejs', { message: req.flash('loginMessage') });
   })
-  .post(middleware.passport.authenticate('local-login', {
-    successRedirect: '/',
+  .post(middleware.passport.authenticate('local-login', { 
     failureRedirect: '/login',
     failureFlash: true
-  }));
+  }), middleware.auth.redirect);
 
 router.route('/signup')
   .get((req, res) => {
     res.render('signup.ejs', { message: req.flash('signupMessage') });
   })
   .post(middleware.passport.authenticate('local-signup', {
-    successRedirect: '/',
     failureRedirect: '/signup',
     failureFlash: true
-  }));
+  }), middleware.auth.redirect);
 
 router.route('/profile')
   .get(middleware.auth.verify, (req, res) => {
     res.render('profile.ejs', {
-      user: req.user // get the user out of session and pass to template
+      user: req.user
     });
   });
 
@@ -49,20 +56,19 @@ router.get('/auth/google', middleware.passport.authenticate('google', {
   scope: ['email', 'profile']
 }));
 
-router.get('/auth/google/callback', middleware.passport.authenticate('google', {
-  successRedirect: '/',
-  failureRedirect: '/login'
-}));
+router.get('/auth/google/callback', 
+  middleware.passport.authenticate('google', 
+  { failureRedirect: '/login' }), 
+  middleware.auth.redirect);
 
 router.get('/auth/facebook', middleware.passport.authenticate('facebook', {
   scope: ['public_profile', 'email']
 }));
 
-router.get('/auth/facebook/callback', middleware.passport.authenticate('facebook', {
-  successRedirect: '/',
-  failureRedirect: '/login',
-  failureFlash: true
-}));
+router.get('/auth/facebook/callback', 
+  middleware.passport.authenticate('facebook', 
+  { failureRedirect: '/login' }), 
+  middleware.auth.redirect);
 
 router.get('/auth/twitter', middleware.passport.authenticate('twitter'));
 
