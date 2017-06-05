@@ -30,7 +30,6 @@ class Routes extends React.Component {
         <hr />
         <Router>
           <div>
-            <NavLink to="/dashboard">PepClock</NavLink>
             <Switch>
               <Route exact path="/" component={Home} />
               <PrivateRoute path="/dashboard" component={Dashboard} />
