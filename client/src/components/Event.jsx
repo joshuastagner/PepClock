@@ -115,7 +115,8 @@ class Event extends React.Component {
 
     return (
       <div className="event">
-        <h1>Sorry, this doesn't seem to be one of your events</h1>
+        <h3>Sorry, this doesn't seem to be one of your events</h3>
+        <p>Perhaps you'd like to <Link to="/dashboard">view your events</Link></p>
       </div>
     );
   }
