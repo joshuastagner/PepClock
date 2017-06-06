@@ -18,7 +18,6 @@ class Create extends React.Component {
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleDateChange = this.handleDateChange.bind(this);
-    this.handleClick = this.handleClick.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleKeyPress = this.handleKeyPress.bind(this);
     this.handleAddition = this.handleAddition.bind(this);
@@ -34,11 +33,6 @@ class Create extends React.Component {
   handleDateChange(dateTime) {
     console.log(dateTime);
     this.setState({deliveryTime: dateTime});
-  }
-
-  handleClick() {
-    this.setState({inviteEmails: this.state.inviteEmails.concat([this.state.inviteEmailInput])});
-    this.setState({inviteEmailInput: ''});
   }
 
   handleKeyPress(target) {
@@ -66,7 +60,6 @@ class Create extends React.Component {
     let inviteEmails = this.state.tags.map(tag => {
       return tag.text;
     });
-    var that = this;
     axios({
       method: 'post',
       url: '/api/events',
@@ -78,9 +71,9 @@ class Create extends React.Component {
         deliveryTime: this.state.deliveryTime,
         inviteEmails: inviteEmails
       }
-    }).then(function(response) {
-      that.setState({eventId: response.data.id, redirectToEvent: true});
-    }).catch(function(error) {
+    }).then(response => {
+      this.setState({eventId: response.data.id, redirectToEvent: true});
+    }).catch(error => {
       console.log(error);
     });
   }

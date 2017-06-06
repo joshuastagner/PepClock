@@ -18,7 +18,6 @@ class Edit extends React.Component {
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleDateChange = this.handleDateChange.bind(this);
-    this.handleClick = this.handleClick.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleKeyPress = this.handleKeyPress.bind(this);
     this.handleAddition = this.handleAddition.bind(this);
@@ -56,11 +55,6 @@ class Edit extends React.Component {
     this.setState({deliveryTime: dateTime});
   }
 
-  handleClick() {
-    this.setState({inviteEmails: this.state.inviteEmails.concat([this.state.inviteEmailInput])});
-    this.setState({inviteEmailInput: ''});
-  }
-
   handleKeyPress(target) {
     if (target.charCode === 13) {
       this.handleClick();
@@ -89,19 +83,26 @@ class Edit extends React.Component {
   }
  
   handleAddition(tag) {
-    let tags = this.state.tags;
-    tags.push({
-      id: tags.length + 1,
-      text: tag
+    axios({
+      method: 'post',
+      url: '/api/invitations',
+      data: {
+        eventId: this.state.eventId,
+        email: tag
+      }
+    }).then(response => {
+      let tags = this.state.tags;
+      tags.push({
+        id: response.data.id,
+        text: tag
+      });
+      this.setState({tags: tags});
+    }).catch(error => {
+      console.log(error);
     });
-    this.setState({tags: tags});
   }
 
   handleSubmit(event) {
-    let inviteEmails = this.state.tags.map(tag => {
-      return tag.text;  
-    });
-    var that = this;
     axios({
       method: 'put',
       url: `/api/events/${this.state.eventId}`,
@@ -110,12 +111,11 @@ class Edit extends React.Component {
         firstName: this.state.firstName,
         lastName: this.state.lastName,
         email: this.state.email,
-        deliveryTime: this.state.deliveryTime,
-        inviteEmails: inviteEmails
+        deliveryTime: this.state.deliveryTime
       }
-    }).then(function(response) {
-      that.setState({eventId: response.data.id, redirectToEvent: true});
-    }).catch(function(error) {
+    }).then(response => {
+      this.setState({redirectToEvent: true});
+    }).catch(error => {
       console.log(error);
     });
   }
@@ -129,7 +129,6 @@ class Edit extends React.Component {
           <h1 style={{marginBottom: '2rem' }}>Edit your PepClock</h1>
           <EventForm
             handleChange={this.handleChange}
-            handleClick={this.handleClick}
             handleDateChange={this.handleDateChange}
             handleKeyPress={this.handleKeyPress}
             handleSubmit={this.handleSubmit}

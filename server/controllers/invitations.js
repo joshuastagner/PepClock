@@ -12,7 +12,7 @@ module.exports.delete = (req, res) => {
 };
 
 module.exports.create = (req, res) => {
-  models.Invitation.forge({email: req.data.email, event_id: req.data.eventId, rsvp: 0, status: 'not sent'})
+  models.Invitation.forge({email: req.body.email, event_id: req.body.eventId, rsvp: 0, status: 'not sent'}).save()
   .then(function(result) {
     res.status(200).send(result);
   })
