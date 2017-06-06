@@ -13,7 +13,7 @@ module.exports.verify = (req, res, next) => {
 };
 
 module.exports.redirect = (req, res) => {
-  let redirect = req.session.returnTo || '/';
+  let redirect = req.session.returnTo || '/dashboard';
   delete req.session.returnTo;
   res.redirect(redirect);
 };
