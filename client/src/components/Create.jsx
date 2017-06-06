@@ -52,7 +52,7 @@ class Create extends React.Component {
     tags.splice(i, 1);
     this.setState({tags: tags});
   }
- 
+
   handleAddition(tag) {
     let tags = this.state.tags;
     tags.push({
@@ -64,7 +64,7 @@ class Create extends React.Component {
 
   handleSubmit(event) {
     let inviteEmails = this.state.tags.map(tag => {
-      return tag.text;  
+      return tag.text;
     });
     var that = this;
     axios({
@@ -89,21 +89,25 @@ class Create extends React.Component {
     // Set component title based on URL
     if (this.state.redirectToEvent) {
       return ( <Redirect to={'/events/' + this.state.eventId}/> );
-    } else { 
+    } else {
       return (
         <div className="container">
-          <h1 style={{marginBottom: '2rem' }}>Create a new PepClock</h1>
-          <EventForm inviteEmailInput={this.state.inviteEmailInput}
-            handleChange={this.handleChange}
-            handleClick={this.handleClick}
-            handleDateChange={this.handleDateChange}
-            handleKeyPress={this.handleKeyPress}
-            handleSubmit={this.handleSubmit}
-            handleAddition={this.handleAddition}
-            handleDelete={this.handleDelete}
-            tags={this.state.tags}/>
+          <div className="row">
+            <div className="col-xs-12">
+              <h1 style={{marginBottom: '2rem' }}>Create a new PepClock</h1>
+            </div>
+            <EventForm inviteEmailInput={this.state.inviteEmailInput}
+              handleChange={this.handleChange}
+              handleClick={this.handleClick}
+              handleDateChange={this.handleDateChange}
+              handleKeyPress={this.handleKeyPress}
+              handleSubmit={this.handleSubmit}
+              handleAddition={this.handleAddition}
+              handleDelete={this.handleDelete}
+              tags={this.state.tags}/>
+          </div>
         </div>
-      ); 
+      );
     }
   }
 }

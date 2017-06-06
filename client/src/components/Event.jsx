@@ -112,32 +112,40 @@ class Event extends React.Component {
       let happen = timeToLaunch.includes('ago') ? 'happened' : 'happening';
 
       return (
-        <div className="event">
-          <h1>{title}</h1>
-          <h3>{happen} {timeToLaunch}</h3>
-          <h5>on {launchDisplay}</h5>
-          <Link to={`/edit/${id}`}>Edit event</Link>
-          <hr />
-          <ContributionList contributionList={this.state.contributionList}/>
-          <hr />
-          <form className="add" onSubmit={this.handleSubmit}>
-            <input
-              type="textarea"
-              placeholder="Enter Contribution Text"
-              autoFocus="true"
-              onChange={this.handleChange}
-              value={this.state.contributionText}
-            />
-            <button id="submit">Submit</button>
-          </form>
+        <div className="container event">
+          <div className="row">
+            <div className="col-xs-12">
+              <h1>{title}</h1>
+              <h3>{happen} {timeToLaunch}</h3>
+              <h5>on {launchDisplay}</h5>
+              <Link to={`/edit/${id}`}>Edit event</Link>
+              <hr />
+              <ContributionList contributionList={this.state.contributionList}/>
+              <hr />
+              <form className="add" onSubmit={this.handleSubmit}>
+                <input
+                  type="textarea"
+                  placeholder="Enter Contribution Text"
+                  autoFocus="true"
+                  onChange={this.handleChange}
+                  value={this.state.contributionText}
+                />
+                <button id="submit">Submit</button>
+              </form>
+            </div>
+          </div>
         </div>
       );
     }
 
     return (
-      <div className="event">
-        <h3>Sorry, this doesn't seem to be one of your events</h3>
-        <p>Perhaps you'd like to <Link to="/dashboard">view your events</Link></p>
+      <div className="container event">
+        <div className="row">
+          <div className="col-xs-12">
+            <h3>Sorry, this doesn't seem to be one of your events</h3>
+            <p>Perhaps you'd like to <Link to="/dashboard">view your events</Link></p>
+          </div>
+        </div>
       </div>
     );
   }
