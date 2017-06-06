@@ -10,8 +10,8 @@ describe('EventForm Component', function() {
     expect(wrapper.find('form').length).to.equal(1);
   });
 
-  it('should render five <input> elements', function() {
-    expect(wrapper.find('input').length).to.equal(5);
+  it('should render four <input> elements', function() {
+    expect(wrapper.find('input').length).to.equal(4);
   });
 
   it('should render one <DateTimeField> component', function() {
