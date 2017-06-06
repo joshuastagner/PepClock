@@ -27,7 +27,6 @@ class Routes extends React.Component {
     return (
       <div>
         <Nav />
-        <hr />
         <Router>
           <div>
             <Switch>
