@@ -47,7 +47,7 @@ module.exports.getAll = (req, res) => {
 };
 
 module.exports.getById = (req, res) => {
-  models.Event.where({ id: req.params.id }).fetch()
+  models.Event.where({ id: req.params.id }).fetch({withRelated: ['invitations', 'recipient']})
     .then(event => {
       res.status(200).send(event);
     })
