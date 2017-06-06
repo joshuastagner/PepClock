@@ -8,7 +8,7 @@ describe('Event Component', function() {
   const id = { params: { id: '1' } };
   const wrapper = shallow(<Event match={id} />);
 
-  it('show apology instead of event if no permission to view', function() {
+  it('shows an apology instead of event if no permission to view', function() {
     wrapper.setState({ hasPermissionToView: false });
     const apology = 'Sorry, this doesn\'t seem to be one of your events';
     expect(wrapper.contains(<h3>{apology}</h3>)).to.equal(true);
