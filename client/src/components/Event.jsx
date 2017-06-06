@@ -52,7 +52,6 @@ class Event extends React.Component {
   }
 
   setDate() {
-    const now = moment();
     const seconds = moment().second();
     const minutes = moment().minute();
     const hours = moment().hour();
@@ -111,13 +110,10 @@ class Event extends React.Component {
       const { id } = this.props.match.params;
       const { title, description, delivery_time } = this.state;
 
-      let LaunchTimeLen = moment(delivery_time).length;
-      let launchTime = moment(this.state.delivery_time).format('YYYY MM DD hh mm ss');
-      let launchTimeDisplay = moment(this.state.delivery_time).format('MMM Do YYYY || hh : mm');
-      let timeOfDay = moment(this.state.delivery_time).format('H') > 12 ? 'PM' : 'AM';
-      let launchDisplay = launchTimeDisplay + '' + timeOfDay;
-      let rightNow = moment();
-      let timeToLaunch = rightNow.to(this.state.delivery_time);
+      let launchTimeDisplay = moment(delivery_time).format('MMM Do YYYY || hh : mm');
+      let timeOfDay = moment(delivery_time).format('H') > 12 ? 'PM' : 'AM';
+      let launchDisplay = launchTimeDisplay + timeOfDay;
+      let timeToLaunch = moment().to(delivery_time);
       let happen = timeToLaunch.includes('ago') ? 'happened' : 'happening';
 
 
