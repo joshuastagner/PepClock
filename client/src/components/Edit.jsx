@@ -28,7 +28,6 @@ class Edit extends React.Component {
   componentDidMount() {
     axios.get(`/api/events/${this.state.eventId}`)
     .then(response => {
-      console.log(response.data);
       let tags = response.data.invitations.map(invitation => {
         return {id: invitation.id, text: invitation.email};
       });
@@ -70,8 +69,23 @@ class Edit extends React.Component {
 
   handleDelete(i) {
     let tags = this.state.tags;
-    tags.splice(i, 1);
+    let tag = tags.splice(i, 1);
     this.setState({tags: tags});
+    this.removeInvite(tag[0]);
+  }
+
+  removeInvite(invite) {
+    axios({
+      method: 'delete',
+      url: `/api/invitations/${invite.id}`,
+      data: {
+        eventId: this.state.eventId
+      }
+    }).then(function(response) {
+      
+    }).catch(function(error) {
+      console.log(error);
+    });
   }
  
   handleAddition(tag) {

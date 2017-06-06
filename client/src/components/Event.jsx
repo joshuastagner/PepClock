@@ -51,7 +51,7 @@ class Event extends React.Component {
   }
 
   checkIfContributor () {
-    axios.get('/api/events/user')
+    axios.get('/api/events/users')
       .then(({ data: events }) => {
         const userEventIds = events.map(event => event.event_id);
         this.setState({

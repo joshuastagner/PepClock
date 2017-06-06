@@ -12,7 +12,7 @@ class Dashboard extends Component {
   }
 
   componentDidMount () {
-    axios.get('/api/events/user')
+    axios.get('/api/events/users')
       .then(({ data: events }) => {
         this.setState({ events });
       })

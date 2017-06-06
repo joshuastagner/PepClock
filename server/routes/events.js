@@ -7,7 +7,7 @@ router.route('/')
   .post(EventController.create)
   .get(EventController.getAll);
 
-router.route('/user')
+router.route('/users')
   .get(EventController.getEventsByContributor);
 
 router.route('/:id')
