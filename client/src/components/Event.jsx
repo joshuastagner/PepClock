@@ -52,14 +52,10 @@ class Event extends React.Component {
   }
 
   setDate() {
-    const seconds = moment().second();
-    const minutes = moment().minute();
-    const hours = moment().hour();
-
     this.setState({
-      curSecond: seconds,
-      curMinute: minutes,
-      curHour: hours
+      curSecond: moment().second(),
+      curMinute: moment().minute(),
+      curHour:  moment().hour()
     });
   }
 
