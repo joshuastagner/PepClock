@@ -10,7 +10,8 @@ describe('Event Component', function() {
 
   it('show apology instead of event if no permission to view', function() {
     wrapper.setState({ hasPermissionToView: false });
-    expect(wrapper.contains(<h3>Sorry, this doesn't seem to be one of your events</h3>)).to.equal(true);
+    const apology = 'Sorry, this doesn\'t seem to be one of your events';
+    expect(wrapper.contains(<h3>{apology}</h3>)).to.equal(true);
   });
 
   it('contains the correct class', function() {
