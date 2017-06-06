@@ -23,7 +23,7 @@ class Dashboard extends Component {
 
   render () {
     return (
-      <div>
+      <div className="container">
         <h1>Dashboard</h1>
         <Link to="/create">Create event</Link>
         <EventList events={this.state.events} />

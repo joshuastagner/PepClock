@@ -112,7 +112,7 @@ class Event extends React.Component {
       let happen = timeToLaunch.includes('ago') ? 'happened' : 'happening';
 
       return (
-        <div className="event">
+        <div className="container event">
           <h1>{title}</h1>
           <h3>{happen} {timeToLaunch}</h3>
           <h5>on {launchDisplay}</h5>
