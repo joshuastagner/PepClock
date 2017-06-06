@@ -70,26 +70,19 @@ class Create extends React.Component {
     // Set component title based on URL
     if (this.state.redirectToEvent) {
       return ( <Redirect to={'/events/' + this.state.eventId}/> );
+    } else { 
+      return (
+        <div className="container">
+          <h1 style={{marginBottom: '2rem' }}>Create a new PepClock</h1>
+          <EventForm inviteEmailInput={this.state.inviteEmailInput}
+            handleChange={this.handleChange}
+            handleClick={this.handleClick}
+            handleDateChange={this.handleDateChange}
+            handleKeyPress={this.handleKeyPress}
+            handleSubmit={this.handleSubmit}/>
+        </div>
+      ); 
     }
-    let title = '';
-    const pathname = this.props.location.pathname;
-    const id = this.props.match.params.id;
-
-    pathname === '/create' ?
-      title = 'Create a new PepClock'
-      : title = `Edit event ${id}`;
-
-    { return (
-      <div className="container">
-        <h1 style={{marginBottom: '2rem' }}>Create a new PepClock</h1>
-        <EventForm inviteEmailInput={this.state.inviteEmailInput}
-          handleChange={this.handleChange}
-          handleClick={this.handleClick}
-          handleDateChange={this.handleDateChange}
-          handleKeyPress={this.handleKeyPress}
-          handleSubmit={this.handleSubmit}/>
-      </div>
-    ); }
   }
 }
 
