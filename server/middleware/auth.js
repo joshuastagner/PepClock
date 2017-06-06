@@ -23,33 +23,61 @@ module.exports.render = (req, res) => {
 };
 
 module.exports.updateAndRender = (req, res) => {
-  if (req.query.invite) {
-    const inviteId = req.query.invite;
-    const eventId = req.params.id;
-    
-    models.Invitation.where({id: inviteId}).fetch()
-      .then((model) => {
-        if (eventId !== model.attributes.event_id) {
-          model.save('rsvp', 'true', {method: 'update'})
-            .then(() => {
-              new models.Contributor({
-                user_id: req.user.id,
-                event_id: eventId,
-                role: 'contributor'
-              }).save();
-            })
-            .then(() => {
-              let redirect = '/events/' + eventId;
-              delete req.session.returnTo;
-              res.redirect(redirect);
-            });
-        } else {
-          res.send('We are on to you!!!!');
+  const eventId = parseInt(req.params.id);
+  const inviteId = req.query.invite;
+  const recipientId = req.query.recipient;
+
+  if (inviteId) {
+    return models.Invitation.where({id: inviteId}).fetch()
+      .then((invitation) => {
+        if (!invitation || invitation.attributes.event_id !== eventId) {
+          return res.send('bad link!');
         }
+
+        if (invitation.attributes.rsvp === 'true') {
+          return res.redirect(req.path);
+        }
+
+        invitation.save('rsvp', 'true', {method: 'update'})
+          .then(() => {
+            return new models.Contributor({
+              user_id: req.user.id,
+              event_id: eventId,
+              role: 'contributor'
+            }).save();
+          })
+          .then(() => {
+            res.redirect(req.path);
+          });
       });
-  } else {
-    res.render('index.ejs', {user: JSON.stringify(req.user)});
   }
+
+  if (recipientId) {
+    return models.Recipient.where({id: recipientId}).fetch()
+      .then((recipient) => {
+        if (!recipient || recipient.attributes.event_id !== eventId) {
+          return res.send('bad link!');
+        }
+
+        if (recipient.attributes.rsvp === 'true') {
+          return res.redirect(req.path);
+        }
+
+        recipient.save('viewed', true, {method: 'update'})
+          .then(() => {
+            return new models.Contributor({
+              user_id: req.user.id,
+              event_id: eventId,
+              role: 'contributor'
+            }).save();
+          })
+          .then(() => {
+            return res.redirect(req.path);
+          });
+      });
+  }
+
+  res.render('index.ejs', {user: JSON.stringify(req.user)});
 };
 
 module.exports.session = session({

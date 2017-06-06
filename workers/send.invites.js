@@ -33,9 +33,9 @@ class InviteWorker {
   constructRecipientVariable () {
     this.recipientVariable = JSON.stringify( this.toSendData.reduce((recipientVariable, invitation) => {
       if (!recipientVariable[invitation.email]) {
-        recipientVariable[invitation.email] = { link: '\n 127.0.0.1:3000/events/' + invitation.eventId + '?invite=' + invitation.id };
+        recipientVariable[invitation.email] = { link: `\n 127.0.0.1:3000/events/${invitation.eventId}?invite=${invitation.id}` };
       } else {
-        recipientVariable[invitation.email].link += '\n 127.0.0.1:3000/events/' + invitation.eventId + '?invite=' + invitation.id;
+        recipientVariable[invitation.email].link += `\n 127.0.0.1:3000/events/${invitation.eventId}?invite=${invitation.id}`;
       }
       return recipientVariable; 
     }, {}) );
