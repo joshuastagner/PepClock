@@ -24,9 +24,13 @@ class Dashboard extends Component {
   render () {
     return (
       <div className="container">
-        <h1>Dashboard</h1>
-        <Link to="/create">Create event</Link>
-        <EventList events={this.state.events} />
+        <div className="row">
+          <div className="col-xs-12">
+            <h1>Dashboard</h1>
+            <Link to="/create">Create event</Link>
+            <EventList events={this.state.events} />
+          </div>
+        </div>
       </div>
     );
   }
