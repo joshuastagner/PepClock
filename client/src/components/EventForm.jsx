@@ -1,11 +1,13 @@
 import React from 'react';
 import DateTimeField from 'react-bootstrap-datetimepicker';
 import moment from 'moment';
+import {WithContext as ReactTags} from 'react-tag-input';
 
 class EventForm extends React.Component {
   constructor(props) {
     super(props);
   }
+
 
   render() {
     return (
@@ -36,13 +38,14 @@ class EventForm extends React.Component {
           </div>
           <div className="row" style={{marginBottom: '15px'}}>
             <div className="col-lg-7">
-              <div className="input-group">
-                <input type="email" className="form-control" placeholder="The emails..." name="inviteEmailInput"
-                  value={this.props.inviteEmailInput} onChange={this.props.handleChange} onKeyPress={this.props.handleKeyPress}/>
-                <span className="input-group-btn">
-                  <button className="btn btn-secondary" type="button" onClick={this.handleClick}>Add</button>
-                </span>
-              </div>
+            <label>Invite others by email</label>
+            <ReactTags tags={this.props.tags}
+              handleDelete={this.props.handleDelete}
+              handleAddition={this.props.handleAddition}
+              placeholder="Enter email or paste a list separated by commas"
+              maxLength="50"
+              delimiters={[13, 44]}
+              classNames={{tagInputField: 'form-control input-md', tag: 'btn btn-info', remove: ''}}/>
             </div>
           </div>
           <button type="button" className="btn btn-primary" onClick={this.props.handleSubmit}>Create your event!</button>

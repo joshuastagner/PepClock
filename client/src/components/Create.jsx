@@ -14,14 +14,15 @@ class Create extends React.Component {
       lastName: '',
       email: '',
       deliveryTime: '',
-      inviteEmailInput: '',
-      inviteEmails: []
+      tags: []
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleDateChange = this.handleDateChange.bind(this);
     this.handleClick = this.handleClick.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleKeyPress = this.handleKeyPress.bind(this);
+    this.handleAddition = this.handleAddition.bind(this);
+    this.handleDelete = this.handleDelete.bind(this);
   }
 
   handleChange(event) {
@@ -46,7 +47,25 @@ class Create extends React.Component {
     }
   }
 
+  handleDelete(i) {
+    let tags = this.state.tags;
+    tags.splice(i, 1);
+    this.setState({tags: tags});
+  }
+ 
+  handleAddition(tag) {
+    let tags = this.state.tags;
+    tags.push({
+      id: tags.length + 1,
+      text: tag
+    });
+    this.setState({tags: tags});
+  }
+
   handleSubmit(event) {
+    let inviteEmails = this.state.tags.map(tag => {
+      return tag.text;  
+    });
     var that = this;
     axios({
       method: 'post',
@@ -57,7 +76,7 @@ class Create extends React.Component {
         lastName: this.state.lastName,
         email: this.state.email,
         deliveryTime: this.state.deliveryTime,
-        inviteEmails: this.state.inviteEmails
+        inviteEmails: inviteEmails
       }
     }).then(function(response) {
       that.setState({eventId: response.data.id, redirectToEvent: true});
@@ -79,7 +98,10 @@ class Create extends React.Component {
             handleClick={this.handleClick}
             handleDateChange={this.handleDateChange}
             handleKeyPress={this.handleKeyPress}
-            handleSubmit={this.handleSubmit}/>
+            handleSubmit={this.handleSubmit}
+            handleAddition={this.handleAddition}
+            handleDelete={this.handleDelete}
+            tags={this.state.tags}/>
         </div>
       ); 
     }
