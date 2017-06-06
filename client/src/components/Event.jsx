@@ -112,7 +112,7 @@ class Event extends React.Component {
 
       let launchTimeDisplay = moment(delivery_time).format('MMM Do YYYY || hh : mm');
       let timeOfDay = moment(delivery_time).format('H') > 12 ? 'PM' : 'AM';
-      let launchDisplay = launchTimeDisplay + timeOfDay;
+      let launchDisplay = launchTimeDisplay + ' ' + timeOfDay;
       let timeToLaunch = moment().to(delivery_time);
       let happen = timeToLaunch.includes('ago') ? 'happened' : 'happening';
 
