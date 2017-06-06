@@ -4,7 +4,6 @@ import ContributionList from './ContributionList';
 import axios from 'axios';
 import moment from 'moment';
 
-
 class Event extends React.Component {
   constructor(props) {
     super(props);
@@ -55,7 +54,7 @@ class Event extends React.Component {
     this.setState({
       curSecond: moment().second(),
       curMinute: moment().minute(),
-      curHour:  moment().hour()
+      curHour: moment().hour()
     });
   }
 
@@ -68,7 +67,7 @@ class Event extends React.Component {
         });
         this.getEventContent();
       })
-      .catch(error => {});
+      .catch(err => console.error(err));
   }
 
   updateContributions() {
@@ -111,7 +110,6 @@ class Event extends React.Component {
       let launchDisplay = launchTimeDisplay + ' ' + timeOfDay;
       let timeToLaunch = moment().to(delivery_time);
       let happen = timeToLaunch.includes('ago') ? 'happened' : 'happening';
-
 
       return (
         <div className="event">
