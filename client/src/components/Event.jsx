@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import ContributionList from './ContributionList';
 import axios from 'axios';
 import moment from 'moment';
+const client = filestack.init('A03mnfU7QQ6QY8rPMGtfBz');
 
 class Event extends React.Component {
   constructor(props) {
@@ -83,6 +84,16 @@ class Event extends React.Component {
     });
   }
 
+  showPicker() {
+    client.pick({})
+    .then(function(result) {
+
+      console.log(JSON.stringify(result.filesUploaded));
+      result.filesUploaded.mimetype;
+      result.filesUploaded.url;
+    });
+  }
+
   render() {
     // This condition prevents the "non-permitted" state
     // from rendering for a flash before rending content.
@@ -119,6 +130,7 @@ class Event extends React.Component {
                   onChange={this.handleChange}
                   value={this.state.contributionText}
                 />
+                <input type="button" value="Upload" onClick={this.showPicker} />
                 <button id="submit">Submit</button>
               </form>
             </div>
