@@ -16,6 +16,8 @@ import Create from './Create';
 import Redirected from './Redirected';
 import PrivateRoute from './PrivateRoute';
 import Nav from './Nav';
+import Edit from './Edit';
+
 
 const Routes = () => (
   <div>
@@ -25,7 +27,7 @@ const Routes = () => (
         <Route exact path="/" component={Home} />
         <PrivateRoute path="/dashboard" component={Dashboard} />
         <PrivateRoute path="/create" component={Create} />
-        <PrivateRoute path="/edit/:id" component={Create} />
+        <PrivateRoute path="/edit/:id" component={Edit} />
         <PrivateRoute path="/events/:id" component={Event} />
         <Route path="/redirected" component={Redirected} />
         <Route render={ () => <h1>404 Page Not Found</h1>} />

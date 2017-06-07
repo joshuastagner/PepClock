@@ -47,7 +47,7 @@ module.exports.getAll = (req, res) => {
 };
 
 module.exports.getById = (req, res) => {
-  models.Event.where({ id: req.params.id }).fetch()
+  models.Event.where({ id: req.params.id }).fetch({withRelated: ['invitations', 'recipient']})
     .then(event => {
       res.status(200).send(event);
     })
@@ -63,6 +63,29 @@ module.exports.getEventsByContributor = (req, res) => {
       res.status(200).send(result);
     })
     .catch(err => {
+      res.status(500).send(err);
+    });
+};
+
+module.exports.update = (req, res) => {
+  var date = new Date(Number.parseInt(req.body.deliveryTime));
+  models.Event.where({ id: req.params.id }).fetch({withRelated: ['recipient']})
+    .then(event => {
+      event.set({
+        title: req.body.eventName,
+        delivery_time: date
+      }).save()
+      .tap(event => {
+        event.related('recipient').set({
+          first_name: req.body.firstName,
+          last_name: req.body.lastName,
+          email: req.body.email
+        }).save();
+      });
+      res.status(200).send(event);
+    })
+    .catch(err => {
+      console.log(err);
       res.status(500).send(err);
     });
 };

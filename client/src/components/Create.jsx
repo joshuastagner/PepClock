@@ -18,7 +18,6 @@ class Create extends React.Component {
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleDateChange = this.handleDateChange.bind(this);
-    this.handleClick = this.handleClick.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleKeyPress = this.handleKeyPress.bind(this);
     this.handleAddition = this.handleAddition.bind(this);
@@ -34,11 +33,6 @@ class Create extends React.Component {
   handleDateChange(dateTime) {
     console.log(dateTime);
     this.setState({deliveryTime: dateTime});
-  }
-
-  handleClick() {
-    this.setState({inviteEmails: this.state.inviteEmails.concat([this.state.inviteEmailInput])});
-    this.setState({inviteEmailInput: ''});
   }
 
   handleKeyPress(target) {
@@ -66,7 +60,6 @@ class Create extends React.Component {
     let inviteEmails = this.state.tags.map(tag => {
       return tag.text;
     });
-    var that = this;
     axios({
       method: 'post',
       url: '/api/events',
@@ -78,15 +71,14 @@ class Create extends React.Component {
         deliveryTime: this.state.deliveryTime,
         inviteEmails: inviteEmails
       }
-    }).then(function(response) {
-      that.setState({eventId: response.data.id, redirectToEvent: true});
-    }).catch(function(error) {
+    }).then(response => {
+      this.setState({eventId: response.data.id, redirectToEvent: true});
+    }).catch(error => {
       console.log(error);
     });
   }
 
   render() {
-    // Set component title based on URL
     if (this.state.redirectToEvent) {
       return ( <Redirect to={'/events/' + this.state.eventId}/> );
     } else {
@@ -94,9 +86,9 @@ class Create extends React.Component {
         <div className="container">
           <div className="row">
             <div className="col-xs-12">
-              <h1 style={{marginBottom: '2rem' }}>Create a new PepClock</h1>
+                <h1 style={{marginBottom: '2rem' }}>Create a new PepClock</h1>
             </div>
-            <EventForm inviteEmailInput={this.state.inviteEmailInput}
+            <EventForm 
               handleChange={this.handleChange}
               handleClick={this.handleClick}
               handleDateChange={this.handleDateChange}
@@ -104,8 +96,13 @@ class Create extends React.Component {
               handleSubmit={this.handleSubmit}
               handleAddition={this.handleAddition}
               handleDelete={this.handleDelete}
-              tags={this.state.tags}/>
-          </div>
+              tags={this.state.tags}
+              eventName={this.state.eventName}
+              firstName={this.state.firstName}
+              lastName={this.state.lastName}
+              email={this.state.email}
+              deliveryTime={this.state.deliveryTime}/>
+            </div>
         </div>
       );
     }

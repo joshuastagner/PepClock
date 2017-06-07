@@ -14,9 +14,9 @@ class Event extends React.Component {
       contributionText: '',
       hasPermissionToView: null,
       delivery_time: '',
-      curSecond: '',
-      curMinute: '',
-      curHour: ''
+      curSecond: moment().second(),
+      curMinute: moment().minute(),
+      curHour: moment().hour()
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -50,16 +50,8 @@ class Event extends React.Component {
     });
   }
 
-  setDate() {
-    this.setState({
-      curSecond: moment().second(),
-      curMinute: moment().minute(),
-      curHour: moment().hour()
-    });
-  }
-
   checkIfContributor () {
-    axios.get('/api/events/user')
+    axios.get('/api/events/users')
       .then(({ data: events }) => {
         const userEventIds = events.map(event => event.event_id);
         this.setState({
@@ -88,10 +80,7 @@ class Event extends React.Component {
     })
     .catch(error => {
       console.log('Error in Event data query', error);
-    })
-    .then(
-      setInterval(this.setDate.bind(this), 1000)
-    );
+    });
   }
 
   render() {
