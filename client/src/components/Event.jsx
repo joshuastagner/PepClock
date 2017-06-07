@@ -13,6 +13,8 @@ class Event extends React.Component {
       title: '',
       contributionList: [],
       contributionText: '',
+      contributionType: '',
+      contributionMediaUrl: '',
       hasPermissionToView: null,
       delivery_time: '',
       curSecond: moment().second(),
@@ -22,6 +24,7 @@ class Event extends React.Component {
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.updateContributions = this.updateContributions.bind(this);
+    this.showPicker = this.showPicker.bind(this);
   }
 
   componentWillMount () {
@@ -40,10 +43,16 @@ class Event extends React.Component {
       data: {
         eventId: this.state.eventId,
         contributionText: this.state.contributionText,
+        contributionType: this.state.contributionType,
+        contributionMediaUrl: this.state.contributionMediaUrl
       }
     })
     .then(res => {
-      this.setState({contributionText: ''});
+      this.setState({
+        contributionText: '',
+        contributionType: '',
+        contributionMediaUrl: ''
+      });
       this.updateContributions();
     })
     .catch(err => {
@@ -85,12 +94,11 @@ class Event extends React.Component {
   }
 
   showPicker() {
-    client.pick({})
-    .then(function(result) {
-
-      console.log(JSON.stringify(result.filesUploaded));
-      result.filesUploaded.mimetype;
-      result.filesUploaded.url;
+    client.pick({accept: ['image/*', 'video/*']})
+    .then(result => {
+      let type = result.filesUploaded[0].mimetype.slice(0, 5);
+      let url = result.filesUploaded[0].url;
+      this.setState({contributionType: type, contributionMediaUrl: url});
     });
   }
 

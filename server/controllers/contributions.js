@@ -5,7 +5,8 @@ module.exports.create = (req, res) => {
   models.Contributor.where({user_id: req.session.passport.user}).fetch().then(function(result) {
     models.Contribution.forge({
       text: req.body.contributionText,
-      type: 'message',
+      type: req.body.contributionType || 'message',
+      media_url: req.body.contributionMediaUrl,
       contributor_id: result.id,
       event_id: req.body.eventId,
       user_id: req.session.passport.user 
