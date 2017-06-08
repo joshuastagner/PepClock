@@ -1,4 +1,5 @@
 import React from 'react';
+import renderIf from 'render-if';
 
 class ContributionListItem extends React.Component {
   constructor(props) {
@@ -10,6 +11,12 @@ class ContributionListItem extends React.Component {
   render () {
     return (
       <div className="contribution-list-item">
+        {renderIf(this.props.contribution.type === 'image')(
+          <img className="img-responsive" src={this.props.contribution.media_url} />
+        )}
+        {renderIf(this.props.contribution.type === 'video')(
+          <video controls className="img-responsive" src={this.props.contribution.media_url} />
+        )}
         <div className="text">
           <h4>{this.props.contribution.text}</h4>
         </div>
@@ -17,7 +24,6 @@ class ContributionListItem extends React.Component {
           <p>{this.props.contribution.user.first} {this.props.contribution.user.last}</p>
         </div>
       </div>
-
     );
   }
 }
