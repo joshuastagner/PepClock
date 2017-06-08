@@ -3,17 +3,16 @@ import React from 'react';
 const LoginControl = () => {
   const user = window.user;
 
-  if (user){
+  if (user) {
     return (
         <ul className="nav navbar-nav navbar-right">
           <li>
             <a href="/logout">Logout</a>
           </li>
         </ul>
-      );
-    }
-    else {
-      return (
+    );
+  } else {
+    return (
         <ul className="nav navbar-nav navbar-right">
           <li>
             <a href="/login">
@@ -27,7 +26,7 @@ const LoginControl = () => {
             </a>
           </li>
         </ul>
-      );
+    );
   }
 };
 
