@@ -52,9 +52,10 @@ const EventForm = (props) => (
               placeholder="Enter email or paste a list separated by commas"
               maxLength="50"
               delimiters={[13, 44]}
+              autofocus={false}
               classNames={{tagInputField: 'form-control input-md', tag: 'btn btn-info', remove: ''}}
             />
-          </div>
+          </div>.
         </div>
       </div>
 
