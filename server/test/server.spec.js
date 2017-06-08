@@ -5,7 +5,7 @@ const expect = require('chai').expect;
 const app = require('../app.js');
 const dbUtils = require('../../db/lib/utils.js');
 
-xdescribe('Unauthorized Routes', function() {
+describe('Unauthorized Routes', function() {
   it('redirects to login if not authed', function(done) {
     request(app)
       .get('/dashboard')
@@ -16,7 +16,7 @@ xdescribe('Unauthorized Routes', function() {
       .end(done); 
   });
 
-  it('serves homepage without auth', function(done) {
+  it('serves / without auth', function(done) {
     request(app)
       .get('/')
       .expect(200)
@@ -26,10 +26,49 @@ xdescribe('Unauthorized Routes', function() {
       .end(done);
   });
 
-  it('redirects to login if not authed', function(done) {
+  it('serves /redirected without auth', function(done) {
+    request(app)
+      .get('/')
+      .expect(200)
+      .expect(function(res) {
+        expect(res.text).to.include('<script src="/dist/bundle.js"></script>');        
+      })
+      .end(done);
+  });
+
+  it('redirects to login if not authed and get /dashboard', function(done) {
     request(app)
       .get('/dashboard')
-      .auth('admin@domain.com', 'admin123')
+      .expect(302)
+      .expect(function(res) {
+        expect(res.header.location).to.equal('/login');
+      })
+      .end(done); 
+  });
+
+  it('redirects to login if not authed and get /edit', function(done) {
+    request(app)
+      .get('/edit/1')
+      .expect(302)
+      .expect(function(res) {
+        expect(res.header.location).to.equal('/login');
+      })
+      .end(done); 
+  });
+
+  it('redirects to login if not authed and get /events', function(done) {
+    request(app)
+      .get('/events/1')
+      .expect(302)
+      .expect(function(res) {
+        expect(res.header.location).to.equal('/login');
+      })
+      .end(done); 
+  });
+
+  it('redirects to login if not authed and get /dashboard', function(done) {
+    request(app)
+      .get('/dashboard')
       .expect(302)
       .expect(function(res) {
         expect(res.header.location).to.equal('/login');
@@ -64,6 +103,9 @@ describe('Authorized Routes', function () {
     agent
       .get('/create')
       .expect(200)
+      .expect(function(res) {
+        expect(res.text).to.include('<script src="/dist/bundle.js"></script>');        
+      })
       .end(done);
   });
 
@@ -71,6 +113,29 @@ describe('Authorized Routes', function () {
     agent
       .get('/dashboard')
       .expect(200)
+      .expect(function(res) {
+        expect(res.text).to.include('<script src="/dist/bundle.js"></script>');        
+      })
+      .end(done);
+  });
+
+  it('should render /edit if authed', function(done) {
+    agent
+      .get('/edit/1')
+      .expect(200)
+      .expect(function(res) {
+        expect(res.text).to.include('<script src="/dist/bundle.js"></script>');        
+      })
+      .end(done);
+  });
+
+  it('should render /events if authed', function(done) {
+    agent
+      .get('/events/1')
+      .expect(200)
+      .expect(function(res) {
+        expect(res.text).to.include('<script src="/dist/bundle.js"></script>');        
+      })
       .end(done);
   });
 });

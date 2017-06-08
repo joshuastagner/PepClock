@@ -28,7 +28,7 @@ module.exports.create = (req, res) => {
       return invites.invokeThen('save');
     })
     .then(result => {
-      res.status(200).send(result);
+      res.status(201).send(result);
     })
     .catch(err => {
       console.log(err);

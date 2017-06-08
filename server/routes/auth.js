@@ -19,7 +19,7 @@ router.route('/events/:id')
   .get(middleware.auth.verify, middleware.auth.updateAndRender);
 
 router.route('/redirected')
-  .get(middleware.auth.verify, middleware.auth.render);
+  .get(middleware.auth.render);
 
 router.route('/login')
   .get((req, res) => {
