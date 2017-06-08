@@ -3,6 +3,7 @@ import { expect } from 'chai';
 import { shallow } from 'enzyme';
 import Event from '../src/components/Event';
 
+
 describe('Event Component', function() {
   // Set this.props URL params manually
   const id = { params: { id: '1' } };

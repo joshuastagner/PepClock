@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import ContributionList from './ContributionList';
 import axios from 'axios';
 import moment from 'moment';
+import filestack from 'filestack-js';
 const client = filestack.init('A03mnfU7QQ6QY8rPMGtfBz');
 
 class Event extends React.Component {

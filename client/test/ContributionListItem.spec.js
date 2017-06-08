@@ -3,6 +3,7 @@ import { expect } from 'chai';
 import { shallow } from 'enzyme';
 import ContributionListItem from '../src/components/ContributionListItem';
 
+
 describe('ContributionListItem component', function() {
   const wrapper = shallow(<ContributionListItem contribution={{text: 'foo', user: {first: 'bar', last: 'baz'}}}/>);
   it('contains the correct class', function() {

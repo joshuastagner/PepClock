@@ -9,7 +9,6 @@ class ContributionListItem extends React.Component {
   }
 
   render () {
-    console.log(this.props.contribution.type);
     return (
       <div className="contribution-list-item">
         {renderIf(this.props.contribution.type === 'image')(
