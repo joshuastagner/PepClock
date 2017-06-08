@@ -53,7 +53,7 @@ const EventForm = (props) => (
               maxLength="50"
               delimiters={[13, 44]}
               autofocus={false}
-              classNames={{tagInputField: 'form-control input-md', tag: 'btn btn-info', remove: ''}}
+              classNames={{tagInputField: 'form-control input-md', tag: 'btn btn-info mb-2 ml-2', remove: 'pl-1'}}
             />
           </div>.
         </div>
