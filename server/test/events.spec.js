@@ -8,7 +8,7 @@ const events = require('events');
 
 const buildResponse = function() {
   return httpMocks.createResponse({eventEmitter: events.EventEmitter});
-}
+};
 
 describe('Events Controller', function() {
   beforeEach(function (done) {
