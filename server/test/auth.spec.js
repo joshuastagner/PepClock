@@ -100,3 +100,13 @@ describe('Authentication', () => {
     });
   });
 });
+
+Describe('Auth Middleware', () => {
+  beforeEach(function (done) {
+    dbUtils.rollbackMigrate(done);
+  });
+
+  afterEach(function (done) {
+    dbUtils.rollback(done);
+  });
+});

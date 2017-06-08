@@ -19,8 +19,6 @@ describe('Events Controller', function() {
     dbUtils.rollback(done);
   });
 
-  var date = new Date(1498173960000);
-
   it('should add event into database', function(done) {
     const request = httpMocks.createRequest({
       method: 'POST',
