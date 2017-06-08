@@ -5,14 +5,14 @@ const NavControl = () =>{
 
   if (user) {
     return (
-      <div className="navbar-nav">
+      <div className="navbar-nav mr-auto">
         <a className="nav-item nav-link" href="/dashboard">Events</a>
         <a className="nav-item nav-link" href="/create">Create Event</a>
       </div>
     );
   } else {
     return (
-      null
+      <div className="navbar-nav mr-auto"></div>
     );
   }
 };
