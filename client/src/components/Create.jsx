@@ -85,24 +85,25 @@ class Create extends React.Component {
       return (
         <div className="container">
           <div className="row">
-            <div className="col-xs-12">
+            <div className="col">
                 <h1 style={{marginBottom: '2rem' }}>Create a new PepClock</h1>
             </div>
-            <EventForm 
-              handleChange={this.handleChange}
-              handleClick={this.handleClick}
-              handleDateChange={this.handleDateChange}
-              handleKeyPress={this.handleKeyPress}
-              handleSubmit={this.handleSubmit}
-              handleAddition={this.handleAddition}
-              handleDelete={this.handleDelete}
-              tags={this.state.tags}
-              eventName={this.state.eventName}
-              firstName={this.state.firstName}
-              lastName={this.state.lastName}
-              email={this.state.email}
-              deliveryTime={this.state.deliveryTime}/>
-            </div>
+          </div>
+          <EventForm
+            handleChange={this.handleChange}
+            handleClick={this.handleClick}
+            handleDateChange={this.handleDateChange}
+            handleKeyPress={this.handleKeyPress}
+            handleSubmit={this.handleSubmit}
+            handleAddition={this.handleAddition}
+            handleDelete={this.handleDelete}
+            tags={this.state.tags}
+            eventName={this.state.eventName}
+            firstName={this.state.firstName}
+            lastName={this.state.lastName}
+            email={this.state.email}
+            deliveryTime={this.state.deliveryTime}
+          />
         </div>
       );
     }
