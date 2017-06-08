@@ -76,12 +76,12 @@ class Edit extends React.Component {
         eventId: this.state.eventId
       }
     }).then(function(response) {
-      
+
     }).catch(function(error) {
       console.log(error);
     });
   }
- 
+
   handleAddition(tag) {
     axios({
       method: 'post',
@@ -123,10 +123,14 @@ class Edit extends React.Component {
   render() {
     if (this.state.redirectToEvent) {
       return ( <Redirect to={'/events/' + this.state.eventId}/> );
-    } else { 
+    } else {
       return (
         <div className="container">
-          <h1 style={{marginBottom: '2rem' }}>Edit your PepClock</h1>
+          <div className="row">
+            <div className="col">
+                <h1 style={{marginBottom: '2rem' }}>Edit your PepClock</h1>
+            </div>
+          </div>
           <EventForm
             handleChange={this.handleChange}
             handleDateChange={this.handleDateChange}
@@ -142,7 +146,7 @@ class Edit extends React.Component {
             deliveryTime={this.state.deliveryTime}
             />
         </div>
-      ); 
+      );
     }
   }
 }

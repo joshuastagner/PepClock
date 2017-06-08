@@ -3,12 +3,9 @@ import { Link } from 'react-router-dom';
 import EventListItem from './EventListItem';
 
 const EventList = ({ events }) => (
-  <div>
-    <h2>Events</h2>
-    <ul>
-      {events.map(event => <EventListItem key={event.event_id} event={event}/>)}
-    </ul>
-  </div>
+  <ul>
+    {events.map(event => <EventListItem key={event.event_id} event={event}/>)}
+  </ul>
 );
 
 export default EventList;
