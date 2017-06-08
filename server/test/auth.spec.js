@@ -153,8 +153,8 @@ describe('Auth Middleware', () => {
           models.Recipient.where({email: 'hotdog@ketchup.com'}).fetch()
             .then(recipient => {
               expect(recipient.attributes.viewed).to.equal('true');
+              done();
             });
-            done();
         });
         middleware.updateAndRender(request, response);
       });
