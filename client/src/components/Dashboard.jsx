@@ -26,8 +26,7 @@ class Dashboard extends Component {
       <div className="container">
         <div className="row">
           <div className="col">
-            <h1>Dashboard</h1>
-            <Link to="/create">Create event</Link>
+            <h1>Events</h1>
             <EventList events={this.state.events} />
           </div>
         </div>
