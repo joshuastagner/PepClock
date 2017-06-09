@@ -14,4 +14,9 @@ router.route('/:id')
   .get(EventController.getById)
   .put(EventController.update);
 
+router.route('/test')
+  .get(() => {
+    res.send('That is terrible joey!');
+  });
+
 module.exports = router;
