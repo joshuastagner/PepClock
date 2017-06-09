@@ -10,13 +10,15 @@ router.route('/')
 router.route('/users')
   .get(EventController.getEventsByContributor);
 
+// DONT FORGET TO REMOVE THIS!!
+router.route('/tester')
+  .get(function(req, res) {
+    res.send('that is terrible joey!');
+  });
+
 router.route('/:id')
   .get(EventController.getById)
   .put(EventController.update);
 
-router.route('/test')
-  .get(() => {
-    res.send('That is terrible joey!');
-  });
 
 module.exports = router;
