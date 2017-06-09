@@ -5,15 +5,12 @@ import ContributionListItem from '../src/components/ContributionListItem';
 
 
 describe('ContributionListItem component', function() {
-  const wrapper = shallow(<ContributionListItem contribution={{text: 'foo', user: {first: 'bar', last: 'baz'}}}/>);
+  const wrapper = shallow(<ContributionListItem contribution={{text: 'foo', type: 'image', media_url: 'bomb.com', user: {first: 'bar', last: 'baz'}}}/>);
   it('contains the correct class', function() {
-    expect(wrapper.find('.contribution-list-item').length).to.equal(1);
+    expect(wrapper.hasClass('card w-50 mx-auto mb-3')).to.equal(true); 
   });
-  it('contains the contribution text', function() {
-    expect(wrapper.find('.text').length).to.equal(1);
-  });
-  it('contains the contributors name', function() {
-    expect(wrapper.find('.name').length).to.equal(1);
+  it('contains an img element', function() {
+    expect(wrapper.find('img').length).to.equal(1);
   });
 });
 
