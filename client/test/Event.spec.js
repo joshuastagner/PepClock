@@ -15,17 +15,12 @@ describe('Event Component', function() {
     expect(wrapper.contains(<h3>{apology}</h3>)).to.equal(true);
   });
 
-  it('contains the correct class', function() {
-    wrapper.setState({ hasPermissionToView: true });
-    expect(wrapper.find('.event').length).to.equal(1);
-  });
-
   it('contains the event title', function() {
-    wrapper.setState({ title: 'Pool Party' });
-    expect(wrapper.contains(<h1>Pool Party</h1>)).to.equal(true);
+    wrapper.setState({ title: 'Pool Party', hasPermissionToView: true });
+    expect(wrapper.contains(<h1 className="display-2">Pool Party</h1>)).to.equal(true);
   });
 
   it('contains a form where the user can add a contribution', function() {
-    expect(wrapper.find('.add').length).to.equal(1);
+    expect(wrapper.contains(<label>Enter your message</label>)).to.equal(true);
   });
 });
