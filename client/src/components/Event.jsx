@@ -18,6 +18,7 @@ class Event extends React.Component {
       contributionMediaUrl: '',
       hasPermissionToView: null,
       delivery_time: '',
+      recipient: {},
       curSecond: moment().second(),
       curMinute: moment().minute(),
       curHour: moment().hour()
@@ -85,8 +86,9 @@ class Event extends React.Component {
 
   getEventContent () {
     axios.get(`/api/events/${this.state.eventId}`)
-    .then(({ data: { title, delivery_time } }) => {
-      this.setState({ title, delivery_time });
+    .then(data => { console.log(data); return data; })
+    .then(({ data: { title, delivery_time, recipient} }) => {
+      this.setState({ title, delivery_time, recipient });
       this.updateContributions();
     })
     .catch(error => {
@@ -94,7 +96,8 @@ class Event extends React.Component {
     });
   }
 
-  showPicker() {
+  showPicker(event) {
+    event.preventDefault();
     client.pick({accept: ['image/*', 'video/*']})
     .then(result => {
       let type = result.filesUploaded[0].mimetype.slice(0, 5);
@@ -124,23 +127,23 @@ class Event extends React.Component {
         <div className="container event">
           <div className="row">
             <div className="col-xs-12">
-              <h1>{title}</h1>
-              <h3>{happen} {timeToLaunch}</h3>
-              <h5>on {launchDisplay}</h5>
-              <Link to={`/edit/${id}`}>Edit event</Link>
+              <h1 className="display-2">{title}</h1>
+              <h4>A PepClock Lovingly Created for {this.state.recipient.first_name} {this.state.recipient.last_name}</h4>
+              <h5 className="text-muted">{happen} {timeToLaunch}</h5>
+              <h6 className="text-muted">on {launchDisplay}</h6>
+              <Link className="btn btn-outline-info" to={`/edit/${id}`}>Edit event</Link>
               <hr />
               <ContributionList contributionList={this.state.contributionList}/>
               <hr />
-              <form className="add" onSubmit={this.handleSubmit}>
-                <input
-                  type="textarea"
-                  placeholder="Enter Contribution Text"
-                  autoFocus="true"
-                  onChange={this.handleChange}
-                  value={this.state.contributionText}
-                />
-                <input type="button" value="Upload" onClick={this.showPicker} />
-                <button id="submit">Submit</button>
+              <form onSubmit={this.handleSubmit}>
+                <div className="form-group w-75 mx-auto mb-5">
+                  <label>Enter your message</label>
+                  <textarea className="form-control mb-2" rows="3" onChange={this.handleChange} value={this.state.contributionText}></textarea>
+                
+                <a className="btn btn-success" href="#" onClick={this.showPicker}>
+                <i className="fa fa-picture-o" style={{cursor: 'pointer', color: 'white'}} />  Photo/Video</a>
+                <button className="btn btn-primary float-right">Create Post</button>
+                </div>
               </form>
             </div>
           </div>
