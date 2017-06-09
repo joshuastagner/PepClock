@@ -33,13 +33,13 @@ exports.batchSendInvitations = (recipientVariable, emails, cb) => {
 };
 
 exports.sendTwoFactorCode = (code, email, cb) => {
+
   axios({
     method: 'POST',
     url: 'https://api:' + process.env.MAILGUN_API_KEY + '@api.mailgun.net/v3/app6ac6b571b02e4efcbbba7f891d5131b0.mailgun.org/messages',
     params: {
       from: 'Alex <alex@app6ac6b571b02e4efcbbba7f891d5131b0.mailgun.org>',
-      to: emails,
-      'recipient-variables': code,
+      to: email,
       subject: 'Your PepClock Two-Factor Authentication Code',
       text: 'Here is your PepClock Two-Factor Authentication Code: \n' + code
     }

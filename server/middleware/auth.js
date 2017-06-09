@@ -1,5 +1,7 @@
 const session = require('express-session');
 const RedisStore = require('connect-redis')(session);
+const base32 = require('thirty-two');
+const crypto = require('crypto');
 const models = require('../../db/models');
 const redisClient = require('redis').createClient(process.env.REDISCLOUD_URL);
 
@@ -29,6 +31,15 @@ module.exports.redirect = (req, res) => {
 module.exports.render = (req, res) => {
   res.render('index.ejs', {user: JSON.stringify(req.user)});
 };
+
+module.exports.twoFactorSetup = (req, res, next) => {
+
+  let rndBytes = crypto.randomBytes(32);
+  let rest = rndBytes.toString('hex').slice(6)
+  req.session.key = base32.encode(rndBytes).toString().replace(/=/g, '');
+
+  return next();
+}
 
 module.exports.twoFactor = (req, res) => {
   const userId = req.user.id;

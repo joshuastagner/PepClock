@@ -4,6 +4,7 @@ const base32 = require('thirty-two');
 const crypto = require('crypto');
 const middleware = require('../middleware');
 const models = require('../../db/models');
+const email = require('../../workers/utils/email');
 
 const router = express.Router();
 
@@ -112,28 +113,21 @@ router.get('/yesTwoFA', function(req, res) {
     });
 });
 
-router.get('/totp-setup', function(req, res) {
-  if (!req.user || !req.user.email) {
-    console.error('User or user email undefined');
-    res.redirect('/login');
-  }
-  let rndBytes = crypto.randomBytes(32);
-  let userString = rndBytes.toString('hex').slice(0,6);
-  let rest = rndBytes.toString('hex').slice(6)
-  req.session.key = base32.encode(rndBytes).toString().replace(/=/g, '');
+router.get('/totp-setup', middleware.auth.verify, middleware.auth.twoFactorSetup, (req, res) => {
 
+  let userCode = req.session.key.slice(0,6);
 
-  res.redirect('/totp-input')
-  });
+  email.sendTwoFactorCode(userCode, req.user.email, (err, success) => {
+    res.redirect('/totp-input');
+  })
+});
 
 router.get('/totp-input', middleware.auth.verify, function(req, res) {
     if(!req.session.key) {
         console.error("Logic error, totp-input requested with no key set");
         res.redirect('/login');
     }
-    
-
-    console.log(req.session.key.slice(0,6), 'THIS WILL BE SENT TO THE USER');
+    // console.log(req.session.key.slice(0,6), 'THIS WILL BE SENT TO THE USER');
     res.render('totpinput.ejs');
 });
 
