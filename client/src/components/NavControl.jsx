@@ -8,6 +8,7 @@ const NavControl = () =>{
       <div className="navbar-nav mr-auto">
         <a className="nav-item nav-link" href="/dashboard">Events</a>
         <a className="nav-item nav-link" href="/create">Create Event</a>
+        <a className="nav-item nav-link" href="/profile">My Profile</a>
       </div>
     );
   } else {
