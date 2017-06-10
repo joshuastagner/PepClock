@@ -1,9 +1,5 @@
 const express = require('express');
-const sprintfjs = require('sprintf-js');
-const base32 = require('thirty-two');
-const crypto = require('crypto');
 const middleware = require('../middleware');
-const models = require('../../db/models');
 const email = require('../../workers/utils/email');
 
 const router = express.Router();
