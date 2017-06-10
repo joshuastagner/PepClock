@@ -4,7 +4,7 @@
   "scripts": {
     "start": "nodemon server",
     "test": "export NODE_ENV=test && mocha ./server/test/*.spec.js && mocha ./client/test/.setup.js ./client/test/*.spec.js",
-    "tw": "SET NODE_ENV=test && mocha ./server/test/*.spec.js && mocha ./client/test/.setup.js ./client/test/*.spec.js",
+    "tw": "set NODE_ENV=test & mocha ./server/test/*.spec.js & mocha ./client/test/.setup.js ./client/test/*.spec.js",
     "build": "webpack --watch",
     "start:dev": "export NODE_ENV=development && nodemon server",
     "sw": "SET NODE_ENV=development & nodemon server",
