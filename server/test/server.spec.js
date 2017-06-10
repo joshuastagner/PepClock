@@ -88,13 +88,13 @@ describe('Authorized Routes', function () {
 
   const agent = request.agent(app);
 
-  it('should redirect to /dashboard after auth', function(done) {
+  it('should redirect to /noTwoFA after auth', function(done) {
     agent
       .post('/login')
       .send({email: 'admin@domain.com', password: 'admin123'})
       .expect((res) => {
         expect(200);
-        expect(res.header.location).to.equal('/dashboard');
+        expect(res.header.location).to.equal('/noTwoFA');
       })
       .end(done);
   });

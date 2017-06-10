@@ -73,7 +73,7 @@ if (process.env.NODE_ENV === 'production') {
 //   module.exports = {
 //     client: 'postgresql',
 //     connection: {
-//       database: process.env.DB_DATABASE,
+//       database: 'testing_db',    //thesis_devel
 //       user: process.env.DB_USER,
 //       password: process.env.DB_PASSWORD,
 //       host: process.env.DB_HOST,
@@ -88,7 +88,7 @@ if (process.env.NODE_ENV === 'production') {
 //       directory: 'db/migrations'
 //     },
 //     seeds: {
-//       directory: 'db/seeds/development'
+//       directory: 'db/seeds/test'   //db/seeds/development
 //     },
 //   };
 // }

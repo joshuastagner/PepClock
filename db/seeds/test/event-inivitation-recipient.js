@@ -13,7 +13,8 @@ exports.seed = function(knex, Promise) {
         first: 'Gary',
         last: 'Pepperoni',
         display: 'Pizza Guy',
-        email: 'test-user@test.com'
+        email: 'test-user@test.com',
+        two_factor_enabled: 1
       }).save();
     })
     .then((profile) => {

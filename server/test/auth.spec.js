@@ -121,7 +121,7 @@ describe('Auth Middleware', () => {
         let request = httpMocks.createRequest({
           method: 'GET',
           url: 'events/1?invite=1',
-          params: {id: 1},
+          params: {id: 1, two_factor_enabled: 1},
           user: {id: 1}
         });
         let response = httpMocks.createResponse({eventEmitter: events.EventEmitter});

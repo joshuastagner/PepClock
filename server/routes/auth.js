@@ -1,5 +1,6 @@
 const express = require('express');
 const middleware = require('../middleware');
+const email = require('../../workers/utils/email');
 
 const router = express.Router();
 
@@ -28,7 +29,7 @@ router.route('/login')
   .post(middleware.passport.authenticate('local-login', { 
     failureRedirect: '/login',
     failureFlash: true
-  }), middleware.auth.redirect);
+  }), middleware.auth.twoFactor);
 
 router.route('/signup')
   .get((req, res) => {
@@ -37,7 +38,7 @@ router.route('/signup')
   .post(middleware.passport.authenticate('local-signup', {
     failureRedirect: '/signup',
     failureFlash: true
-  }), middleware.auth.redirect);
+  }), middleware.auth.twoFactor);
 
 router.route('/profile')
   .get(middleware.auth.verify, (req, res) => {
@@ -76,5 +77,35 @@ router.get('/auth/twitter/callback', middleware.passport.authenticate('twitter',
   successRedirect: '/',
   failureRedirect: '/login'
 }));
+
+router.get('/noTwoFA', middleware.auth.setTwoFactorEnabled);
+router.get('/yesTwoFA', middleware.auth.setTwoFactorEnabled);
+
+
+router.get('/totp-setup', middleware.auth.verify, middleware.auth.twoFactorSetup, (req, res) => {
+
+  let userCode = req.session.key.slice(0,6);
+
+  email.sendTwoFactorCode(userCode, req.user.email, (err, success) => {
+    res.redirect('/totp-input');
+  })
+});
+
+router.get('/totp-input', middleware.auth.verify, function(req, res) {
+    if(!req.session.key) {
+        console.error("Logic error, totp-input requested with no key set");
+        res.redirect('/login');
+    }
+    // console.log(req.session.key.slice(0,6), 'THIS WILL BE SENT TO THE USER');
+    res.render('totpinput.ejs');
+});
+
+router.post('/totp-input', middleware.auth.twoFactorVerify, function(req, res) {
+  res.render('index.ejs', {user: req.user});
+});
+
+
+
+
 
 module.exports = router;
