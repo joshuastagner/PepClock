@@ -41,6 +41,42 @@ module.exports.twoFactorSetup = (req, res, next) => {
   return next();
 }
 
+module.exports.setTwoFactorEnabled = (req, res, next) => {
+  const userId = req.user.id;
+  const fromUrl = req.route.path;
+  let method = req.session.method;
+  let secret = req.session.secret;
+
+  if (fromUrl === '/noTwoFA') {
+    method = 'plain';
+    secret = undefined;
+
+    models.Profile.where({id: userId}).fetch()
+      .then(profile => {
+        profile.set({
+          two_factor_enabled: 1
+        }).save()
+      })
+      .then(() => {
+        res.redirect('/dashboard')
+      })
+  }
+
+  if (fromUrl === '/yesTwoFA') {
+    method = 'totp';
+
+    models.Profile.where({id: userId}).fetch()
+      .then(profile => {
+        profile.set({
+          two_factor_enabled: 2
+        }).save()
+      })
+      .then(() => {
+        res.redirect('/totp-setup')
+      })
+  }
+}
+
 module.exports.twoFactor = (req, res) => {
   const userId = req.user.id;
 

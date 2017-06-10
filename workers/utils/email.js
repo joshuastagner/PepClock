@@ -1,10 +1,12 @@
 require('dotenv').config();
 const axios = require('axios');
 
+const url = 'https://api:' + process.env.MAILGUN_API_KEY + '@api.mailgun.net/v3/app6ac6b571b02e4efcbbba7f891d5131b0.mailgun.org/messages'
+
 exports.sendToRecipient = (link, email, cb) => {
   axios({
     method: 'POST',
-    url: 'https://api:' + process.env.MAILGUN_API_KEY + '@api.mailgun.net/v3/app6ac6b571b02e4efcbbba7f891d5131b0.mailgun.org/messages',
+    url: url,
     params: {
       from: 'Josh <josh@app6ac6b571b02e4efcbbba7f891d5131b0.mailgun.org>',
       to: email,
@@ -19,7 +21,7 @@ exports.sendToRecipient = (link, email, cb) => {
 exports.batchSendInvitations = (recipientVariable, emails, cb) => {
   axios({
     method: 'POST',
-    url: 'https://api:' + process.env.MAILGUN_API_KEY + '@api.mailgun.net/v3/app6ac6b571b02e4efcbbba7f891d5131b0.mailgun.org/messages',
+    url: url,
     params: {
       from: 'Josh <josh@app6ac6b571b02e4efcbbba7f891d5131b0.mailgun.org>',
       to: emails,
@@ -36,7 +38,7 @@ exports.sendTwoFactorCode = (code, email, cb) => {
 
   axios({
     method: 'POST',
-    url: 'https://api:' + process.env.MAILGUN_API_KEY + '@api.mailgun.net/v3/app6ac6b571b02e4efcbbba7f891d5131b0.mailgun.org/messages',
+    url: url,
     params: {
       from: 'Alex <alex@app6ac6b571b02e4efcbbba7f891d5131b0.mailgun.org>',
       to: email,

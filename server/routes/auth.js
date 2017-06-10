@@ -82,36 +82,9 @@ router.get('/auth/twitter/callback', middleware.passport.authenticate('twitter',
   failureRedirect: '/login'
 }));
 
-router.get('/noTwoFA', function(req, res) {
-  const userId = req.user.id;
-  req.session.method = 'plain';
-  req.session.secret = undefined;
+router.get('/noTwoFA', middleware.auth.setTwoFactorEnabled);
+router.get('/yesTwoFA', middleware.auth.setTwoFactorEnabled);
 
-  models.Profile.where({id: userId}).fetch()
-    .then(profile => {
-      profile.set({
-        two_factor_enabled: 1
-      }).save()
-    })
-    .then(() => {
-      res.redirect('/dashboard')
-    });
-});
-
-router.get('/yesTwoFA', function(req, res) {
-  const userId = req.user.id;
-  req.session.method = 'totp';
-
-  models.Profile.where({id: userId}).fetch()
-    .then(profile => {
-      profile.set({
-        two_factor_enabled: 2
-      }).save()
-    })
-    .then(() => {
-      res.redirect('/totp-setup');
-    });
-});
 
 router.get('/totp-setup', middleware.auth.verify, middleware.auth.twoFactorSetup, (req, res) => {
 
