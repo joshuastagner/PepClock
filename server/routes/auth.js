@@ -22,11 +22,23 @@ router.route('/events/:id')
 router.route('/redirected')
   .get(middleware.auth.render);
 
+router.route('/login/mobile')
+  .post((req, res) => {
+    middleware.passport.authenticate('local-login', (err, user, info) => {
+      if (err) { return res.send(err); }
+      if (!user) { return res.send(null); }
+      req.login(user, (err) => {
+        if (err) { return next(err); }
+        res.send(user);
+      });
+    })(req, res);
+  });
+
 router.route('/login')
   .get((req, res) => {
     res.render('login.ejs', { message: req.flash('loginMessage') });
   })
-  .post(middleware.passport.authenticate('local-login', { 
+  .post(middleware.passport.authenticate('local-login', {
     failureRedirect: '/login',
     failureFlash: true
   }), middleware.auth.twoFactor);
@@ -57,18 +69,18 @@ router.get('/auth/google', middleware.passport.authenticate('google', {
   scope: ['email', 'profile']
 }));
 
-router.get('/auth/google/callback', 
-  middleware.passport.authenticate('google', 
-  { failureRedirect: '/login' }), 
+router.get('/auth/google/callback',
+  middleware.passport.authenticate('google',
+  { failureRedirect: '/login' }),
   middleware.auth.redirect);
 
 router.get('/auth/facebook', middleware.passport.authenticate('facebook', {
   scope: ['public_profile', 'email']
 }));
 
-router.get('/auth/facebook/callback', 
-  middleware.passport.authenticate('facebook', 
-  { failureRedirect: '/login' }), 
+router.get('/auth/facebook/callback',
+  middleware.passport.authenticate('facebook',
+  { failureRedirect: '/login' }),
   middleware.auth.redirect);
 
 router.get('/auth/twitter', middleware.passport.authenticate('twitter'));
