@@ -11,11 +11,7 @@ describe('EventForm Component', function() {
   });
 
   it('should render four <input> elements', function() {
-    expect(wrapper.find('input').length).to.equal(4);
-  });
-
-  it('should render one <DateTimeField> component', function() {
-    expect(wrapper.find('DateTimeField').length).to.equal(1);
+    expect(wrapper.find('input').length).to.equal(5);
   });
 
 });

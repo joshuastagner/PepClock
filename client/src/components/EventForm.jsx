@@ -1,6 +1,4 @@
 import React from 'react';
-import DateTimeField from 'react-bootstrap-datetimepicker';
-import moment from 'moment';
 import {WithContext as ReactTags} from 'react-tag-input';
 
 const EventForm = (props) => (
@@ -32,12 +30,7 @@ const EventForm = (props) => (
         <div className="col-lg-7">
           <div className="form-group">
             <label>Delivery date and time</label>
-            <DateTimeField
-              dateTime={props.deliveryTime}
-              minDate={moment().subtract(1, 'days')}
-              defaultText="Select the event date and time"
-              onChange={props.handleDateChange}
-            />
+            <input className="form-control" type="datetime-local" value={props.deliveryTime} onChange={props.handleDateChange}/>
           </div>
         </div>
       </div>

@@ -2,6 +2,8 @@ import React from 'react';
 import axios from 'axios';
 import { Redirect } from 'react-router-dom';
 import EventForm from './EventForm';
+import moment from 'moment';
+
 
 class Edit extends React.Component {
   constructor(props) {
@@ -29,10 +31,10 @@ class Edit extends React.Component {
     .then(response => {
       let tags = response.data.invitations.map(invitation => {
         return {id: invitation.id, text: invitation.email};
-      });
+      });      
       this.setState({
         eventName: response.data.title,
-        deliveryTime: Date.parse(response.data.delivery_time),
+        deliveryTime: moment(response.data.delivery_time).format('YYYY-MM-DDTHH:mm:ss'),
         firstName: response.data.recipient.first_name,
         lastName: response.data.recipient.last_name,
         email: response.data.recipient.email,
@@ -50,9 +52,8 @@ class Edit extends React.Component {
     this.setState(newState);
   }
 
-  handleDateChange(dateTime) {
-    console.log(dateTime);
-    this.setState({deliveryTime: dateTime});
+  handleDateChange(event) {
+    this.setState({deliveryTime: moment(event.target.value).format('YYYY-MM-DDTHH:mm:ss')});
   }
 
   handleKeyPress(target) {

@@ -86,7 +86,6 @@ class Event extends React.Component {
 
   getEventContent () {
     axios.get(`/api/events/${this.state.eventId}`)
-    .then(data => { console.log(data); return data; })
     .then(({ data: { title, delivery_time, recipient} }) => {
       this.setState({ title, delivery_time, recipient });
       this.updateContributions();
@@ -121,7 +120,7 @@ class Event extends React.Component {
       let timeOfDay = moment(delivery_time).format('H') > 12 ? 'PM' : 'AM';
       let launchDisplay = launchTimeDisplay + ' ' + timeOfDay;
       let timeToLaunch = moment().to(delivery_time);
-      let happen = timeToLaunch.includes('ago') ? 'happened' : 'happening';
+      let happen = timeToLaunch.includes('ago') ? 'Happened' : 'Happening';
 
       return (
         <div className="container event">
