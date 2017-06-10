@@ -42,7 +42,6 @@ router.route('/login')
     failureFlash: true
   }), middleware.auth.redirect);
 
-
 router.route('/signup')
   .get((req, res) => {
     res.render('signup.ejs', { message: req.flash('signupMessage') });
