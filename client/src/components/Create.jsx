@@ -2,6 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import { Redirect } from 'react-router-dom';
 import EventForm from './EventForm';
+import moment from 'moment';
 
 class Create extends React.Component {
   constructor(props) {
@@ -30,9 +31,8 @@ class Create extends React.Component {
     this.setState(newState);
   }
 
-  handleDateChange(dateTime) {
-    console.log(dateTime);
-    this.setState({deliveryTime: dateTime});
+  handleDateChange(event) {
+    this.setState({deliveryTime: moment(event.target.value).format('YYYY-MM-DDTHH:mm:ss')});
   }
 
   handleKeyPress(target) {

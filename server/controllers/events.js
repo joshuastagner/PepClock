@@ -1,8 +1,9 @@
 const models = require('../../db/models');
 const collections = require('../../db/collections');
+const moment = require('moment');
 
 module.exports.create = (req, res) => {
-  var date = new Date(Number.parseInt(req.body.deliveryTime));
+  var date = moment(req.body.deliveryTime).utc().format();
   models.Event.forge({title: req.body.eventName, creator_id: req.session.passport.user, delivery_time: date})
     .save()
     .tap(result => {
@@ -68,12 +69,11 @@ module.exports.getEventsByContributor = (req, res) => {
 };
 
 module.exports.update = (req, res) => {
-  var date = new Date(Number.parseInt(req.body.deliveryTime));
   models.Event.where({ id: req.params.id }).fetch({withRelated: ['recipient']})
     .then(event => {
       event.set({
         title: req.body.eventName,
-        delivery_time: date
+        delivery_time: moment(req.body.deliveryTime).utc().format()
       }).save()
       .tap(event => {
         event.related('recipient').set({
