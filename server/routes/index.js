@@ -4,3 +4,5 @@ module.exports.profiles = require('./profiles');
 module.exports.events = require('./events');
 module.exports.contributions = require('./contributions');
 module.exports.invitations = require('./invitations');
+module.exports.mobile = require('./mobile');
+module.exports.workers = require('./workers');
