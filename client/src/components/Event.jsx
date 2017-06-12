@@ -138,7 +138,6 @@ class Event extends React.Component {
                 <div className="form-group w-75 mx-auto mb-5">
                   <label>Enter your message</label>
                   <textarea className="form-control mb-2" rows="3" onChange={this.handleChange} value={this.state.contributionText}></textarea>
-                
                 <a className="btn btn-success" href="#" onClick={this.showPicker}>
                 <i className="fa fa-picture-o" style={{cursor: 'pointer', color: 'white'}} />  Photo/Video</a>
                 <button className="btn btn-primary float-right">Create Post</button>

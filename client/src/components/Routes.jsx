@@ -17,7 +17,7 @@ import Redirected from './Redirected';
 import PrivateRoute from './PrivateRoute';
 import Nav from './Nav';
 import Edit from './Edit';
-
+import RunWorkers from './RunWorkers'
 
 const Routes = () => (
   <div>
@@ -30,6 +30,7 @@ const Routes = () => (
         <PrivateRoute path="/edit/:id" component={Edit} />
         <PrivateRoute path="/events/:id" component={Event} />
         <Route path="/redirected" component={Redirected} />
+        <Route path="/runworkers" component={RunWorkers} />
         <Route render={ () => <h1>404 Page Not Found</h1>} />
       </Switch>
     </Router>

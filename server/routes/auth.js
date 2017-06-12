@@ -22,6 +22,9 @@ router.route('/events/:id')
 router.route('/redirected')
   .get(middleware.auth.render);
 
+router.route('/runworkers')
+  .get(middleware.auth.verify, middleware.auth.render);
+
 router.route('/login/mobile')
   .post((req, res) => {
     middleware.passport.authenticate('local-login', (err, user, info) => {
