@@ -37,9 +37,9 @@ class InviteWorker {
       } else {
         recipientVariable[invitation.email].link += `\n 127.0.0.1:3000/events/${invitation.eventId}?invite=${invitation.id}`;
       }
-      return recipientVariable; 
+      return recipientVariable;
     }, {}) );
-  } 
+  }
 
   findUnsentInvitations (cb) {
     models.Invitation.where('status', 'not sent').fetchAll()
@@ -56,8 +56,8 @@ class InviteWorker {
         this.toSendData = array;
         cb();
       });
-  } 
-  
+  }
+
   updateInvitationsToSent (err, success, cb) {
     if (err) {
       cb('error!');
@@ -71,7 +71,9 @@ class InviteWorker {
   }
 }
 
-const worker = new InviteWorker(message => console.log(message));
+module.exports = InviteWorker;
+
+
 
 
 

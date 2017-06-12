@@ -25,5 +25,7 @@ app.use('/api/profiles', routes.profiles);
 app.use('/api/events', routes.events);
 app.use('/api/contributions', routes.contributions);
 app.use('/api/invitations', routes.invitations);
+app.use('/api/mobile', routes.mobile);
+app.use('/api/workers', routes.workers);
 
 module.exports = app;

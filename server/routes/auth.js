@@ -25,18 +25,6 @@ router.route('/redirected')
 router.route('/runworkers')
   .get(middleware.auth.verify, middleware.auth.render);
 
-router.route('/login/mobile')
-  .post((req, res) => {
-    middleware.passport.authenticate('local-login', (err, user, info) => {
-      if (err) { return res.send(err); }
-      if (!user) { return res.send(null); }
-      req.login(user, (err) => {
-        if (err) { return next(err); }
-        res.send(user);
-      });
-    })(req, res);
-  });
-
 router.route('/login')
   .get((req, res) => {
     res.render('login.ejs', { message: req.flash('loginMessage') });
@@ -99,28 +87,24 @@ router.get('/yesTwoFA', middleware.auth.setTwoFactorEnabled);
 
 router.get('/totp-setup', middleware.auth.verify, middleware.auth.twoFactorSetup, (req, res) => {
 
-  let userCode = req.session.key.slice(0,6);
+  let userCode = req.session.key.slice(0, 6);
 
   email.sendTwoFactorCode(userCode, req.user.email, (err, success) => {
     res.redirect('/totp-input');
-  })
+  });
 });
 
 router.get('/totp-input', middleware.auth.verify, function(req, res) {
-    if(!req.session.key) {
-        console.error("Logic error, totp-input requested with no key set");
-        res.redirect('/login');
-    }
-    // console.log(req.session.key.slice(0,6), 'THIS WILL BE SENT TO THE USER');
-    res.render('totpinput.ejs');
+  if (!req.session.key) {
+    console.error('Logic error, totp-input requested with no key set');
+    res.redirect('/login');
+  }
+  // console.log(req.session.key.slice(0,6), 'THIS WILL BE SENT TO THE USER');
+  res.render('totpinput.ejs');
 });
 
 router.post('/totp-input', middleware.auth.twoFactorVerify, function(req, res) {
   res.render('index.ejs', {user: req.user});
 });
-
-
-
-
 
 module.exports = router;

@@ -58,18 +58,12 @@ class sendRecipientLink {
 
   updateEventStatus (status, cb) {
     this.event.save({status: status}, {method: 'update'})
-      .then(response => cb(null, response))
+      .then(response => {
+        cb(null, response);
+        return null;
+      })
       .catch(err => cb(err, null));
   }
-
 }
 
-const worker = new sendRecipientLink();
-
-worker.work((err, message) => {
-  if (err) {
-    console.log(err);
-  } else {
-    console.log(message);
-  }
-});
+module.exports = sendRecipientLink;
