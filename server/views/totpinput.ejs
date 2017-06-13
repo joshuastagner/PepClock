@@ -1,20 +1,23 @@
 <% include head.ejs%>
 
+
     <div class="page-header text-center">
-      <h1>Two-Factor Authentication Input</h1>
-      <a href="/logout" class="btn btn-default btn-sm"> Logout</a>
+        <h1>Two-Factor Authentication Input</h1>
+        <a href="/logout" class="btn btn-outline-info btn-sm">Logout</a>
     </div>
 
-    <div class="col-sm-6 col-sm-offset-3">
+    <div class="row justify-content-center" style="margin-top:50px">
 
         <!-- INPUT FORM -->
-        <form action="/totp-input" method="post">
-            <div class="form-group">
-                <label>Code</label>
-                <input type="text" class="form-control" name="G2FA-code">
-            </div>
+        <div class="col-sm-6 col-sm-offset-3">
+            <form action="/totp-input" method="post">
+                <div class="form-group">
+                    <label>Enter the 6-digit code that was sent to your email address</label>
+                    <input type="text" class="form-control" name="G2FA-code" autofocus="true">
+                </div>
 
-            <button type="submit" class="btn btn-default btn-lg">Continue</button>
-        </form>
+                <button type="submit" class="btn btn-primary btn-lg">Continue</button>
+            </form>
+        </div>
 
 <% include foot.ejs%>
