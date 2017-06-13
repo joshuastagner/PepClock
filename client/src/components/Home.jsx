@@ -6,6 +6,7 @@ const Home = () => (
     <div className="row">
       <div className="col-xs-12">
         <h1>Welcome to PepClock</h1>
+        <p>Collect and share words, photos, and videos of encouragement to deliver to someone later</p>
       </div>
     </div>
   </div>
