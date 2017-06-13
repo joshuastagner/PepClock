@@ -114,7 +114,7 @@ class Event extends React.Component {
 
     if (this.state.hasPermissionToView) {
       const { id } = this.props.match.params;
-      const { title, description, delivery_time, recipient } = this.state;
+      const { title, description, delivery_time } = this.state;
 
       let launchTimeDisplay = moment(delivery_time).format('MMM Do YYYY || hh : mm');
       let timeOfDay = moment(delivery_time).format('a');
