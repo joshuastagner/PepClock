@@ -15,14 +15,14 @@ const Home = () => {
             <hr />
 
             <form action="/signup" method="post" style={{"marginTop":"30px"}}>
-              <div class="form-group">
-                  <input style={{"marginTop":"2px", "marginBottom":"2px"}} placeholder="Name" type="text" class="form-control" name="first" />
+              <div className="form-group">
+                  <input style={{"marginTop":"2px", "marginBottom":"2px"}} placeholder="Name" type="text" className="form-control" name="first" />
               </div>
-              <div class="form-group">
-                  <input style={{"marginTop":"2px", "marginBottom":"2px"}} type="text" placeholder="Email" class="form-control" name="email" />
+              <div className="form-group">
+                  <input style={{"marginTop":"2px", "marginBottom":"2px"}} type="text" placeholder="Email" className="form-control" name="email" />
               </div>
-              <div class="form-group">
-                  <input style={{"marginTop":"2px", "marginBottom":"2px"}} type="password" placeholder="Password" class="form-control" name="password" />
+              <div className="form-group">
+                  <input style={{"marginTop":"2px", "marginBottom":"2px"}} type="password" placeholder="Password" className="form-control" name="password" />
               </div>
 
               <button type="button submit" className="btn btn-primary" style={{"marginTop":"15px", "marginBottom":"30px"}}>Signup</button>
@@ -30,7 +30,7 @@ const Home = () => {
 
             <p style={{'marginBottom':'15px', 'marginTop':'15px'}}>Or Signup with Gmail or Facebook</p>
             <a style={{'marginRight':'15px'}} href="/auth/facebook"><img src="/assets/fb-logo.png"></img></a>
-            <a style={{'marginRight':'15px', 'margin-left':'15px'}} href="/auth/google"><img style={{width:'30px'}} src="/assets/google-logo.png"></img></a>
+            <a style={{'marginRight':'15px', 'marginLeft':'15px'}} href="/auth/google"><img style={{width:'30px'}} src="/assets/google-logo.png"></img></a>
           </div>
         </div>
       </div>
