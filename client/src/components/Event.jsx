@@ -123,7 +123,7 @@ class Event extends React.Component {
       let happen = timeToLaunch.includes('ago') ? 'Happened' : 'Happening';
 
       return (
-        <div className="container event">
+        <div className="event">
           <div className="row">
             <div className="col-xs-12">
               <h1 className="display-2">{title}</h1>
@@ -150,7 +150,7 @@ class Event extends React.Component {
     }
 
     return (
-      <div className="container event">
+      <div className="event">
         <div className="row">
           <div className="col-xs-12">
             <h3>Sorry, this doesn't seem to be one of your events</h3>

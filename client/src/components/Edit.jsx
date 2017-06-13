@@ -126,7 +126,7 @@ class Edit extends React.Component {
       return ( <Redirect to={'/events/' + this.state.eventId}/> );
     } else {
       return (
-        <div className="container">
+        <div>
           <div className="row">
             <div className="col">
                 <h1 style={{marginBottom: '2rem' }}>Edit your PepClock</h1>
