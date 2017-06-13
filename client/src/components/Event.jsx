@@ -117,13 +117,13 @@ class Event extends React.Component {
       const { title, description, delivery_time } = this.state;
 
       let launchTimeDisplay = moment(delivery_time).format('MMM Do YYYY || hh : mm');
-      let timeOfDay = moment(delivery_time).format('H') > 12 ? 'PM' : 'AM';
+      let timeOfDay = moment(delivery_time).format('a');
       let launchDisplay = launchTimeDisplay + ' ' + timeOfDay;
       let timeToLaunch = moment().to(delivery_time);
       let happen = timeToLaunch.includes('ago') ? 'Happened' : 'Happening';
 
       return (
-        <div className="container event">
+        <div className="event">
           <div className="row">
             <div className="col-xs-12">
               <h1 className="display-2">{title}</h1>
@@ -150,7 +150,7 @@ class Event extends React.Component {
     }
 
     return (
-      <div className="container event">
+      <div className="event">
         <div className="row">
           <div className="col-xs-12">
             <h3>Sorry, this doesn't seem to be one of your events</h3>

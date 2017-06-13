@@ -23,12 +23,10 @@ class Dashboard extends Component {
 
   render () {
     return (
-      <div className="container">
-        <div className="row">
-          <div className="col">
-            <h1>Events</h1>
-            <EventList events={this.state.events} />
-          </div>
+      <div className="row justify-content-center">
+        <div className="col text-center">
+          <h1 style={{"marginBottom":"30px", "marginTop":"30px"}}>Events</h1>
+          <EventList events={this.state.events} />
         </div>
       </div>
     );

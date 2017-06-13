@@ -22,18 +22,20 @@ import RunWorkers from './RunWorkers'
 const Routes = () => (
   <div>
     <Nav />
-    <Router>
-      <Switch>
-        <Route exact path="/" component={Home} />
-        <PrivateRoute path="/dashboard" component={Dashboard} />
-        <PrivateRoute path="/create" component={Create} />
-        <PrivateRoute path="/edit/:id" component={Edit} />
-        <PrivateRoute path="/events/:id" component={Event} />
-        <Route path="/redirected" component={Redirected} />
-        <Route path="/runworkers" component={RunWorkers} />
-        <Route render={ () => <h1>404 Page Not Found</h1>} />
-      </Switch>
-    </Router>
+    <div className="container">
+      <Router>
+        <Switch>
+          <Route exact path="/" component={Home} />
+          <PrivateRoute path="/dashboard" component={Dashboard} />
+          <PrivateRoute path="/create" component={Create} />
+          <PrivateRoute path="/edit/:id" component={Edit} />
+          <PrivateRoute path="/events/:id" component={Event} />
+          <Route path="/redirected" component={Redirected} />
+          <Route path="/runworkers" component={RunWorkers} />
+          <Route render={ () => <h1>404 Page Not Found</h1>} />
+        </Switch>
+      </Router>
+    </div>
   </div>
 );
 
