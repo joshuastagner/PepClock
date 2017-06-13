@@ -82,6 +82,20 @@ In terminal, from the root directory:
 
 Note: `--env NODE_ENV` may be omitted for development. For example, `knex migrate:latest` will run all migrations in the development environment, while `export NODE_ENV=development && knex migrate:latest` will migrate in the test environment.
 
+### Setting up Heroku Scheduler to deliver emails
+
+In a Heroku Scheduler for the app, use this as the command:
+
+`curl [app url]/api/workers/invites [app url]/api/workers/recipients`
+
+Where for example if the app is `pepclock-staging` use:
+
+`curl https://pepclock-staging.herokuapp.com/api/workers/invites https://pepclock-staging.herokuapp.com/api/workers/recipients`
+
+Where for example if the app is `pepclock` use:
+
+`curl https://pepclock.herokuapp.com/api/workers/invites https://pepclock.herokuapp.com/api/workers/recipients`
+
 ## Running the App
 
 To run webpack build: `yarn run build`
@@ -91,5 +105,3 @@ To run server: `yarn run start:dev`
 To run tests: `yarn run test`
 
 To run your redis server for the session store `redis-server`
-
-
