@@ -3,11 +3,11 @@ import { Link } from 'react-router-dom';
 import moment from 'moment';
 
 const EventListItem = ({ event }) => {
-  const { id, title, delivery_time } = event.event;
+  const { event_id, title, delivery_time, first_name, last_name} = event;
   const deliveryTime = moment(delivery_time).format('MMM Do YYYY || hh:mma');
   return (
     <li style={{listStyle:"none"}}>
-      <Link to={`/events/${id}`}>{title}</Link> {`on ${deliveryTime}`}
+      <Link to={`/events/${event_id}`}>{title}</Link> {`for ${first_name} ${last_name} on ${deliveryTime}`}
       <hr />
     </li>
   );
