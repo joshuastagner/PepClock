@@ -6,3 +6,4 @@ module.exports.contributions = require('./contributions');
 module.exports.invitations = require('./invitations');
 module.exports.mobile = require('./mobile');
 module.exports.workers = require('./workers');
+module.exports.uploads = require('./uploads');
