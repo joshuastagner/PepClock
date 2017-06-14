@@ -4,7 +4,6 @@ const multerS3 = require('multer-s3');
 
 const s3 = new aws.S3({region: 'us-west-2'});
 
-// Initialize multers3 with our s3 config and other options
 module.exports.upload = multer({
 
   storage: multerS3({
