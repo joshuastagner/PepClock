@@ -8,7 +8,7 @@ import eventFixture from './fixtures/event_list';
 describe('EventListItem Component', function() {
   const event = eventFixture[0];
   const wrapper = shallow(<EventListItem event={event}/>);
-  const { id, title, delivery_time } = event.event;
+  const { event_id, title, delivery_time } = event;
   const { to, children } = wrapper.find(Link).props();
 
   it('should contain a <Link> component', function() {
@@ -16,7 +16,7 @@ describe('EventListItem Component', function() {
   });
 
   it('should link to correct event URL', function() {
-    expect(to).to.equal(`/events/${id}`);
+    expect(to).to.equal(`/events/${event_id}`);
   });
 
   it('should link to correct event title', function() {
