@@ -1,48 +1,50 @@
 <% include head.ejs%>
 
-    <div class="row justify-content-center">
-        <div class="col-sm-6 col-sm-offset-3 text-center">
+    <div class="container-fluid">
+        <div class="row justify-content-center">
+            <div class="col col-md-6 text-center">
 
-            <h1> Signup</h1>
+                <h1> Signup</h1>
 
-            <!-- show any messages that come back with authentication -->
-            <% if (message.length > 0) { %>
-            <div class="alert alert-danger"><%= message %></div>
-            <% } %>
+                <!-- show any messages that come back with authentication -->
+                <% if (message.length > 0) { %>
+                <div class="alert alert-danger"><%= message %></div>
+                <% } %>
 
-            <!-- LOGIN FORM -->
-            <p>Signup with your email</p>
-            <form action="/signup" method="post" class="text-left">
-                <div class="form-group">
-                    <label>First Name</label>
-                    <input type="text" class="form-control" name="first" autofocus="true" />
-                </div>
-                <div class="form-group">
-                    <label>Last Name</label>
-                    <input type="text" class="form-control" name="Last" autofocus="true" />
-                </div>
-                <div class="form-group">
-                    <label>Email</label>
-                    <input type="text" class="form-control" name="email" />
-                </div>
-                <div class="form-group">
-                    <label>Password</label>
-                    <input type="password" class="form-control" name="password" />
-                </div>
+                <!-- LOGIN FORM -->
+                <p>Signup with your email</p>
+                <form action="/signup" method="post" class="text-left">
+                    <div class="form-group">
+                        <label>First Name</label>
+                        <input type="text" class="form-control" name="first" autofocus="true" />
+                    </div>
+                    <div class="form-group">
+                        <label>Last Name</label>
+                        <input type="text" class="form-control" name="Last" autofocus="true" />
+                    </div>
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="text" class="form-control" name="email" />
+                    </div>
+                    <div class="form-group">
+                        <label>Password</label>
+                        <input type="password" class="form-control" name="password" />
+                    </div>
 
-                <button type="button submit" class="btn btn-primary">Signup</button>
-            </form>
-            <hr>
-            <div>
-                <p>Or signup with Facebook or Google</p><br />
-                <a style="margin-right:15px" href="/auth/facebook"><img src="/assets/fb-logo.png" /></a>
-                <a style="margin-left:15px;margin-right:15px" href="/auth/google"><img style="width:29px" src="/assets/google-logo.png" /></a>
+                    <button type="button submit" class="btn btn-primary">Signup</button>
+                </form>
+                <hr>
+                <div>
+                    <p>Or signup with Facebook or Google</p><br />
+                    <a style="margin-right:15px" href="/auth/facebook"><img src="/assets/fb-logo.png" /></a>
+                    <a style="margin-left:15px;margin-right:15px" href="/auth/google"><img style="width:29px" src="/assets/google-logo.png" /></a>
+                </div>
+                <hr>
+
+                <p>Already have an account? <a href="/login">Login</a></p>
+                <p>Or go <a href="/">home</a>.</p>
+
             </div>
-            <hr>
-
-            <p>Already have an account? <a href="/login">Login</a></p>
-            <p>Or go <a href="/">home</a>.</p>
-
         </div>
     </div>
 
