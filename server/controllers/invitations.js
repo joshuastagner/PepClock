@@ -1,5 +1,6 @@
 const models = require('../../db/models');
 const collections = require('../../db/collections');
+const db = require('../../db/index');
 
 module.exports.delete = (req, res) => {
   models.Invitation.where({id: req.params.id}).destroy()
@@ -23,17 +24,13 @@ module.exports.create = (req, res) => {
 
 module.exports.retrieve = (req, res) => {
   models.Event.query(function(qb) {
+    qb.select('invitations.id', 'events.title', 'recipients.first_name', 'recipients.last_name', 'invitations.event_id');
     qb.innerJoin('invitations', 'invitations.event_id', 'events.id');
     qb.where('invitations.email', '=', req.user.email);
     qb.where('invitations.rsvp', '=', 'false');
     qb.innerJoin('recipients', 'recipients.event_id', 'events.id');
-  }).fetchAll({withRelated: ['invitations', 'recipient']})
+  }).fetchAll()
     .then((result) => {
-      result.models.forEach((event) => {
-        event.relations.invitations.models = event.relations.invitations.models.filter((invite) => {
-          return invite.attributes.email === req.user.email;
-        });
-      });
       res.status(200).send(result);
     });
 };
