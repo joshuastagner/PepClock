@@ -7,5 +7,6 @@ router.route('/:id')
   .delete(InvitationController.delete);
 
 router.route('/')
+  .get(InvitationController.retrieve)
   .post(InvitationController.create);
 module.exports = router;
