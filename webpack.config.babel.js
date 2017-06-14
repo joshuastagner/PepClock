@@ -22,6 +22,10 @@ const config = {
       }
     ]
   },
+  // node: {
+  //   __dirname: true,
+  // },
+  // plugins: [new webpack.DefinePlugin({ 'global.GENTLY': false })],
   externals: {
     'react/addons': true,
     'react/lib/ExecutionEnvironment': true,
