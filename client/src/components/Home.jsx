@@ -8,7 +8,7 @@ const Home = () => {
     return (
       <div>
         <div className="row justify-content-center">
-          <div className="col-6 text-center">
+          <div className="col text-center">
           <h1>Welcome to PepClock</h1>
           <p>Collect and share words, photos, and videos of encouragement to deliver to someone later</p>
 
@@ -20,7 +20,7 @@ const Home = () => {
 
 
       <div className="row justify-content-around">
-        <div className="col-4 text-center">
+        <div className="col-sm-12 col-md text-center">
 
           <p>Signup with your email</p>
 
@@ -48,7 +48,7 @@ const Home = () => {
         {/*close col div for sign-up form*/}
 
 
-      <div className="col-4 text-center">
+      <div className="col-sm-12 col-md text-center">
         <p>Sign-In</p>
         <form action="/login" method="post" className="text-left">
           <div className="form-group">
@@ -67,7 +67,7 @@ const Home = () => {
     {/*Close row div for forms*/}
 
     <div className="row justify-content-center">
-      <div className="col-4 text-center">
+      <div className="col text-center">
         <hr />
         <p style={{'marginBottom':'15px', 'marginTop':'15px'}}>Or Sign-in Facebook or Google</p>
         <a style={{'marginRight':'15px'}} href="/auth/facebook"><img src="/assets/fb-logo.png"></img></a>
