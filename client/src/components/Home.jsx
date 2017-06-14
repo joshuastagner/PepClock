@@ -26,8 +26,12 @@ const Home = () => {
 
           <form action="/signup" method="post" className="text-left">
             <div className="form-group">
-              <label>Name</label>
+              <label>First Name</label>
               <input style={{"marginTop":"2px", "marginBottom":"2px"}} type="text" className="form-control" name="first" />
+            </div>
+            <div className="form-group">
+              <label>Last Name</label>
+              <input style={{"marginTop":"2px", "marginBottom":"2px"}} type="text" className="form-control" name="last" />
             </div>
             <div className="form-group">
               <label>Email</label>

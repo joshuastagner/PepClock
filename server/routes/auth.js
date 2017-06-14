@@ -45,6 +45,7 @@ router.route('/signup')
 
 router.route('/profile')
   .get(middleware.auth.verify, (req, res) => {
+    console.log(req.user);
     res.render('profile.ejs', {
       user: req.user
     });
