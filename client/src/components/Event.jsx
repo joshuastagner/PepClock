@@ -86,7 +86,7 @@ class Event extends React.Component {
 
   getEventContent () {
     axios.get(`/api/events/${this.state.eventId}`)
-    .then(({ data: { title, deliveryTime, recipient} }) => {
+    .then(({ data: { title, delivery_time: deliveryTime, recipient} }) => {
       this.setState({ title, deliveryTime, recipient });
       this.updateContributions();
     })
