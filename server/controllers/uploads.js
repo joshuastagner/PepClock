@@ -20,8 +20,6 @@ module.exports.upload = multer({
 });
 
 module.exports.create = (req, res) => {
-  console.log('got an upload', req.file);
   res.status(200).send(req.file);
-
 };
 
