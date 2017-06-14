@@ -146,7 +146,7 @@ class Edit extends React.Component {
             email={this.state.email}
             deliveryTime={this.state.deliveryTime}
             />
-        </div>
+          </div>
       );
     }
   }
