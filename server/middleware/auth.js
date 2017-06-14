@@ -3,6 +3,7 @@ const RedisStore = require('connect-redis')(session);
 const base32 = require('thirty-two');
 const crypto = require('crypto');
 const models = require('../../db/models');
+const utils = require('../../utilities');
 const redisClient = require('redis').createClient(process.env.REDISCLOUD_URL);
 
 module.exports.verify = (req, res, next) => {
@@ -159,6 +160,7 @@ module.exports.updateAndRender = (req, res) => {
           })
           .then(() => {
             // email all collaborators to let them know recipient opened link
+            const emailList = utils.getContributorsByEventId(eventId);
           })
           .then(() => {
             return res.redirect(req.path);
