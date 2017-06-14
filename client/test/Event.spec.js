@@ -17,7 +17,7 @@ describe('Event Component', function() {
 
   it('contains the event title', function() {
     wrapper.setState({ title: 'Pool Party', hasPermissionToView: true });
-    expect(wrapper.contains(<h1 className="display-2">Pool Party</h1>)).to.equal(true);
+    expect(wrapper.contains(<h1>Pool Party</h1>)).to.equal(true);
   });
 
   it('contains a form where the user can add a contribution', function() {
