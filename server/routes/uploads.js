@@ -4,6 +4,6 @@ const router = express.Router();
 const UploadController = require('../controllers').Uploads;
 
 router.route('/')
-  .post(UploadController.upload.single('photo'), UploadController.create);
+  .post(UploadController.upload.single('media'), UploadController.create);
 
 module.exports = router;
