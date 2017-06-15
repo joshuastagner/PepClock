@@ -16,24 +16,6 @@ module.exports.verify = (req, res, next) => {
   res.redirect('/login');
 };
 
-<<<<<<< HEAD
-module.exports.ensureTOTP = (req, res, next) => {
-  if ((req.session.key && req.session.method === 'totp') || (!req.session.key && req.session.method === 'plain')) {
-    next();
-  } else {
-    res.redirect('/login');
-  }
-};
-=======
-// module.exports.ensureTOTP = (req, res, next) => {
-//   if ((req.session.key && req.session.method === 'totp') || (!req.session.key && req.session.method === 'plain')) {
-//     next();
-//   } else {
-//     res.redirect('/login');
-//   }
-// }
->>>>>>> Refactor 2FA routes and improve user facing redirects
-
 module.exports.redirect = (req, res) => {
   let redirect = req.session.returnTo || '/dashboard';
   delete req.session.returnTo;
@@ -70,11 +52,7 @@ module.exports.setTwoFactorEnabled = (req, res, next) => {
         }).save();
       })
       .then(() => {
-<<<<<<< HEAD
-        res.redirect('/dashboard');
-=======
         next();
->>>>>>> Refactor 2FA routes and improve user facing redirects
       });
   }
 
@@ -106,20 +84,12 @@ module.exports.twoFactor = (req, res, next) => {
         next();
       }
       if (twoFactor === 2) {
-<<<<<<< HEAD
-        res.redirect('/yesTwoFA');
-=======
         res.redirect('/totp-setup');
->>>>>>> Refactor 2FA routes and improve user facing redirects
       }
     });
 };
 
-<<<<<<< HEAD
-module.exports.twoFactorVerify = (req, res) => {
-=======
 module.exports.twoFactorVerify = (req, res, next) => {
->>>>>>> Refactor 2FA routes and improve user facing redirects
   let userInput = req.body['G2FA-code'];
   let expected = req.session.key;
   let rest = req.session.key.slice(6);
@@ -193,6 +163,81 @@ module.exports.updateAndRender = (req, res) => {
   }
 
   res.render('index.ejs', {user: JSON.stringify(req.user)});
+};
+
+module.exports.twoFactor = (req, res, next) => {
+  const userId = req.user.id;
+
+  models.Profile.where({id: userId}).fetch()
+    .then(profile => {
+      let twoFactor = profile.attributes.two_factor_enabled;
+      if (twoFactor === 0) {
+        res.render('twoFactorOptIn.ejs', {user: JSON.stringify(profile.attributes)});
+      }
+      if (twoFactor === 1) {
+        next();
+      }
+      if (twoFactor === 2) {
+        res.redirect('/totp-setup');
+      }
+    });
+};
+
+module.exports.setTwoFactorEnabled = (req, res, next) => {
+  const userId = req.user.id;
+  let method = req.session.method;
+  let secret = req.session.secret;
+  let option = req.query.twoFA;
+
+  if (option === 'false') {
+    method = 'plain';
+    secret = undefined;
+
+    models.Profile.where({id: userId}).fetch()
+      .then(profile => {
+        profile.set({
+          two_factor_enabled: 1
+        }).save();
+      })
+      .then(() => {
+        next();
+      });
+  }
+
+  if (option === 'true') {
+    method = 'totp';
+
+    models.Profile.where({id: userId}).fetch()
+      .then(profile => {
+        profile.set({
+          two_factor_enabled: 2
+        }).save();
+      })
+      .then(() => {
+        res.redirect('/totp-setup');
+      });
+  }
+};
+
+module.exports.twoFactorSetup = (req, res, next) => {
+  let rndBytes = crypto.randomBytes(32);
+  let rest = rndBytes.toString('hex').slice(6);
+  req.session.key = base32.encode(rndBytes).toString().replace(/=/g, '');
+
+  return next();
+};
+
+module.exports.twoFactorVerify = (req, res, next) => {
+  let userInput = req.body['G2FA-code'];
+  let expected = req.session.key;
+  let rest = req.session.key.slice(6);
+  let actual = userInput + rest;
+
+  if (actual.toString('hex') === expected.toString('hex')) {
+    next();
+  } else {
+    res.redirect('/totp-input');
+  }
 };
 
 module.exports.session = session({

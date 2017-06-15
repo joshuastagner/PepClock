@@ -98,7 +98,7 @@ module.exports.getRecipientEvents = (req, res) => {
       .catch(err => {
         res.status(500).send(err);
       });
-}
+};
 
 module.exports.update = (req, res) => {
   models.Event.where({ id: req.params.id }).fetch({withRelated: ['recipient']})
