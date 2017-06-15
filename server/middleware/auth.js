@@ -3,6 +3,8 @@ const RedisStore = require('connect-redis')(session);
 const base32 = require('thirty-two');
 const crypto = require('crypto');
 const models = require('../../db/models');
+const utils = require('../../utilities');
+const email = require('../../workers/utils/email');
 const redisClient = require('redis').createClient(process.env.REDISCLOUD_URL);
 
 module.exports.verify = (req, res, next) => {
@@ -20,7 +22,7 @@ module.exports.ensureTOTP = (req, res, next) => {
   } else {
     res.redirect('/login');
   }
-}
+};
 
 module.exports.redirect = (req, res) => {
   let redirect = req.session.returnTo || '/dashboard';
@@ -35,11 +37,11 @@ module.exports.render = (req, res) => {
 module.exports.twoFactorSetup = (req, res, next) => {
 
   let rndBytes = crypto.randomBytes(32);
-  let rest = rndBytes.toString('hex').slice(6)
+  let rest = rndBytes.toString('hex').slice(6);
   req.session.key = base32.encode(rndBytes).toString().replace(/=/g, '');
 
   return next();
-}
+};
 
 module.exports.setTwoFactorEnabled = (req, res, next) => {
   const userId = req.user.id;
@@ -55,11 +57,11 @@ module.exports.setTwoFactorEnabled = (req, res, next) => {
       .then(profile => {
         profile.set({
           two_factor_enabled: 1
-        }).save()
+        }).save();
       })
       .then(() => {
-        res.redirect('/dashboard')
-      })
+        res.redirect('/dashboard');
+      });
   }
 
   if (fromUrl === '/yesTwoFA') {
@@ -69,13 +71,13 @@ module.exports.setTwoFactorEnabled = (req, res, next) => {
       .then(profile => {
         profile.set({
           two_factor_enabled: 2
-        }).save()
+        }).save();
       })
       .then(() => {
-        res.redirect('/totp-setup')
-      })
+        res.redirect('/totp-setup');
+      });
   }
-}
+};
 
 module.exports.twoFactor = (req, res) => {
   const userId = req.user.id;
@@ -90,15 +92,15 @@ module.exports.twoFactor = (req, res) => {
         res.redirect('/noTwoFA');
       }
       if (twoFactor === 2) {
-        res.redirect('/yesTwoFA')
+        res.redirect('/yesTwoFA');
       }
     });
 };
 
 module.exports.twoFactorVerify = (req, res) => {
-  let userInput = req.body['G2FA-code']
+  let userInput = req.body['G2FA-code'];
   let expected = req.session.key;
-  let rest = req.session.key.slice(6);  
+  let rest = req.session.key.slice(6);
   let actual = userInput + rest;
 
   if (actual.toString('hex') === expected.toString('hex')) {
@@ -106,7 +108,7 @@ module.exports.twoFactorVerify = (req, res) => {
   } else {
     res.redirect('/totp-input');
   }
-}
+};
 
 module.exports.updateAndRender = (req, res) => {
   const eventId = parseInt(req.params.id);
@@ -145,7 +147,7 @@ module.exports.updateAndRender = (req, res) => {
           return res.send('bad link!');
         }
 
-        if (recipient.attributes.rsvp === 'true') {
+        if (recipient.attributes.viewed === 'true') {
           return res.redirect(req.path);
         }
 
@@ -158,7 +160,12 @@ module.exports.updateAndRender = (req, res) => {
             }).save();
           })
           .then(() => {
-            return res.redirect(req.path);
+            // email all collaborators to let them know recipient opened link
+            utils.getEventContributors(eventId, (emailList) => {
+              email.batchSendOpenNotification(eventId, emailList, (response) => {
+                return res.redirect(req.path);
+              });
+            });
           });
       });
   }
