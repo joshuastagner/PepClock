@@ -1,3 +1,4 @@
+require('dotenv').config();
 const email = require('./utils/email');
 const models = require('../db/models');
 const collections = require('./../db/collections');
@@ -33,9 +34,9 @@ class InviteWorker {
   constructRecipientVariable () {
     this.recipientVariable = JSON.stringify( this.toSendData.reduce((recipientVariable, invitation) => {
       if (!recipientVariable[invitation.email]) {
-        recipientVariable[invitation.email] = { link: `\n 127.0.0.1:3000/events/${invitation.eventId}?invite=${invitation.id}` };
+        recipientVariable[invitation.email] = { link: `\n ${process.env.LINK_DOMAIN}/events/${invitation.eventId}?invite=${invitation.id}` };
       } else {
-        recipientVariable[invitation.email].link += `\n 127.0.0.1:3000/events/${invitation.eventId}?invite=${invitation.id}`;
+        recipientVariable[invitation.email].link += `\n ${process.env.LINK_DOMAIN}/events/${invitation.eventId}?invite=${invitation.id}`;
       }
       return recipientVariable;
     }, {}) );
@@ -60,7 +61,7 @@ class InviteWorker {
 
   updateInvitationsToSent (err, success, cb) {
     if (err) {
-      cb('error!');
+      cb('error! ', err);
     } else {
       let inviteIds = this.toSendData.map(invitation => ( {id: invitation.id} ));
       let invites = collections.Invitations.forge(inviteIds);
