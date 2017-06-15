@@ -132,26 +132,36 @@ class Event extends React.Component {
           )
         : null;
 
-      return (
-        <div className="row justify-content-center">
-          <div className="col col-md-8 text-center">
-            <h1>{title}</h1>
-            <h4>A PepClock Lovingly Created for {this.state.recipient.first_name} {this.state.recipient.last_name}</h4>
-            <h5 className="text-muted">{happen} {timeToLaunch}</h5>
-            <h6 className="text-muted">on {launchDisplay}</h6>
-            <Link className="btn btn-outline-info" to={`/edit/${id}`}>Edit event</Link>
-            <hr />
-            <ContributionList contributionList={this.state.contributionList}/>
-            <hr />
-            <form onSubmit={this.handleSubmit}>
-              <div className="form-group w-75 mx-auto mb-5">
-                <label>Enter your message</label>
-                <textarea className="form-control mb-2" rows="3" onChange={this.handleChange} value={this.state.contributionText}></textarea>
-              <a className="btn btn-success" href="#" onClick={this.showPicker}>
-              <i className="fa fa-picture-o" style={{cursor: 'pointer', color: 'white'}} />  Photo/Video</a>
-              <button className="btn btn-primary float-right">Create Post</button>
-              </div>
-            </form>
+    return (
+        <div className="event">
+          <div className="row">
+            <div className="col-md-12">
+              <h1>{title}</h1>
+              <h4>A PepClock Lovingly Created for {this.state.recipient.first_name} {this.state.recipient.last_name}</h4>
+              <h5 className="text-muted">{happen} {timeToLaunch}</h5>
+              <h6 className="text-muted">on {launchDisplay}</h6>
+              <Link className="btn btn-outline-info" to={`/edit/${id}`}>Edit event</Link>
+              <hr />
+              <ContributionList contributionList={this.state.contributionList}/>
+              <hr />
+              <form onSubmit={this.handleSubmit}>
+                <div className="form-group w-75 mx-auto mb-5">
+                  {uploadConfirmation}
+                  <textarea
+                    className="form-control mb-2"
+                    rows="3"
+                    onChange={this.handleChange}
+                    value={this.state.contributionText}
+                    placeholder="Enter your message">
+                  </textarea>
+                  <a className="btn btn-success" href="#" onClick={this.showPicker}>
+                    <i className="fa fa-picture-o" style={{cursor: 'pointer', color: 'white'}} />
+                    Photo/Video
+                  </a>
+                  <button className="btn btn-primary float-right">Create Post</button>
+                </div>
+              </form>
+            </div>
           </div>
         </div>
       );
