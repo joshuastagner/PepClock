@@ -4,6 +4,7 @@ const base32 = require('thirty-two');
 const crypto = require('crypto');
 const models = require('../../db/models');
 const utils = require('../../utilities');
+const email = require('../../workers/utils/email');
 const redisClient = require('redis').createClient(process.env.REDISCLOUD_URL);
 
 module.exports.verify = (req, res, next) => {
@@ -146,7 +147,7 @@ module.exports.updateAndRender = (req, res) => {
           return res.send('bad link!');
         }
 
-        if (recipient.attributes.rsvp === 'true') {
+        if (recipient.attributes.viewed === 'true') {
           return res.redirect(req.path);
         }
 
@@ -160,10 +161,12 @@ module.exports.updateAndRender = (req, res) => {
           })
           .then(() => {
             // email all collaborators to let them know recipient opened link
-            const emailList = utils.getContributorsByEventId(eventId);
-          })
-          .then(() => {
-            return res.redirect(req.path);
+            utils.getEventContributors(eventId, (emailList) => {
+              email.batchSendOpenNotification(eventId, emailList, (response) => {
+                console.log(response);
+                return res.redirect(req.path);
+              });
+            });
           });
       });
   }

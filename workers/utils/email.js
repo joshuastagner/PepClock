@@ -46,8 +46,8 @@ exports.batchSendOpenNotification = (eventId, emails, cb) => {
       text: 'The event you contributed to was viewed. Join in over at PepClock: ' + link
     }
   })
-  .then(response => cb())
-  .catch(response => cb('ERROR!'));
+  .then(response => cb(response))
+  .catch(response => cb(response));
 };
 
 exports.sendTwoFactorCode = (code, email, cb) => {
