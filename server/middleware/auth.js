@@ -16,6 +16,7 @@ module.exports.verify = (req, res, next) => {
   res.redirect('/login');
 };
 
+<<<<<<< HEAD
 module.exports.ensureTOTP = (req, res, next) => {
   if ((req.session.key && req.session.method === 'totp') || (!req.session.key && req.session.method === 'plain')) {
     next();
@@ -23,6 +24,15 @@ module.exports.ensureTOTP = (req, res, next) => {
     res.redirect('/login');
   }
 };
+=======
+// module.exports.ensureTOTP = (req, res, next) => {
+//   if ((req.session.key && req.session.method === 'totp') || (!req.session.key && req.session.method === 'plain')) {
+//     next();
+//   } else {
+//     res.redirect('/login');
+//   }
+// }
+>>>>>>> Refactor 2FA routes and improve user facing redirects
 
 module.exports.redirect = (req, res) => {
   let redirect = req.session.returnTo || '/dashboard';
@@ -60,7 +70,11 @@ module.exports.setTwoFactorEnabled = (req, res, next) => {
         }).save();
       })
       .then(() => {
+<<<<<<< HEAD
         res.redirect('/dashboard');
+=======
+        next();
+>>>>>>> Refactor 2FA routes and improve user facing redirects
       });
   }
 
@@ -79,7 +93,7 @@ module.exports.setTwoFactorEnabled = (req, res, next) => {
   }
 };
 
-module.exports.twoFactor = (req, res) => {
+module.exports.twoFactor = (req, res, next) => {
   const userId = req.user.id;
 
   models.Profile.where({id: userId}).fetch()
@@ -89,22 +103,30 @@ module.exports.twoFactor = (req, res) => {
         res.render('twoFactorOptIn.ejs', {user: JSON.stringify(profile.attributes)});
       }
       if (twoFactor === 1) {
-        res.redirect('/noTwoFA');
+        next();
       }
       if (twoFactor === 2) {
+<<<<<<< HEAD
         res.redirect('/yesTwoFA');
+=======
+        res.redirect('/totp-setup');
+>>>>>>> Refactor 2FA routes and improve user facing redirects
       }
     });
 };
 
+<<<<<<< HEAD
 module.exports.twoFactorVerify = (req, res) => {
+=======
+module.exports.twoFactorVerify = (req, res, next) => {
+>>>>>>> Refactor 2FA routes and improve user facing redirects
   let userInput = req.body['G2FA-code'];
   let expected = req.session.key;
   let rest = req.session.key.slice(6);
   let actual = userInput + rest;
 
   if (actual.toString('hex') === expected.toString('hex')) {
-    res.redirect('/dashboard');
+    next();
   } else {
     res.redirect('/totp-input');
   }

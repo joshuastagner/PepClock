@@ -83,6 +83,23 @@ module.exports.getEventsByContributor = (req, res) => {
   }
 };
 
+module.exports.getRecipientEvents = (req, res) => {
+  models.Recipient.query((qb) => {
+    qb.select('recipients.id', 'recipients.event_id', 'events.title');
+    qb.innerJoin('events', 'recipients.event_id', 'events.id');
+    qb.where('recipients.email', '=', req.user.email);
+    qb.where('events.delivery_time', '<', 'now()');
+    qb.where('recipients.viewed', '=', 'false');
+
+  }).fetchAll()
+      .then(result => {
+        res.status(200).send(result);
+      })
+      .catch(err => {
+        res.status(500).send(err);
+      });
+}
+
 module.exports.update = (req, res) => {
   models.Event.where({ id: req.params.id }).fetch({withRelated: ['recipient']})
     .then(event => {

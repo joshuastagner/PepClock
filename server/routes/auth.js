@@ -32,7 +32,7 @@ router.route('/login')
   .post(middleware.passport.authenticate('local-login', {
     failureRedirect: '/login',
     failureFlash: true
-  }), middleware.auth.twoFactor);
+  }), middleware.auth.twoFactor, middleware.auth.redirect);
 
 router.route('/signup')
   .get((req, res) => {
@@ -41,7 +41,7 @@ router.route('/signup')
   .post(middleware.passport.authenticate('local-signup', {
     failureRedirect: '/signup',
     failureFlash: true
-  }), middleware.auth.twoFactor);
+  }), middleware.auth.twoFactor, middleware.auth.redirect);
 
 router.route('/profile')
   .get(middleware.auth.verify, (req, res) => {
@@ -81,8 +81,8 @@ router.get('/auth/twitter/callback', middleware.passport.authenticate('twitter',
   failureRedirect: '/login'
 }));
 
-router.get('/noTwoFA', middleware.auth.setTwoFactorEnabled);
-router.get('/yesTwoFA', middleware.auth.setTwoFactorEnabled);
+router.get('/noTwoFA', middleware.auth.setTwoFactorEnabled, middleware.auth.redirect);
+router.get('/yesTwoFA', middleware.auth.setTwoFactorEnabled, middleware.auth.redirect);
 
 
 router.get('/totp-setup', middleware.auth.verify, middleware.auth.twoFactorSetup, (req, res) => {
@@ -103,8 +103,6 @@ router.get('/totp-input', middleware.auth.verify, function(req, res) {
   res.render('totpinput.ejs');
 });
 
-router.post('/totp-input', middleware.auth.twoFactorVerify, function(req, res) {
-  res.render('index.ejs', {user: req.user});
-});
+router.post('/totp-input', middleware.auth.twoFactorVerify, middleware.auth.redirect);
 
 module.exports = router;
