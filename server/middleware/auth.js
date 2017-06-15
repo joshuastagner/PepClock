@@ -163,7 +163,6 @@ module.exports.updateAndRender = (req, res) => {
             // email all collaborators to let them know recipient opened link
             utils.getEventContributors(eventId, (emailList) => {
               email.batchSendOpenNotification(eventId, emailList, (response) => {
-                console.log(response);
                 return res.redirect(req.path);
               });
             });

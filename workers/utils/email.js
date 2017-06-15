@@ -56,7 +56,7 @@ exports.sendTwoFactorCode = (code, email, cb) => {
     method: 'POST',
     url: url,
     params: {
-      from: 'Alex <alex@app6ac6b571b02e4efcbbba7f891d5131b0.mailgun.org>',
+      from: 'PepClock <alex@app6ac6b571b02e4efcbbba7f891d5131b0.mailgun.org>',
       to: email,
       subject: 'Your PepClock Two-Factor Authentication Code',
       text: 'Here is your PepClock Two-Factor Authentication Code: \n' + code
@@ -72,21 +72,4 @@ exports.fakeSend = (link, email, cb) => {
   console.log('link ==>', link);
   console.log('email ==>', email);
   setTimeout(() => { cb(); }, 500);
-};
-
-const extractContributorEmail = (contributor) => {
-  return contributor.relations.user.attributes.email;
-};
-
-exports.getContributorsByEventId = (eventId) => {
-  models.Contributor.where({event_id: eventId}).fetchAll({
-    withRelated: ['user']
-  })
-    .then(({ models }) => {
-      if (models) {
-        const contributorEmails = models.map(extractContributorEmail);
-        console.log(contributorEmails);
-      }
-    })
-    .catch(err => console.log(err));
 };
