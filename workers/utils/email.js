@@ -73,7 +73,7 @@ exports.validateEmail = (email, cb) => {
     method: 'GET',
     url: 'https://api.mailgun.net/v3/address/validate',
     params: {
-      api_key: process.env.MAILGUN_API_PUB_KEY,
+      api_key: process.env.MAILGUN_PUBLIC_KEY,
       address: email
     }
   })
