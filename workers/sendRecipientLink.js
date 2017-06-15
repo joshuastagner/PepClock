@@ -1,3 +1,4 @@
+require('dotenv').config();
 const models = require('../db/models');
 const email = require('./utils/email');
 
@@ -52,7 +53,7 @@ class sendRecipientLink {
   }
 
   sendRecipientEmail (recipient, cb) {
-    const link = `${recipient.title}: http://localhost:3000/events/${recipient.eventId}?recipient=${recipient.inviteId}`;
+    const link = `${recipient.title}: ${process.env.LINK_DOMAIN}/events/${recipient.eventId}?recipient=${recipient.inviteId}`;
     email.sendToRecipient(link, recipient.email, cb);
   }
 
