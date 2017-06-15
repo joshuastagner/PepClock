@@ -94,6 +94,10 @@ router.get('/totp-setup', middleware.auth.verify, middleware.auth.twoFactorSetup
 
 router.route('/totp-input')
   .get(middleware.auth.verify, function(req, res) {
+    if (!req.session.key) {
+      console.error('Logic error, totp-input requested with no key set');
+      return res.redirect('/login');
+    }
     console.log(req.session.key.slice(0, 6), 'THIS WILL BE SENT TO THE USER');
     res.render('totpinput.ejs');
   })
