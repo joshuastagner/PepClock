@@ -22,7 +22,7 @@ import RunWorkers from './RunWorkers'
 const Routes = () => (
   <div>
     <Nav />
-    <div className="container-fluid">
+    <div className="container">
       <Router>
         <Switch>
           <Route exact path="/" component={Home} />
