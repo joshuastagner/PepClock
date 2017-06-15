@@ -144,21 +144,21 @@ class Event extends React.Component {
             <ContributionList contributionList={this.state.contributionList}/>
             <hr />
             <form onSubmit={this.handleSubmit}>
-              <div className="form-group w-75 mx-auto mb-5">
-                {uploadConfirmation}
-                <textarea
-                  className="form-control mb-2"
-                  rows="3"
-                  onChange={this.handleChange}
-                  value={this.state.contributionText}
-                  placeholder="Enter your message">
-                </textarea>
-                <a className="btn btn-success" href="#" onClick={this.showPicker}>
-                  <i className="fa fa-picture-o" style={{cursor: 'pointer', color: 'white'}} />
-                  Photo/Video
-                </a>
-                <button className="btn btn-primary float-right">Create Post</button>
-              </div>
+
+              {uploadConfirmation}
+              <textarea
+                className="form-control mb-2"
+                rows="1"
+                onChange={this.handleChange}
+                value={this.state.contributionText}
+                placeholder="Enter your message">
+              </textarea>
+              <a className="btn btn-success" href="#" onClick={this.showPicker} style={{marginBottom:'15px'}}>
+                <i className="fa fa-picture-o" style={{cursor: 'pointer', color: 'white'}} />
+                Photo/Video
+              </a>
+              <button className="btn btn-primary" style={{marginBottom:'15px'}}>Create Post</button>
+
             </form>
           </div>
         </div>
