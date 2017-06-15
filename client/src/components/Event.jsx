@@ -17,7 +17,7 @@ class Event extends React.Component {
       contributionType: '',
       contributionMediaUrl: '',
       hasPermissionToView: null,
-      delivery_time: '',
+      deliveryTime: '',
       recipient: {},
       curSecond: moment().second(),
       curMinute: moment().minute(),
@@ -86,8 +86,8 @@ class Event extends React.Component {
 
   getEventContent () {
     axios.get(`/api/events/${this.state.eventId}`)
-    .then(({ data: { title, delivery_time, recipient} }) => {
-      this.setState({ title, delivery_time, recipient });
+    .then(({ data: { title, delivery_time: deliveryTime, recipient} }) => {
+      this.setState({ title, deliveryTime, recipient });
       this.updateContributions();
     })
     .catch(error => {
@@ -114,13 +114,23 @@ class Event extends React.Component {
 
     if (this.state.hasPermissionToView) {
       const { id } = this.props.match.params;
-      const { title, description, delivery_time } = this.state;
+      const { title, description, deliveryTime } = this.state;
 
-      let launchTimeDisplay = moment(delivery_time).format('MMM Do YYYY || hh : mm');
-      let timeOfDay = moment(delivery_time).format('a');
+      let launchTimeDisplay = moment(deliveryTime).format('MMM Do YYYY || hh : mm');
+      let timeOfDay = moment(deliveryTime).format('a');
       let launchDisplay = launchTimeDisplay + ' ' + timeOfDay;
-      let timeToLaunch = moment().to(delivery_time);
+      let timeToLaunch = moment().to(deliveryTime);
       let happen = timeToLaunch.includes('ago') ? 'Happened' : 'Happening';
+
+      const uploadConfirmation = this.state.contributionType
+        ? (
+            <p className="text-success">
+              <span className="text-capitalize">
+                {this.state.contributionType}
+              </span> successfully uploaded
+            </p>
+          )
+        : null;
 
       return (
         <div className="event">
@@ -136,11 +146,19 @@ class Event extends React.Component {
               <hr />
               <form onSubmit={this.handleSubmit}>
                 <div className="form-group w-75 mx-auto mb-5">
-                  <label>Enter your message</label>
-                  <textarea className="form-control mb-2" rows="3" onChange={this.handleChange} value={this.state.contributionText}></textarea>
-                <a className="btn btn-success" href="#" onClick={this.showPicker}>
-                <i className="fa fa-picture-o" style={{cursor: 'pointer', color: 'white'}} />  Photo/Video</a>
-                <button className="btn btn-primary float-right">Create Post</button>
+                  {uploadConfirmation}
+                  <textarea
+                    className="form-control mb-2"
+                    rows="3"
+                    onChange={this.handleChange}
+                    value={this.state.contributionText}
+                    placeholder="Enter your message">
+                  </textarea>
+                  <a className="btn btn-success" href="#" onClick={this.showPicker}>
+                    <i className="fa fa-picture-o" style={{cursor: 'pointer', color: 'white'}} />
+                    Photo/Video
+                  </a>
+                  <button className="btn btn-primary float-right">Create Post</button>
                 </div>
               </form>
             </div>
