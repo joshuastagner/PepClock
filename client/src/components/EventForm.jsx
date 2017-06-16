@@ -43,7 +43,7 @@ const EventForm = (props) => (
         </div>
 
       </form>
-      <button style={{"marginBottom":"50px"}} type="button submit" className="btn btn-primary" style={{float:'left'}} onClick={props.handleSubmit}>Save your event! XD</button>
+      <button style={{"marginBottom":"50px"}} type="button submit" className="btn btn-primary" style={{float:'left'}} onClick={props.handleSubmit}>Save your event!</button>
     </div>
   </div>
 );
