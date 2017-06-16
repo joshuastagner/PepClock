@@ -22,6 +22,14 @@ module.exports.redirect = (req, res) => {
   res.redirect(redirect);
 };
 
+module.exports.homeRedirect = (req, res, next) => {
+  if (req.user) {
+    return res.redirect('/dashboard');
+  }
+
+  next();
+};
+
 module.exports.render = (req, res) => {
   res.render('index.ejs', {user: JSON.stringify(req.user)});
 };

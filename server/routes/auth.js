@@ -5,7 +5,7 @@ const email = require('../../workers/utils/email');
 const router = express.Router();
 
 router.route('/')
-  .get(middleware.auth.render);
+  .get(middleware.auth.homeRedirect, middleware.auth.render);
 
 router.route('/create')
   .get(middleware.auth.verify, middleware.auth.render);
