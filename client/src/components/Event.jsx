@@ -153,12 +153,12 @@ class Event extends React.Component {
                 value={this.state.contributionText}
                 placeholder="Enter your message">
               </textarea>
-              <a className="btn btn-success" href="#" onClick={this.showPicker} style={{marginBottom:'50px', float:'left'}}>
-                <i className="fa fa-picture-o" style={{cursor: 'pointer', color: 'white'}} />
-                Photo/Video
-              </a>
-              <button className="btn btn-primary" style={{marginBottom:'50px', float:'left'}}>Create Post</button>
             </form>
+            <div style={{marginBottom:'50px'}}>
+              <a className="btn btn-success" href="#" onClick={this.showPicker} style={{margin:'5px'}}>
+                <i className="fa fa-picture-o" style={{cursor: 'pointer', color: 'white'}} /> Photo/Video</a>
+              <button className="btn btn-primary" style={{margin:'5px'}}>Create Post</button>
+            </div>
           </div>
         </div>
       );
