@@ -20,8 +20,14 @@ class InviteWorker {
 
   work (cb) {
     this.constructRecipientVariable();
-    this.sendEmail((err, success) => {
-      this.updateInvitationsToSent(err, success, cb);
+    this.validateEmails((success, err) => {
+      this.sendEmail((success, err) => {
+        if (err) {
+          cb(err);
+        } else {
+          this.updateInvitationsToSent(err, success, cb);
+        }
+      });
     });
   }
 
@@ -69,6 +75,46 @@ class InviteWorker {
         cb('done with no errors');
       });
     }
+  }
+
+  validateEmails (cb) {
+    let valid = [];
+    let invalid = [];
+
+    const recurseEmails = (emailList, cb) => {
+      if (emailList.length) {
+        let emailToCheck = emailList.pop();
+
+        if (!emailToCheck.email.length) {
+          invalid.push({id: emailToCheck.id});
+          recurseEmails(emailList, cb);
+          return;
+        }
+
+        email.validateEmail(emailToCheck.email, (validation) => {
+          if (validation) {
+            valid.push(emailToCheck);
+          } else {
+            invalid.push({id: emailToCheck.id});
+          }
+          recurseEmails(emailList, cb);
+        });
+      } else {
+        cb();
+      }
+    };
+
+    recurseEmails(this.toSendData.slice(0), () => {
+      this.toSendData = valid;
+      let toUpdate = collections.Invitations.forge(invalid);
+      toUpdate.invokeThen('save', 'status', 'invalid')
+        .then(() => {
+          cb(true, null);
+        })
+        .catch((err) => {
+          cb(null, err);
+        });
+    });
   }
 }
 

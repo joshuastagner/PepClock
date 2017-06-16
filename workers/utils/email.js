@@ -68,6 +68,22 @@ exports.sendTwoFactorCode = (code, email, cb) => {
   .catch(err => cb(err, null));
 };
 
+exports.validateEmail = (email, cb) => {
+  axios({
+    method: 'GET',
+    url: 'https://api.mailgun.net/v3/address/validate',
+    params: {
+      api_key: process.env.MAILGUN_PUBLIC_KEY,
+      address: email
+    }
+  })
+    .then((response) => {
+      cb(response.data.is_valid);
+    })
+    .catch((err) => {
+      cb(err, 'error');
+    });
+};
 
 // for testing workers
 exports.fakeSend = (link, email, cb) => {
@@ -75,3 +91,4 @@ exports.fakeSend = (link, email, cb) => {
   console.log('email ==>', email);
   setTimeout(() => { cb(); }, 500);
 };
+
